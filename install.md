@@ -1,3 +1,7 @@
+[[Home](index.md)]   [[Installation](install.md)]
+
+# Installation documentation
+
 Each site has to install the Site-RM Resource manager and also minimum 1 DTN. Currently Site RM supports only:
 * Manual modification on the network switches. e.g. - to push all VLANs on the switches directly to the DTN-RM from the endpoint facing SENSE Network resource manager;
 * ODL L2 control. For this, please follow the default ODL Installation and SiteRM Requires the odl-l2-switch installed. Please refer to the SiteRM configuration manual how to configure it.
