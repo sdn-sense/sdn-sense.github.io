@@ -52,7 +52,11 @@ sudo chcon -t httpd_sys_rw_content_t /data/config -R
 After the first installation, please update the configuration files with correct parameters:
 * /etc/dtnrm-site-fe.conf and referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Frontend-Configuration
 * /etc/dtnrm-site-fe-switches.conf referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Switches-configuration
-
+* Modify /etc/httpd/conf.d/sitefe-httpd.conf and add Frontends it supports. Site-FE can support multiple Sites at once. 
+```
+# Line to be added per each site:
+WSGIScriptAlias /T2_US_UMD/sitefe /var/www/wsgi-scripts/sitefe.wsgi
+```
 
 # SiteRM-Agent Installation
 ```
