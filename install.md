@@ -27,8 +27,9 @@ sudo echo 1000 >/sys/kernel/mm/ksm/sleep_millisecs
 In case there are ownership issues (using selinux), these commands below will help (More details: http://sysadminsjourney.com/content/2010/02/01/apache-modproxy-error-13permission-denied-error-rhel/):
 ```
 # Ownership
-sudo chown apache:apache -R /data/config/
-cd /data/config/
+rootdir=/opt/siterm/config/
+sudo chown apache:apache -R $rootdir
+cd $rootdir
  
 # File permissions, recursive
 sudo find . -type f -exec chmod 0644 {} \;
@@ -37,17 +38,21 @@ sudo find . -type f -exec chmod 0644 {} \;
 sudo find . -type d -exec chmod 0755 {} \;
  
 # SELinux serve files off Apache, resursive
-sudo chcon -t httpd_sys_content_t /data/config/ -R
+sudo chcon -t httpd_sys_content_t $rootdir -R
  
 # Allow write only to specific dirs
 sudo chcon -t httpd_sys_rw_content_t /data/config -R
-sudo chcon -t httpd_sys_rw_content_t /data/www/html/sites/mysite/uploads -R
 
 # Make it temporary
 /usr/sbin/setsebool httpd_can_network_connect 1
 # To make it permanent:
 /usr/sbin/setsebool -P httpd_can_network_connect 1
 ```
+
+After the first installation, please update the configuration files with correct parameters:
+* /etc/dtnrm-site-fe.conf and referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Frontend-Configuration
+* /etc/dtnrm-site-fe-switches.conf referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Switches-configuration
+
 
 # SiteRM-Agent Installation
 ```
