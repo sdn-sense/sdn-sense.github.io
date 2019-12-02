@@ -32,6 +32,7 @@ yum install git -y
 git clone https://github.com/sdn-sense/siterm-installers
 cd siterm-installers
 sudo sh ./fresh-siterm-fe-install.sh -R /opt/
+# Before starting any service, please look at SiteRM-FE configuration section.
 ```
 In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues and also consult the known issues wiki: https://github.com/sdn-sense/siterm-fe/wiki/Known-Issues
 
