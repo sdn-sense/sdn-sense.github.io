@@ -1,10 +1,19 @@
 [[Home](index.md)]   [[Installation](install.md)]
 
+# Install considerations
+
+Site resource manager has several applications (Frontend and Agent) and depending on your endhost installation, you will need both or only one, depending on how big your deployment is. 
+* *Frontend* is required if you plan to use switches control. Usually it is one Frontend installation for controlled domain, but in case you just need DTN control, Frontend is not needed. Currently in development and beta testing is ODL L2 Switch. If you need other controllers to be supported, please create an issue here: https://github.com/sdn-sense/siterm-general-issues
+* *Agent* installation - Is to be installed on DTN. Depending on use case, installation can be done in docker container (Currently only CentOS 7 is supported) or installed in bare metal.
+* *Backend* installtion - For keeping historical monitoring information in one of the InfluxDB databases. Please contact SENSE team to know the backend endpoint. You also can install on your own and configure own backend, but this will be unique for your domain and not overall SENSE Infrastructure. 
+
+Please consult individual cases with SENSE team before deploying: sense-all@googlegroups.com
+
 # Installation documentation
 
-Each site has to install the Site-RM Resource manager and also minimum 1 DTN. Currently Site RM supports only:
+In most cases each site has Site-RM Resource manager and also minimum 1 DTN configured. Currently Site RM supports only:
 * Manual modification on the network switches. e.g. - to push all VLANs on the switches directly to the DTN-RM from the endpoint facing SENSE Network resource manager;
-* ODL L2 control. For this, please follow the default ODL Installation and SiteRM Requires the odl-l2-switch installed. Please refer to the SiteRM configuration manual how to configure it.
+* ODL L2 control. For this, please follow the default ODL Installation and SiteRM Requires the odl-l2-switch installed. Documentation and packacing is not yet ready for this. Please refer to the SiteRM configuration manual how to configure it.
 
 There are helper scripts in this repository: https://github.com/sdn-sense/siterm-installers
 
@@ -12,60 +21,67 @@ Site-RM consists of Two Services:
 * SiteRM-FE
 * SiteRM-Agent
 
-# SiteRM-FE Installation
+Installation types, please see documentation below:
+* Bare Metal installation
+* Docker installation
+
+
+# SiteRM-FE Installation (Bare-metal only CentOS 7)
 ```
+yum install git -y
+git clone https://github.com/sdn-sense/siterm-installers
+cd siterm-installers
 sudo sh ./fresh-siterm-fe-install.sh -R /opt/
 ```
-In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues 
-Optional. Configure HTTPs and make certificates your way. The easiest way is to use Let's Encrypt certificates.
+In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues and also consult the known issues wiki: https://github.com/sdn-sense/siterm-fe/wiki/Known-Issues
 
-On some systems Memory for monitoring (netdata) can be decreased by setting these parameters:
+# SiteRM-FE Installation (Docker)
 ```
-echo 1 >/sys/kernel/mm/ksm/run
-sudo echo 1000 >/sys/kernel/mm/ksm/sleep_millisecs
-```
-In case there are ownership issues (using selinux), these commands below will help (More details: http://sysadminsjourney.com/content/2010/02/01/apache-modproxy-error-13permission-denied-error-rhel/):
-```
-# Ownership
-rootdir=/opt/siterm/config/
-sudo chown apache:apache -R $rootdir
-cd $rootdir
- 
-# File permissions, recursive
-sudo find . -type f -exec chmod 0644 {} \;
- 
-# Dir permissions, recursive
-sudo find . -type d -exec chmod 0755 {} \;
- 
-# SELinux serve files off Apache, resursive
-sudo chcon -t httpd_sys_content_t $rootdir -R
- 
-# Allow write only to specific dirs
-sudo chcon -t httpd_sys_rw_content_t /data/config -R
-
-# Make it temporary
-/usr/sbin/setsebool httpd_can_network_connect 1
-# To make it permanent:
-/usr/sbin/setsebool -P httpd_can_network_connect 1
+yum install docker
+service docker start
+git clone https://github.com/sdn-sense/siterm-installers
+cd siterm-installers/fe-docker/
+sh build.sh # If build process successful
+# Before executing to start docker container, please look at SiteRM-FE configuration section.
+sh run.sh
 ```
 
+# SiteRM-FE configuration (Docker and Bare metal)
 After the first installation, please update the configuration files with correct parameters:
 * /etc/dtnrm-site-fe.conf and referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Frontend-Configuration
-* /etc/dtnrm-site-fe-switches.conf referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Switches-configuration
-* Modify /etc/httpd/conf.d/sitefe-httpd.conf and add Frontends it supports. Site-FE can support multiple Sites at once. 
+* Modify /etc/httpd/conf.d/sitefe-httpd.conf and add Frontends it supports. Site-FE can support multiple domains at once. 
 ```
 # Line to be added per each site:
 WSGIScriptAlias /T2_US_UMD/sitefe /var/www/wsgi-scripts/sitefe.wsgi
 ```
 
-# SiteRM-Agent Installation
+# SiteRM-Agent Installation (Bare-metal only CentOS 7)
 ```
+yum install git -y
+git clone https://github.com/sdn-sense/siterm-installers
+cd siterm-installers
 sudo sh ./fresh-siterm-agent-install.sh -R /opt/
 ```
 In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues 
 
-# Backend Installation
+# SiteRM-Agent Installation (Docker)
+```
+yum install docker
+service docker start
+git clone https://github.com/sdn-sense/siterm-installers
+cd siterm-installers/agent-docker/
+sh build.sh # If build process successful
+# Before executing to start docker container, please look at SiteRM-Agent configuration section.
+sh run.sh
+```
+In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues 
 
+# SiteRM-Agent configuration (Docker and Bare metal)
+After the first installation, please update the configuration files with correct parameters:
+TBD
+
+
+# Backend Installation (Bare-metal only CentOS 7)
 
 Backend for storing historical information from DTNs and Frontends
 This is not part of the SENSE developed system, so please refer to InfluxDB and Grafana installation documentations. Small part is covered here below
