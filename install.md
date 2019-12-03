@@ -49,12 +49,13 @@ sh run.sh
 
 # SiteRM-FE configuration (Docker and Bare metal)
 After the first installation, please update the configuration files with correct parameters:
-* /etc/dtnrm-site-fe.conf and referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Frontend-Configuration
-* Modify /etc/httpd/conf.d/sitefe-httpd.conf and add Frontends it supports. Site-FE can support multiple domains at once. 
+* /etc/dtnrm-site-fe.conf (Docker config files are under `conf` directory) and referring documentation here: https://github.com/sdn-sense/siterm-fe/wiki/Frontend-Configuration
+* Modify /etc/httpd/conf.d/sitefe-httpd.conf (Docker config files are under `conf` directory) and add Frontends it supports. Site-FE can support multiple domains at once. 
 ```
 # Line to be added per each site:
 WSGIScriptAlias /T2_US_UMD/sitefe /var/www/wsgi-scripts/sitefe.wsgi
 ```
+* Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
 
 # SiteRM-Agent Installation (Bare-metal only CentOS 7)
 ```
@@ -79,8 +80,9 @@ In case having issues, please create ticket here: https://github.com/sdn-sense/s
 
 # SiteRM-Agent configuration (Docker and Bare metal)
 After the first installation, please update the configuration files with correct parameters:
-TBD
-
+* /etc/dtnrm/main.conf (Docker config files are under `conf` directory) and referring documentation here: https://github.com/sdn-sense/siterm-agent/wiki/SiteRM-Agent-Configuration-parameters
+* Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
+* You can assign specific interface to docker using pipework: https://github.com/jpetazzo/pipework (Please refer to readme file on pipework repo.). For example on Caltech `pipework --direct-phys ens1 $CONTAINERID` and interface can be physically controlled from container.
 
 # Backend Installation (Bare-metal only CentOS 7)
 
