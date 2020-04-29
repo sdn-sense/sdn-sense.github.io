@@ -45,6 +45,7 @@ sudo sh ./fresh-siterm-fe-install.sh -R /opt/
 ```
 # Make sure you have docker installed and docker service up and running;
 # Install git;
+yum install git -y
 git clone https://github.com/sdn-sense/siterm
 cd siterm-installers/fe-docker/
 ./build.sh
@@ -58,8 +59,8 @@ cd siterm-installers/fe-docker/
 ---
 GIT_REPO: "sdn-sense/rm-configs"
 BRANCH: master
-MD5: <MD5>
-SITENAME: <SITENAME>
+MD5: <MD5> # This you received from GIT Configuration Repo
+SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 ```
 
 * Modify /etc/httpd/conf.d/sitefe-httpd.conf (Docker config files are under `conf` directory) and add Frontends it supports. Site-FE can support multiple domains at once. 
@@ -80,8 +81,7 @@ In case having issues, please create ticket here: https://github.com/sdn-sense/s
 
 # SiteRM-Agent Installation (Docker)
 ```
-yum install docker
-service docker start
+yum install git -y
 git clone https://github.com/sdn-sense/siterm-installers
 cd siterm-installers/agent-docker/
 sh build.sh # If build process successful
@@ -91,11 +91,14 @@ sh run.sh
 In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues 
 
 # SiteRM-Agent configuration (Docker and Bare metal)
-After the first installation, please update the configuration files with correct parameters:
-* /etc/dtnrm/main.conf (Docker config files are under `conf` directory) and referring documentation here: https://github.com/sdn-sense/siterm-agent/wiki/SiteRM-Agent-Configuration-parameters
-* Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
-* You can assign specific interface to docker using pipework: https://github.com/jpetazzo/pipework (Please refer to readme file on pipework repo.). For example on Caltech `pipework --direct-phys ens1 $CONTAINERID` and interface can be physically controlled from container.
-
+* SiteRM-Agent Configuration is kept on github repo. To pull configuration parameters, you need to know the SiteName and MD5 Hash created at *Prerequisites* section. With this information, create file /etc/dtnrm.conf (In case of bare metal install) or $GIT_REPO_DIR/installers/fe-docker/conf/etc/dtnrm.conf (In case of Docker install):
+```
+---
+GIT_REPO: "sdn-sense/rm-configs"
+BRANCH: master
+MD5: <MD5> # This you received from GIT Configuration Repo
+SITENAME: <SITENAME> # This you received from GIT Configuration Repo
+```
 
 
 
