@@ -47,7 +47,7 @@ sudo sh ./fresh-siterm-fe-install.sh -R /opt/
 # Install git;
 yum install git -y
 git clone https://github.com/sdn-sense/siterm
-cd siterm-installers/fe-docker/
+cd siterm/installers/fe-docker/
 ./build.sh
 # Before executing to start docker container, please look at SiteRM-FE configuration section.
 # If you have all configs and certs in place. execute ./run.sh command.
@@ -73,8 +73,8 @@ WSGIScriptAlias /T2_US_UMD/sitefe /var/www/wsgi-scripts/sitefe.wsgi
 # SiteRM-Agent Installation (Bare-metal only CentOS 7)
 ```
 yum install git -y
-git clone https://github.com/sdn-sense/siterm-installers
-cd siterm-installers
+git clone https://github.com/sdn-sense/siterm
+cd siterm/installers/
 sudo sh ./fresh-siterm-agent-install.sh -R /opt/
 ```
 In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues 
