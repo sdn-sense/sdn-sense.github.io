@@ -91,7 +91,7 @@ sh run.sh
 In case having issues, please create ticket here: https://github.com/sdn-sense/siterm-general-issues 
 
 # SiteRM-Agent configuration (Docker and Bare metal)
-* SiteRM-Agent Configuration is kept on github repo. To pull configuration parameters, you need to know the SiteName and MD5 Hash created at *Prerequisites* section. With this information, create file /etc/dtnrm.conf (In case of bare metal install) or $GIT_REPO_DIR/installers/fe-docker/conf/etc/dtnrm.conf (In case of Docker install):
+* SiteRM-Agent Configuration is kept on github repo. To pull configuration parameters, you need to know the SiteName and MD5 Hash created at *Prerequisites* section. With this information, create file /etc/dtnrm.conf (In case of bare metal install) or $GIT_REPO_DIR/installers/agent-docker/conf/etc/dtnrm.conf (In case of Docker install):
 ```
 ---
 GIT_REPO: "sdn-sense/rm-configs"
