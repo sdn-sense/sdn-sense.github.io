@@ -54,6 +54,7 @@ cd siterm/installers/fe-docker/
 ```
 
 # SiteRM-FE configuration (Docker and Bare metal)
+
 * SiteRM-FE Configuration is kept on github repo. To pull configuration parameters, you need to know the SiteName and MD5 Hash created at *Prerequisites* section. With this information, create file /etc/dtnrm.conf (In case of bare metal install) or $GIT_REPO_DIR/installers/fe-docker/conf/etc/dtnrm.yaml (In case of Docker install):
 ```
 ---
@@ -63,11 +64,11 @@ MD5: <MD5> # This you received from GIT Configuration Repo
 SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 ```
 
-* Modify /etc/httpd/conf.d/sitefe-httpd.conf (Docker config files are under `conf` directory) and add Frontends it supports. Site-FE can support multiple domains at once. 
+* Copy httpd configuration file
 ```
-# Line to be added per each site:
-WSGIScriptAlias /T2_US_UMD/sitefe /var/www/wsgi-scripts/sitefe.wsgi
+cp $GITDIR/packaging/dtnrm-site-fe/sitefe-httpd.conf $GITDIR/installers/fe-docker/conf/etc/httpd/conf.d/sitefe-httpd.conf
 ```
+
 * Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
 
 # SiteRM-Agent Installation (Bare-metal only CentOS 7)
@@ -81,6 +82,7 @@ In case having issues, please create ticket here: https://github.com/sdn-sense/s
 
 # SiteRM-Agent Installation (Docker)
 ```
+# Make sure you have docker installed and docker service up and running;
 yum install git -y
 git clone https://github.com/sdn-sense/siterm-installers
 cd siterm-installers/agent-docker/
@@ -100,6 +102,7 @@ MD5: <MD5> # This you received from GIT Configuration Repo
 SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 ```
 
+* Don't forget that SiteRM Agent requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
 
 
 
