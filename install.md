@@ -26,8 +26,9 @@ Installation types, please see the documentation below:
 * Docker installation
 * Kubernetes installation
 
-# SiteRM-FE Installation (Bare-metal only CentOS 7)
+# SiteRM-FE Installation (Bare-metal CentOS 7/Ubuntu 18.04)
 ```
+# Ubuntu - use apt, CentOS - use yum
 yum install git -y
 git clone https://github.com/sdn-sense/siterm
 cd siterm/installers/
@@ -39,7 +40,9 @@ sh ./fresh-siterm-fe-install.sh -R /opt/
 ```
 # Make sure you have docker installed and docker service up and running;
 # Install git;
+# Ubuntu - use apt, CentOS - use yum
 yum install git -y
+# In case of 
 git clone https://github.com/sdn-sense/siterm
 cd siterm/installers/fe-docker/
 sh ./build.sh
@@ -65,6 +68,7 @@ kubectl create configmap sense-siterm-fe-yaml --from-file=sense-siterm-fe=/full/
 ```
 # Make sure you have kubernetes cluster up and running up and running;
 # Install git;
+# Ubuntu - use apt, CentOS - use yum
 yum install git -y
 git clone https://github.com/sdn-sense/siterm
 cd siterm/installers/fe-docker/
@@ -83,8 +87,9 @@ SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 
 * Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
 
-# SiteRM-Agent Installation (Bare-metal only CentOS 7)
+# SiteRM-Agent Installation (Bare-metal only CentOS 7/Ubuntu 18.04)
 ```
+# Ubuntu - use apt, CentOS - use yum
 yum install git -y
 git clone https://github.com/sdn-sense/siterm
 cd siterm/installers/
@@ -95,6 +100,7 @@ In case having issues, please create a ticket here: https://github.com/sdn-sense
 # SiteRM-Agent Installation (Docker)
 ```
 # Make sure you have docker installed and docker service up and running;
+# Ubuntu - use apt, CentOS - use yum
 yum install git -y
 git clone https://github.com/sdn-sense/siterm-installers
 cd siterm-installers/agent-docker/
@@ -118,6 +124,7 @@ kubectl create secret generic sense-agent-hostkey --from-file=agent-hostkey=full
 ```
 # Make sure you have kubernetes cluster up and running up and running;
 # Install git;
+# Ubuntu - use apt, CentOS - use yum
 yum install git -y
 git clone https://github.com/sdn-sense/siterm
 cd siterm-installers/agent-docker/
