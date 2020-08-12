@@ -52,7 +52,7 @@ sh ./build.sh
 
 # SiteRM-FE Installation (Kubernetes cluster)
 
-* Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
+* Don't forget that SiteRM requires valid certificates to function properly 
 * Please also configure dtnrm.conf file described in **SiteRM-FE configuration (Docker, Kubernetes and Bare metal)** section
 
 * Once you have the following configuration file and certificates, execute the commands below:
@@ -85,7 +85,7 @@ MD5: <MD5> # This you received from GIT Configuration Repo
 SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 ```
 
-* Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
+* Don't forget that SiteRM requires valid certificates to function properly
 
 # SiteRM-Agent Installation (Bare-metal only CentOS 7/Ubuntu 18.04)
 ```
@@ -111,7 +111,7 @@ sh build.sh
 
 # SiteRM-Agent Installation (Kubernetes cluster)
 
-* Don't forget that SiteRM requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
+* Don't forget that SiteRM requires valid certificates to function properly
 * Please also configure dtnrm.conf file described in **SiteRM-Agent configuration (Docker, Kubernetes and Bare metal)** section
 
 * Once you have the following configuration file and certificates, execute the commands below:
@@ -143,4 +143,4 @@ MD5: <MD5> # This you received from GIT Configuration Repo
 SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 ```
 
-* Don't forget that SiteRM Agent requires valid certificates to function properly (Please refer to this documentation for more details: https://github.com/sdn-sense/siterm-fe/wiki/HTTPS-and-Security)
+* Don't forget that SiteRM Agent requires valid certificates to function properly
