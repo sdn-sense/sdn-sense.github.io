@@ -144,3 +144,22 @@ SITENAME: <SITENAME> # This you received from GIT Configuration Repo
 ```
 
 * Don't forget that SiteRM Agent requires valid certificates to function properly
+
+
+# DTNs Monitoring
+* The node_exporter from Prometheus is designed to monitor the host system. It's not recommended to deploy it as a Docker container because it requires access to the host system. Be aware that any non-root mount points you want to monitor will need to be bind-mounted into the container. If you start container for host monitoring, specify path.rootfs argument. This argument must match path in bind-mount of host root. The node_exporter will use path.rootfs as prefix to access host filesystem. There are several ways to allow SENSE team monitor DTNs (Let SENSE team know the node_exporter FQDN and Port.)
+
+  * If you already have node_exporter running on DTN you dont need to install another one. Let SENSE team know FQDN and Port.
+  * To install node_exporter on bare metal, you can follow documentation here: https://prometheus.io/docs/guides/node-exporter/
+  * In case you dont want to install it on bare metal machine, you can run node_exporter inside docker container, commands below.
+```
+docker run -d -p 9100:9100 \
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter \
+  --path.rootfs=/host
+
+firewall-cmd --add-port=9100/tcp
+firewall-cmd --reload
+```
