@@ -53,7 +53,7 @@ Supported installations:
 * Start the service: `cd fe/docker/ && ./run.sh`
 
 
-# SiteRM-FE Installation (Using Kubernetes)
+# SiteRM-FE Installation First time (Using Kubernetes)
 
 * Prerequisites:
   * **Make sure you have Kubernetes cluster installed. You will need to have Kubernetes config and know namespace you want to use for deployment.**
@@ -69,7 +69,7 @@ Supported installations:
   * Fullchain - copy to `fe/conf/etc/httpd/certs/fullchain.pem`
 * Start the service: `cd fe/kubernetes/ && ./k8s-run.sh`. This Script will request some parameters and will auto generate k8s yaml file which will be submitted to your Kubernetes cluster.
 
-# SiteRM-Agent Installation (Docker)
+# SiteRM-Agent Installation First time (Docker)
 * Prerequisites:
   * **Make sure you have docker installed and service is up and running.**
   * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash).**
@@ -82,7 +82,7 @@ Supported installations:
   * Key - copy to `agent/conf/etc/grid-security/hostkey.pem`
 * Start the service: `cd agent/docker/ && ./run.sh`
 
-# SiteRM-Agent Installation (Kubernetes cluster)
+# SiteRM-Agent Installation First time (Kubernetes cluster)
 
 * Prerequisites:
   * **Make sure you have Kubernetes cluster installed. You will need to have Kubernetes config and namespace you want to use.**
