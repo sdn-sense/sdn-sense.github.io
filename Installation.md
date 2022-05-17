@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation](install.md)]
+[[Home](index.md)]   [[Installation](Installation.md)]
 # Information
 
 Site resource manager require several Services (Frontend and Agent). 
