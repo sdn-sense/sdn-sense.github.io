@@ -1,6 +1,6 @@
 title: SDN SENSE Site Resource Managers
 show_downloads: false
 google_analytics:
-theme: jekyll-theme-minimal
+theme: jekyll-theme-tactile
 gems:
  - jekyll-menus
