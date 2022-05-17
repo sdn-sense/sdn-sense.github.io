@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation](install.md)]
+[[Home](index.md)]   [[Installation](Installation.md)]
 # SENSE
 The overarching goal of SENSE is to enable National Labs and Universities to request and provision end-to-end intelligent network services for their application workflows, leveraging SDN capabilities. Our approach is to design network abstractions and an operating framework to allow host, LAN, and WAN auto-configurations based on infrastructure policy constraints designed to meet end-to-end service requirements.
 
