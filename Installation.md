@@ -27,17 +27,7 @@ In case have issues with any SENSE SiteRM Software, please create a ticket here:
 
 
 # SiteRM-Frontend and SiteRM-Agent configuration
-SiteRM-FE and SiteRM-Agent Configuration files are kept on GitHub repo. SiteRM Services pull from Github repo once an hour and use the latest configuration. Please refer to this link for Frontend and Agent configuration and it's parameters, examples here. 
-
-
-For deployment you will need to know the SiteName and MD5 Hash. With this information, `$GIT_REPO_DIR/installers/fe-docker/conf/etc/dtnrm.yaml` (In case of Docker install):
-```
----
-GIT_REPO: "sdn-sense/rm-configs"
-BRANCH: master
-MD5: <MD5> # This you received from GIT Configuration Repo
-SITENAME: <SITENAME> # This you received from GIT Configuration Repo
-```
+SiteRM-FE and SiteRM-Agent Configuration files are kept on GitHub repo. Eacg SiteRM Service (Frontend/Agent) pull from Github repo once an hour and use the latest configuration. Please refer to this link for Frontend and Agent configuration and it's parameters, examples here. 
 
 # Installation documentation
 
@@ -111,15 +101,6 @@ Supported installations:
 
   * If you already have node_exporter running on DTN you dont need to install another one. Let SENSE team know FQDN and Port.
   * To install node_exporter on bare metal, you can follow documentation here: https://prometheus.io/docs/guides/node-exporter/
-  * In case you dont want to install it on bare metal machine, you can run node_exporter inside docker container, commands below.
-```
-docker run -d -p 9100:9100 \
-  --net="host" \
-  --pid="host" \
-  -v "/:/host:ro,rslave" \
-  quay.io/prometheus/node-exporter \
-  --path.rootfs=/host
-
-firewall-cmd --add-port=9100/tcp
-firewall-cmd --reload
-```
+  * In case you dont want to install it on bare metal machine, you can run node_exporter inside:
+    * **DOCKER** - example here: https://github.com/sdn-sense/siterm-startup/tree/main/node-exporter/docker
+    * **Kubernetes** - example here: https://github.com/sdn-sense/siterm-startup/tree/main/node-exporter/kubernetes
