@@ -91,7 +91,7 @@ Supported installations:
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
-* Modify Agent Contig File in cloned repo, path:`fe/conf/etc/dtnrm.yaml` and specify the SiteName and MD5 parameters for that Specific Agent/DTN.
+* Modify Agent Contig File in cloned repo, path:`agent/conf/etc/dtnrm.yaml` and specify the SiteName and MD5 parameters for that Specific Agent/DTN.
 * Copy Certificates to config location:
   * Certificate - copy to `agent/conf/etc/grid-security/hostcert.pem`
   * Key - copy to `agent/conf/etc/grid-security/hostkey.pem`
