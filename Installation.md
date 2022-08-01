@@ -18,7 +18,7 @@ In case have issues with any SENSE SiteRM Software, please create a ticket [here
 * **Networking**: Frontend requires ports 8080 and 8443 open (Can be limited to a specific list of nodes, the list below): 
   * **sense-o.es.net** - Production Orchestrator.
   * **sense-o-dev.es.net** - Development Orchestrator.
-  * **Influx.sdn-sense.dev** - SENSE Monitoring and Alarming service.
+  * **k8s-igrok-0[12345678].calit2.optiputer.net (67.58.53.139, 67.58.53.14[0123456])** - SENSE Monitoring and Alarming service.
   * **Local Agents** - Any Agent you deploy will need access Frontend.
 
 **Agent**: Runs on each DTN you want SENSE to control, monitor. It will register and communicate with Frontend for control, monitoring.
