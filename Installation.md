@@ -15,10 +15,10 @@ In case have issues with any SENSE SiteRM Software, please create a ticket [here
 **Frontend**: Each site requires 1 Frontend.
 * **Installation type supported**: **Docker** or **Kubernetes**
 * **Certificates**: Frontend requires cert, key, fullchain certificates for its services.
-* **Networking**: Frontend requires ports 8080 and 8443 open (Can be limited to a specific list of nodes, the list below): 
-  * **sense-o.es.net** - Production Orchestrator.
-  * **sense-o-dev.es.net** - Development Orchestrator.
-  * **k8s-igrok-0[12345678].calit2.optiputer.net (67.58.53.139, 67.58.53.14[0123456])** - SENSE Monitoring and Alarming service.
+* **Networking**: Frontend requires some ports open (Can be limited to a specific list of nodes, the list below): 
+  * **sense-o.es.net** - Production Orchestrator. (Port 8080, 8443)
+  * **sense-o-dev.es.net** - Development Orchestrator. (Port 8080, 8443)
+  * **k8s-igrok-0[12345678].calit2.optiputer.net (67.58.53.139, 67.58.53.14[0123456])** - SENSE Monitoring and Alarming service. (Port 8080, 8443, 9100)
   * **Local Agents** - Any Agent you deploy will need access Frontend.
 
 **Agent**: Runs on each DTN you want SENSE to control, monitor. It will register and communicate with Frontend for control, monitoring.
