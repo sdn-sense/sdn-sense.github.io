@@ -80,7 +80,7 @@ dellos9:
 ansible_become: false
 ansible_network_os: dellos9
 ansible_ssh_pass: MySuperDuperPassword
-ansible_ssh_user: MySuperDuperUsername
+ansible_user: MySuperDuperUsername
 hostname: dellos9_s0
 ```
 For additional Dell OS9 Ansible parameters, look here: https://docs.ansible.com/ansible/latest/network/user_guide/platform_dellos9.html
@@ -112,7 +112,7 @@ dellos10:
 ansible_become: false
 ansible_network_os: dellos10
 ansible_ssh_pass: MySuperDuperPassword
-ansible_ssh_user: MySuperDuperUsername
+ansible_user: MySuperDuperUsername
 hostname: dellos9_s0
 ```
 For additional Dell OS10 Ansible parameters, look here: https://docs.ansible.com/ansible/latest/network/user_guide/platform_dellos10.html
@@ -143,7 +143,7 @@ sonic:
 ```
 ansible_become: true
 ansible_network_os: sonic
-ansible_ssh_user: sense
+ansible_user: sense
 hostname: sn3700_s0
 ```
 For additional SSH Ansible parameters, look here: [https://docs.ansible.com/ansible/latest/network/user_guide/platform_dellos10.html](https://docs.ansible.com/ansible/6/collections/ansible/builtin/ssh_connection.html#ssh-connection)
@@ -175,7 +175,7 @@ ansible_become_method: enable
 ansible_connection: ansible.netcommon.network_cli
 ansible_network_os: arista.eos.eos
 ansible_ssh_pass: MySuperDuperPassword
-ansible_ssh_user: MySuperDuperUsername
+ansible_user: MySuperDuperUsername
 hostname: aristaeos_s0
 ```
 For additional Arista EOS Ansible parameters, look here: https://docs.ansible.com/ansible/latest/collections/arista/eos/index.html
@@ -210,7 +210,7 @@ junos:
 ansible_connection: ansible.netcommon.network_cli
 ansible_network_os: junipernetworks.junos.junos
 ansible_ssh_pass: MySuperDuperPassword
-ansible_ssh_user: MySuperDuperUsername
+ansible_user: MySuperDuperUsername
 hostname: ex4550_s0
 ```
 For additional Juniper Junos Ansible parameters, look here: https://docs.ansible.com/ansible/latest/collections/junipernetworks/junos/index.html
@@ -246,7 +246,7 @@ ansible_become: false
 ansible_connection: ansible.netcommon.network_cli
 ansible_network_os: rare.freertr.freertr
 ansible_ssh_pass: MySuperDuperPassword
-ansible_ssh_user: MySuperDuperUsername
+ansible_user: MySuperDuperUsername
 hostname: freertr_s0
 ```
 For additional FreeRTR Ansible parameters, look here: https://github.com/sdn-sense/rare-freertr-collection
