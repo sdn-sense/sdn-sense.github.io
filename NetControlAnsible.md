@@ -7,12 +7,13 @@ Site resource manager supports the following switches and control:
 | Switch OS    | Visualization in MRML | VLAN Creation | VLAN Translation | VLAN IPv46 Assignment | BGP Control | Comments |
 | :--: | :---: | :---: | :---: | :---: | :---: | :---: |
 | RAW           | 1 | 0 | 0 | 0 | 0 | RAW Plugin (Fake switch, no control on hardware) |
-| Dell OS 9     | 1 | 1 | 0 | 1 | 1 | Full Control using [Dell OS9 Ansible Collection](https://github.com/ansible-collections/dellemc.os9) |
-| Dell OS 10    | 1 | 0 | 0 | 0 | 0 | Work in progress using [Dell OS10 Ansible Collection](https://github.com/ansible-collections/dellemc.os10) |
-| Azure SONiC   | 1 | 1 | 0 | 1 | 1 | Full Control using ssh and [custom build python script](https://github.com/sdn-sense/siterm-startup/blob/main/fe/conf/opt/siterm/config/ansible/sense/project/scripts/sonic.py) |
-| Arista EOS    | 1 | 1 | 0 | 1 | 0 | L2 and L3 Control using [Arista EOS Ansible Collection](https://github.com/ansible-collections/arista.eos)|
-| Juniper Junos | 0 | 0 | 0 | 0 | 0 | Work in progress using cloned [Juniper Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)|
-| FreeRTR       | 1 | 0 | 0 | 0 | 0 | Work in progress using custom build [Ansible FreeRTR Collection](https://github.com/sdn-sense/rare-freertr-collection) |
+| Dell OS 9     | 1 | 1 | 0 | 1 | 1 | Full Control using [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection) |
+| Dell OS 10    | 1 | 1 | 0 | 0 | 0 | Work in progress to support BGP using [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection) |
+| Azure SONiC   | 1 | 1 | 0 | 1 | 1 | Full Control sing ssh and [custom build python script](https://github.com/sdn-sense/siterm-startup/blob/main/fe/conf/opt/siterm/config/ansible/sense/project/scripts/sonic.py) Rewriting to Ansible Collection |
+| Arista EOS    | 1 | 1 | 0 | 1 | 0 | Full contronl [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)|
+| Juniper Junos | 1 | 0 | 0 | 0 | 0 | Work in progress using cloned [Juniper Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)|
+| FreeRTR       | 1 | 0 | 0 | 0 | 0 | Work in progress using custom build [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection) |
+| Cisco Nexus   | 1 | 0 | 0 | 0 | 0 | Work in progress using custom build [TO BE UPDATED] |
 
 # Configuration layout directory
 
