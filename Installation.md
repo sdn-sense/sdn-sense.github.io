@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation](Installation.md)]
+[[Home](index.md)]   [[Installation](Installation.md)] [[Network Control via Ansible](NetControlAnsible.md)]
 # Information
 
 Site resource manager require several Services (Frontend and Agent). 
@@ -45,8 +45,9 @@ Supported installations:
   * **You have Certificate, Key, Fullchain generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
-* Modify FE Contig File in cloned repo, path:`fe/conf/etc/dtnrm.yaml` and specify the SiteName and MD5 parameters for Frontend.
+* Modify FE Contig File in cloned repo, path:`fe/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Frontend.
 * Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`
+* Prepare ansible configuration file at `fe/conf/etc/ansible-conf.yaml`. For more details, see here: [[Network Control via Ansible](NetControlAnsible.md)]
 * Copy Certificates to correct location:
   * Certificate - copy to `fe/conf/etc/httpd/certs/cert.pem` and `fe/conf/etc/grid-security/hostcert.pem`
   * Key - copy to `fe/conf/etc/httpd/certs/privkey.pem` and `fe/conf/etc/grid-security/hostkey.pem`
@@ -62,8 +63,9 @@ Supported installations:
   * **You have Certificate, Key, Fullchain generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
-* Modify FE Contig File in cloned repo, path:`fe/conf/etc/dtnrm.yaml` and specify the SiteName and MD5 parameters for Frontend.
+* Modify FE Contig File in cloned repo, path:`fe/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Frontend.
 * Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`
+* Prepare ansible configuration file. For more details, see here: [[Network Control via Ansible](NetControlAnsible.md)]
 * Copy Certificates to correct location:
   * Certificate - copy to `fe/conf/etc/httpd/certs/cert.pem` and `fe/conf/etc/grid-security/hostcert.pem`
   * Key - copy to `fe/conf/etc/httpd/certs/privkey.pem` and `fe/conf/etc/grid-security/hostkey.pem`
@@ -77,7 +79,7 @@ Supported installations:
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
-* Modify Agent Contig File in cloned repo, path:`agent/conf/etc/dtnrm.yaml` and specify the SiteName and MD5 parameters for that Specific Agent/DTN.
+* Modify Agent Contig File in cloned repo, path:`agent/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for that Specific Agent/DTN.
 * Copy Certificates to config location:
   * Certificate - copy to `agent/conf/etc/grid-security/hostcert.pem`
   * Key - copy to `agent/conf/etc/grid-security/hostkey.pem`
@@ -91,7 +93,7 @@ Supported installations:
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
-* Modify Agent Contig File in cloned repo, path:`agent/conf/etc/dtnrm.yaml` and specify the SiteName and MD5 parameters for that Specific Agent/DTN.
+* Modify Agent Contig File in cloned repo, path:`agent/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for that Specific Agent/DTN.
 * Copy Certificates to config location:
   * Certificate - copy to `agent/conf/etc/grid-security/hostcert.pem`
   * Key - copy to `agent/conf/etc/grid-security/hostkey.pem`
