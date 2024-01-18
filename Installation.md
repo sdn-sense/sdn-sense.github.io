@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation](Installation.md)] [[Network Control via Ansible](NetControlAnsible.md)]
+[[Home](index.md)]   [[Installation](Installation.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
 # Information
 
 Site resource manager require several Services (Frontend and Agent). 
@@ -41,7 +41,7 @@ Supported installations:
 # SiteRM-FE Installation First time (Using Docker)
 * Prerequisites:
   * **Make sure you have docker installed and service is up and running.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash for Frontend Service).**
+  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash for Frontend Service). MD5 is optional - and if not specified, SiteRM will use md5(hostname) by default**
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
@@ -63,7 +63,7 @@ Supported installations:
 
 * Prerequisites:
   * **Make sure you have Kubernetes cluster installed. You will need to have Kubernetes config and know namespace you want to use for deployment.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash).**
+  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will use md5(hostname) by default**
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
@@ -82,7 +82,7 @@ Supported installations:
 # SiteRM-Agent Installation First time (Docker)
 * Prerequisites:
   * **Make sure you have docker installed and service is up and running.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash).**
+  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will use md5(hostname) by default**
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
@@ -100,7 +100,7 @@ Supported installations:
 
 * Prerequisites:
   * **Make sure you have Kubernetes cluster installed. You will need to have Kubernetes config and namespace you want to use.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash).**
+  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will use md5(hostname) by default**
   * **You have Certificate, Key generated or received it from SENSE Team.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)

@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation](Installation.md)]  [[Network Control via Ansible](NetControlAnsible.md)]
+[[Home](index.md)]   [[Installation](Installation.md)]  [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
 
 # Information
 
@@ -115,6 +115,13 @@ inventory:
         community: <SNMP COMMUNITY>
         hostname: <SNMP HOSTNAME>
         <ANY_OTHER_SNMP_METADATA_PARAMS>
+```
+
+# RAW plugin configuration
+
+In case you use RAW (fake virtual switch) plugin - you do not need to modify `fe/conf/etc/ansible-conf.yaml` file. Make an inventory variable empty dictionary. Like this:
+```angular2html
+inventory: {}
 ```
 
 # Dell OS 9 plugin configuration
