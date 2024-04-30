@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation](Installation.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
+[[Home](index.md)]   [[Installation](Installation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
 # Information
 
 SiteRM Frontend runs an httpd server and servers html website. You can access it via https://<hostname_of_fe>:<port_of_fe>. It is the same url as defined inside SiteRM configuration general->webdomain.
@@ -8,6 +8,7 @@ Frontend allows you to view and interact with SiteRM, e.g.:
 * View Frontend and Agent Configurations;
 * Reload Configuration for frontend or Agent
 * Delete host from SiteRM Frontend;
+* View state of all Services running (on FE and Agents)
 * View latest models and deltas;
 * Request and view debug action's, like rapid ping, tcpdump, arptable, iperf.
 
@@ -23,13 +24,19 @@ Channel Organizations:
 
 # Configuration reload
 
-SiteRM by default reloads configuration **every hour on the hour**.
+SiteRM by default reloads configuration **every hour**.
 SiteRM Frontend and Agent can be reloade manually via Frontend. This is useful when you want to apply new configuration to Frontend or Agent faster than the cycle of automated refresh.
 This can be done under **Frontend Configuration** section on the WEB UI.
 
 # Delete host from SiteRM Frontend
 
 SiteRM Frontend allows you to delete host from SiteRM Frontend. This is useful when you want to remove host from SiteRM Frontend, but keep it in the network. This can be done under **Frontend Configuration** section on the WEB UI.
+
+# Network devices debugging
+
+In case you want to debug and see all actions performed on your network devices, you can use the following commands:
+* Enter your FE docker/Kubernetes pod container and go to this directory `cd /opt/siterm/config/ansible/sense`
+* Run `python3 test-runner.py` to see all actions performed on your network devices (this runs in a full debug mode, and can be very verbose)
 
 # Debug actions
 

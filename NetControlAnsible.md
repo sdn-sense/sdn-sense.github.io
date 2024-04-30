@@ -1,90 +1,41 @@
-[[Home](index.md)]   [[Installation](Installation.md)]  [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
+[[Home](index.md)]   [[Installation](Installation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
 
 # Information
 
 Site resource manager supports the following switches and control:
 
-|   Switch OS   | Visualization in MRML | VLAN Creation | VLAN Translation | VLAN IPv46 Assignment | BGP Control |                                                       Comments                                                       |
-|:-------------:| :---: | :---: | :---: | :---: | :---: |:--------------------------------------------------------------------------------------------------------------------:|
-|      RAW      | 1 | 0 | 0 | 0 | 0 |                 RAW Plugin (Fake switch, no control on hardware. use only if instructed by SENSE Team)               |
-|   Dell OS 9   | 1 | 1 | 0 | 1 | 1 |                 [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection)                 |
-|  Dell OS 10   | 1 | 1 | 0 | 0 | 0 |                [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)                |
-|  Azure SONiC  | 1 | 1 | 0 | 1 | 1 |                [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)                 |
-|  Arista EOS   | 1 | 1 | 0 | 1 | 0 |               [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)               |
-| Juniper Junos | 1 | 0 | 0 | 0 | 0 |                [Juniper Junos Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)                |
-|    FreeRTR    | 1 | 0 | 0 | 0 | 0 |                 [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)                  |
-| Cisco Nexus 9 | 1 | 1 | 0 | 1 | 1 |              [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection)              |
+|   Switch OS    | Visualization in MRML | VLAN Creation | VLAN Translation | VLAN IPv46 Assignment | BGP Control |                                          Comments                                          |
+|:--------------:|:---------------------:|:-------------:|:----------------:|:---------------------:|:-----------:|:------------------------------------------------------------------------------------------:|
+|      RAW       |           1           |       0       |        0         |           0           |      0      |   RAW Plugin (Fake switch, no control on hardware. use only if instructed by SENSE Team)   |
+|   Dell OS 9    |           1           |       1       |        0         |           1           |      1      |    [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection)    |
+|   Dell OS 10   |           1           |       1       |        0         |           1           |      1      |   [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)   |
+|  Azure SONiC   |           1           |       1       |        0         |           1           |      1      |   [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)    |
+|   Arista EOS   |           1           |       1       |        0         |           1           |      0      |  [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)  |
+| Juniper Junos  |           1           |       0       |        0         |           0           |      0      |   [Juniper Junos Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)   |
+|    FreeRTR     |           1           |       0       |        0         |           0           |      0      |    [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)     |
+| Cisco Nexus 9  |           1           |       1       |        0         |           1           |      1      | [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection) |
+| Cisco Nexus 10 |           0           |       0       |        0         |           0           |      0      |                             Development, expected 2024 Summer                              |
+|  Mellanox OS   |           0           |       0       |        0         |           0           |      0      |                             Development, expected 2024 Summer                              |
 
 # Allow Switch control for SENSE
 
 Each switch which we want to allow SENSE to control, must be added to Sites configuration [here](https://github.com/sdn-sense/rm-configs). Few important notes:
 1. Define all switch names under Site -> switch. (Name must match same name defined inside the ansible configuration)
 2. If LLDP is enabled on switches - you do not need to make individual links (isAlias) between them. isAlias in most cases mainly needed for pointer to Network Resource manager STP.
+   **NOTE: isAlias is needed for PortChannels and LAGs.**
 3. vsw - Virtual Switching - to allow vlan creation (Most of the times it is the same as switch name);
 4. rst - Routing Service - to allow configure BGP (private_asn number is mandatory to define if rst is defined). **NOTE: There can be only 1 rst defined per site**.
 5. if allports flag set to True - it will include allPorts, except the ones listed inside the ports_ignore list.
 6. if allports flag set to False - it will only include ports listed inside ports list.
 7. Each port can override few parameters via configuration:
 ```
-  port_hundredGigE_1-7_capacity: 100
-  port_hundredGigE_1-7_desttype: switch
-  port_hundredGigE_1-7_isAlias: "urn:ogf:network:lsanca.pacificwave.net:2016:lax-agg10:ultralight"
-  port_hundredGigE_1-7_vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
+"Ethernet 1/1/30":
+  vlan_range: [3985-3989,3610,3611,3612]
+  desttype: switch
+  isAlias: "urn:ogf:network:ultralight.org:2013:dellos9_s0:hundredGigE_1-13"
+  wanlink: True
 ```
-Example configuration of 3 switches at one site:
-```
---- 
-T2_US_Caltech_Test: 
-  switch:
-    - "dellos9_s0"
-    - "aristaeos_s0"
-    - "sn3700_s0"
-dellos9_s0:
-  vsw: "dellos9_s0"
-  rst: "dellos9_s0"
-  rsts_enabled: "ipv4,ipv6"
-  private_asn: 64513
-  vrf: lhcone
-  ports:
-    - "hundredGigE 1/7"
-    - "hundredGigE 1/23"
-    - "Port-channel 102"
-  ports_ignore:
-    - "ManagementEthernet 1/1"
-    - "hundredGigE 1/8"
-    - "hundredGigE 1/9"
-  vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
-  port_hundredGigE_1-7_capacity: 100
-  port_hundredGigE_1-7_desttype: switch
-  port_hundredGigE_1-7_isAlias: "urn:ogf:network:lsanca.pacificwave.net:2016:lax-agg10:ultralight"
-  port_hundredGigE_1-7_vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
-  port_Port-channel_103_capacity: 200
-  port_Port-channel_103_vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
-  port_Port-channel_103_capacity: 300
-  port_Port-channel_103_desttype: switch
-  port_Port-channel_103_isAlias: "urn:ogf:network:ultralight.org:2013:aristaeos_s0:Port-Channel111"
-aristaeos_s0:
-   vsw: "aristaeos_s0"
-   allports: True
-   ports_ignore:
-    - "Ethernet15/1"
-    - "Ethernet16/1"
-    - "Ethernet31/1"
-    - "Ethernet32/1"
-   vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
-   port_Port-Channel111_capacity: 200
-   port_Port-Channel111_desttype: switch
-   port_Port-Channel111_isAlias: "urn:ogf:network:ultralight.org:2013:dellos9_s0:Port-channel_103"
-   port_Port-Channel112_capacity: 200
-   port_Port-Channel112_desttype: switch
-   port_Port-Channel112_isAlias: "urn:ogf:network:sc-test.cenic.net:2020:aristaeos_s0:Port-Channel501"
-   port_Port-Channel112_vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
-sn3700_s0:
-   vsw: "sn3700_s0"
-   allports: True
-   vlan_range: [1779-1799,3600-3619,3985-3989,3870-3883,3911-3912,3870-3883]
-   port_Port-channel_103_isAlias: "urn:ogf:network:sc-test.cenic.net:2020:aristaeos_s0:Port-Channel501"
-```
+Many examples are available [here](https://github.com/sdn-sense/rm-configs)
 
 # Configuration layout directory
 
@@ -93,12 +44,11 @@ Ansible inventory, configuration and template file examples are available [here]
 Few notes:
 1. If you installed Site-RM using siterm-startup git repo - you need to prepare `fe/conf/etc/ansible-conf.yaml`. Based on your device(s) - look for examples below.
 2. Ansible can be configured to use SSH-Password and SSH-PrivKey authentication. Documentation below explains both methods.
-3. Currently - SiteRM cant mix Ansible and RAW plugins. (In near future - it will allow to use separate plugin based on switch, e.g.: Ansible,netconf,raw)
-4. **Switch defined inside the Ansible inventory file will not be represented in topology - unless it is explicitly mentioned inside the configuration for Site [here](https://github.com/sdn-sense/rm-configs)**
-5. **IMPORTANT** If your network device accepts only SSH via IPv6 (and Site-RM install uses docker) - docker is known to have issues with IPv6. Please use "-n host" for frontend container startup.
-6. **IMPORTANT** Ports in SENSE control on the network device, must be in trunk mode and not use access vlan. Use native vlan for traffic without vlan tag.
-7. **IMPORTANT** Cisco NX OS9 and Arista EOS devices require to have empty list of allowed vlans (or any other vlans not controlled by SENSE). Please make sure SENSE controlled ports have `switchport trunk allowed vlan <none|or any other non sense controlled vlans>` parameter.
-
+3. **Switch defined inside the Ansible inventory file will not be represented in topology - unless it is explicitly mentioned inside the configuration for Site [here](https://github.com/sdn-sense/rm-configs)**
+4. **IMPORTANT** If your network device accepts only SSH via IPv6 (and Site-RM install uses docker) - docker is known to have issues with IPv6. Please use "-n host" for frontend container startup.
+5. **IMPORTANT** Ports in SENSE control on the network device, must be in trunk mode and not use access vlan. Use native vlan for traffic without vlan tag.
+6. **IMPORTANT** Cisco NX OS9 and Arista EOS devices require to have empty list of allowed vlans (or any other vlans not controlled by SENSE). Please make sure SENSE controlled ports have `switchport trunk allowed vlan <none|or any other non sense controlled vlans>` parameter.
+7. **IMPORTANT** If you use Dell OS9 and `rate_limit: True` - Dell OS 9 allows maximum 3 rate limits per port. If you have more than 3 rate limits per port - you will get an error. Please make sure to remove rate limits which are not needed. SENSE does not limit of how many rate limits can be set on the port.
 # General ansible configuration template file
 ```
 inventory:
@@ -106,6 +56,7 @@ inventory:
     network_os: <NETWORK_OS_BASED_ON_MODEL_SEE_BELOW>
     host: 192.168.1.1 # Change this to IP of the device
     # One of two (pass or sshkey) must be defined. Defining both or none with result in failure.
+    user: <Change to user which will be used to access device>
     pass: <Change To pass if using password. Remove if using sshkey>
     sshkey: <Change to ssh key path, if using sshkey. See Section 'How to use SSH Keys' on path location. Remove if using pass>
     become: <true|false|0|1> # Change it to true or false if it is required to use become feature on your network device.
