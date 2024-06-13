@@ -60,6 +60,7 @@ inventory:
     pass: <Change To pass if using password. Remove if using sshkey>
     sshkey: <Change to ssh key path, if using sshkey. See Section 'How to use SSH Keys' on path location. Remove if using pass>
     become: <true|false|0|1> # Change it to true or false if it is required to use become feature on your network device.
+    ssh_common_args: <Change to ssh common args if needed. For example -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q  username@jump.host.net -i <sshkey>" Will allow to use jump host>
     snmp_params:
       session_vars:
         # See 'How to enable SNMP' section for supported parameters

@@ -48,6 +48,14 @@ sense-mon:
   full_dn: "/C=US/O=Internet2/CN=InCommon RSA Server CA 2/C=US/ST=California/O=Energy Sciences Network/CN=sense-mon.es.net"
   permissions: r
 ```
+* In case of wildcard support, Regex can be used. For example: `/C=US/ST=California/L=Pasadena/O=Caltech/CN=.*\.ultralight\.org` will match all CNs ending with .ultralight.org. Authorized DNs for Wildcard are stored in github repository: \<SITENAME>/<FE_DIRNAME>/auth-re.yaml. Below is an example of file:
+```angular2html
+---
+daemonset:
+  full_dn: "/C=US/ST=California/L=Pasadena/O=Caltech/CN=.*\.ultralight\.org"
+  permissions: w
+```
+
 * Default values are not required to be set in the configuration file. (unless you want to override the default value)
 * Configuration file must be stored in github repository: \<SITENAME>/<FE_DIRNAME>/main.yaml
 * Configuration file must contain the following structure:
@@ -75,6 +83,7 @@ Sitenames section (**NOTE:** For each site, there must be a section with the nam
   * rst: Routing Service - to allow configure BGP (private_asn number is mandatory to define if rst is defined). **NOTE: There can be only 1 rst defined per site**.
   * rsts_enabled: List of enabled routing services. Mandatory. Available options: ['ipv4', 'ipv6']
   * private_asn: Private ASN number. Mandatory if rst is defined. **NOTE: private_asn must be unique for all SENSE. To find next available private_asn, see here: TODO**.
+  * external_snmp: External SNMP server URL exposing information in Prometheus format. Optional. Default: None
   * vrf: VRF name if all vlans/interfaces need to be in vrf. Optional.
   * vlan_mtu: VLAN MTU. Optional. Default: None (based on device)
   * allports: If allports flag set to True - it will include all Ports in the model, except the ones listed inside the ports_ignore list. Optional. Default: false

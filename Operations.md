@@ -24,7 +24,7 @@ Channel Organizations:
 
 # Configuration reload
 
-SiteRM by default reloads configuration **every hour**.
+SiteRM by default reloads configuration **every hour** if there is a configuration change.
 SiteRM Frontend and Agent can be reloade manually via Frontend. This is useful when you want to apply new configuration to Frontend or Agent faster than the cycle of automated refresh.
 This can be done under **Frontend Configuration** section on the WEB UI.
 
@@ -37,6 +37,10 @@ SiteRM Frontend allows you to delete host from SiteRM Frontend. This is useful w
 In case you want to debug and see all actions performed on your network devices, you can use the following commands:
 * Enter your FE docker/Kubernetes pod container and go to this directory `cd /opt/siterm/config/ansible/sense`
 * Run `python3 test-runner.py` to see all actions performed on your network devices (this runs in a full debug mode, and can be very verbose)
+
+# In case of issue with a Service
+* Look at the logs of the service. You can access logs via `/var/log/siterm-site-fe/<Service>/api.log` or `/var/log/siterm-site-agent/<Service>/api.log`
+* In case of unknown issue, please create a ticket [here](https://github.com/sdn-sense/siterm)
 
 # Debug actions
 
