@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](DockerInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
+[[Home](index.md)]   [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
 
 # General information
 Site resource manager require several Services (Frontend and Agent). 
@@ -37,7 +37,7 @@ SiteRM-FE and SiteRM-Agent Configuration files are kept on GitHub repo [here](ht
   * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will use md5(hostname) by default**
   * **You have Certificate, Key available and valid (or you can use HELM Chart Certificate section if have cert-manager available).**
 
-* Get the following override values file: https://raw.githubusercontent.com/sdn-sense/helm-siterm-fe/main/values.yaml
+* Get the following override values file: `https://raw.githubusercontent.com/sdn-sense/helm-siterm-fe/main/values.yaml`
 * Modify the downloaded file and specify the SiteName and MD5 parameters for that Specific Frontend and or any other parameters needed, e.g. Certificate Issuer details.
 * If done first time, install helm repo: `helm repo add siterm-fe https://sdn-sense.github.io/helm-siterm-fe`
 * Update to latest helm repo charts: `helm repo update`
@@ -57,7 +57,7 @@ SiteRM-FE and SiteRM-Agent Configuration files are kept on GitHub repo [here](ht
   * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will use md5(hostname) by default**
   * **You have Certificate, Key generated or if you have Issuer/ClusterIssuer on your Kubernetes cluster, you can use HELM to generate new certificates**
 
-* Get the following override values file: https://github.com/sdn-sense/helm-siterm-agent/blob/main/values.yaml
+* Get the following override values file: `https://raw.githubusercontent.com/sdn-sense/helm-siterm-agent/main/values.yaml`
 * Modify the downloaded file and specify the SiteName and MD5 parameters for that Specific Agent/DTN and or any other parameters needed, e.g. Certificate Issuer details.
 * If done first time, install helm repo: `helm repo add siterm-agent https://sdn-sense.github.io/helm-siterm-agent`
 * Update to latest helm repo charts: `helm repo update`
