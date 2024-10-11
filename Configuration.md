@@ -80,6 +80,7 @@ Sitenames section (**NOTE:** For each site, there must be a section with the nam
 * year: Used in modeling. Year when the site was first time deployed. Mandatory. 
 * switch: List of switches used by the site. Mandatory. Each switch must have a section with the name of the switch. The name must be defined in the switch list.
   * vsw: Virtual Switching - to allow vlan creation (same as switch name);
+  * vswmp: Virtual Switching - to allow vlan creation with multiple ports (same as switch name + _mp);
   * rst: Routing Service - to allow configure BGP (private_asn number is mandatory to define if rst is defined). **NOTE: There can be only 1 rst defined per site**.
   * rsts_enabled: List of enabled routing services. Mandatory. Available options: ['ipv4', 'ipv6']
   * private_asn: Private ASN number. Mandatory if rst is defined. **NOTE: private_asn must be unique for all SENSE. To find next available private_asn, see here: TODO**.
