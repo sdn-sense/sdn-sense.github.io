@@ -4,18 +4,19 @@
 
 Site resource manager supports the following switches and control:
 
-|   Switch OS    | Visualization in MRML | VLAN Creation | VLAN Translation | VLAN IPv46 Assignment | BGP Control |                                          Comments                                          |
-|:--------------:|:---------------------:|:-------------:|:----------------:|:---------------------:|:-----------:|:------------------------------------------------------------------------------------------:|
-|      RAW       |           1           |       0       |        0         |           0           |      0      |   RAW Plugin (Fake switch, no control on hardware. use only if instructed by SENSE Team)   |
-|   Dell OS 9    |           1           |       1       |        0         |           1           |      1      |    [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection)    |
-|   Dell OS 10   |           1           |       1       |        0         |           1           |      1      |   [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)   |
-|  Azure SONiC   |           1           |       1       |        0         |           1           |      1      |   [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)    |
-|   Arista EOS   |           1           |       1       |        0         |           1           |      0      |  [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)  |
-| Juniper Junos  |           1           |       0       |        0         |           0           |      0      |   [Juniper Junos Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)   |
-|    FreeRTR     |           1           |       0       |        0         |           0           |      0      |    [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)     |
-| Cisco Nexus 9  |           1           |       1       |        0         |           1           |      1      | [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection) |
-| Cisco Nexus 10 |           0           |       0       |        0         |           0           |      0      |                             Development, expected 2024 Summer                              |
-|  Mellanox OS   |           0           |       0       |        0         |           0           |      0      |                             Development, expected 2024 Summer                              |
+|      Switch OS      | Visualization in MRML | VLAN Creation | VLAN Translation | VLAN IPv46 Assignment | BGP Control |                                          Comments                                          |
+|:-------------------:|:---------------------:|:-------------:|:----------------:|:---------------------:|:-----------:|:------------------------------------------------------------------------------------------:|
+|         RAW         |           1           |       0       |        0         |           0           |      0      |   RAW Plugin (Fake switch, no control on hardware. use only if instructed by SENSE Team)   |
+|      Dell OS 9      |           1           |       1       |        0         |           1           |      1      |    [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection)    |
+|     Dell OS 10      |           1           |       1       |        0         |           1           |      1      |   [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)   |
+|     Azure SONiC     |           1           |       1       |        0         |           1           |      1      |   [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)    |
+|     Arista EOS      |           1           |       1       |        0         |           1           |      0      |  [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)  |
+|    Juniper Junos    |           1           |       0       |        0         |           0           |      0      |   [Juniper Junos Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)   |
+|       FreeRTR       |           1           |       0       |        0         |           0           |      0      |    [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)     |
+|  Cisco Nexus 9/10   |           1           |       1       |        0         |           1           |      1      | [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection) |
+|   FRRouting (FRR)   |           1           |       1       |        0         |           1           |      1      |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
+| FRRouting (FRR+VPP) |           1           |       1       |        0         |           1           |      1      |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
+|     Mellanox OS     |           0           |       0       |        0         |           0           |      0      |                                 Development, expected 2025                                 |
 
 # Allow Switch control for SENSE
 
