@@ -33,6 +33,15 @@ This can be done under **Frontend Configuration** section on the WEB UI.
 
 SiteRM Frontend allows you to delete host from SiteRM Frontend. This is useful when you want to remove host from SiteRM Frontend, but keep it in the network. This can be done under **Frontend Configuration** section on the WEB UI.
 
+# Ansible tester and cleaner
+To test that ansible plugin is working correctly, you can run the following command:
+* Enter your FE docker/Kubernetes pod container and run the following command: `siterm-ansible-runner`. It has the following options:
+  * -h, --help     show this help message and exit
+  * --printports   Run ansible and print ports for rm-configs.
+  * --dumpconfig   Run ansible and dump configuration received from ansible.
+  * --cleanswitch  Run ansible and print commands to clean switch.
+  * --fulldebug    Run ansible with full debug output.
+
 # Network devices debugging
 
 In case you want to debug and see all actions performed on your network devices, you can use the following commands:
@@ -42,6 +51,11 @@ In case you want to debug and see all actions performed on your network devices,
 # In case of issue with a Service
 * Look at the logs of the service. You can access logs via `/var/log/siterm-site-fe/<Service>/api.log` or `/var/log/siterm-site-agent/<Service>/api.log`
 * In case of unknown issue, please create a ticket [here](https://github.com/sdn-sense/siterm)
+* We might ask you to provide us with the full logs of the service. You can do this by running `siterm-log-archiver` on the host where the service is running. This will create a tarball with all logs of the service. Please provide us with this tarball privately (DO NOT UPLOAD TARBALL TO GITHUB)
+
+# Host cleaner
+In case you want to remove all configurations from the host, you can use the following command:
+* Enter your FE docker/Kubernetes pod container and run the following command: `siterm-agent-cleaner`. It will print all commands to clean all SENSE configurations on the host. Script will not execute any commands, it will only print them.
 
 # Debug actions
 
@@ -64,3 +78,15 @@ It will execute the following command: `iperf3 -c <ip> -p <port> -B <interface> 
 ## Iperf Server
 iPerf3 is a tool for active measurements of the maximum achievable bandwidth on IP networks. It supports tuning of various parameters related to timing, buffers and protocols (TCP, UDP, SCTP with IPv4 and IPv6). For each test it reports the bandwidth, loss, and other parameters.
 It will execute the following command: `timeout <seconds> iperf3 --server -p <port> -B <ip> <one-off>`
+
+
+# Monitoring inside Autogole
+All SiteRMs are monitored by Prometheus and Grafana under AUTOGOLE. It can alert you once services are failing or if there are any issues with your SiteRM. It can be accessed here: https://autogole-grafana.nrp-nautilus.io (Requires github or SENSE-O authentication - please contact SENSE team to add your git username). Slack Alerts are also sent by Grafana once failure, fix occurs.
+In case of a new FE or Agent, please contact SENSE team to add it to the monitoring system. Admin with full privileges (https://github.com/sdn-sense/autogole-monitoring) can force resync of the monitoring endpoints and push it prometheus.
+
+## Custom Monitorings
+In case you want to add custom monitoring, please contact SENSE team. We can add custom monitoring to the monitoring system. For example right now there are few which we are monitoring:
+* NSI SNMPMonitor - monitors NSI Domains. This includes ESnet Startdust wrapper, Internet2 OESS wrapper, and CENIC SNMP V3. 
+* XrootD Node Exporter - SiteRM monitors node level endpoint, but sometimes for pods you might want to monitor xrootd service. This is done by adding node exporter in your xrootd pod and updating configuration.
+* All custom configs are added manually here: https://github.com/sdn-sense/autogole-monitoring/blob/main/scripts/default-prometheus-config.yml
+

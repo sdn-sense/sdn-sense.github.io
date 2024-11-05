@@ -72,6 +72,7 @@ Sitenames section (**NOTE:** For each site, there must be a section with the nam
 * longitude: Longitude of the site. Mandatory.
 * plugin: Plugin used by the site. Mandatory. Available options: ansible, raw. See more details about plugin configuration here: [[Network Control via Ansible](NetControlAnsible.md)]
 * privatedir: Directory where the configuration files are stored for the site. Optional. Default to: /opt/siterm/config/<SITENAME>/
+* vpp_exporter: VPP Exporter URL with port. Only used for Autogole monitoring and grafana dashboard. Optional. Default: None 
 * metadata: Metadata for the site. Optional. Can be used to store additional information about the site inside model. For example, xrootd redirectors and IPv6 Range they belong.
 * ipv4-subnet-pool: List of IPv4 subnets allocated by the site for SENSE Control (for BGP Control to advertize as route-maps). Optional.
 * ipv6-subnet-pool: List of IPv6 subnets allocated by the site for SENSE Control (for BGP Control to advertize as route-maps). Optional.

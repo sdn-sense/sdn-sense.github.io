@@ -70,48 +70,49 @@ inventory:
         <ANY_OTHER_SNMP_METADATA_PARAMS>
 ```
 
-# RAW plugin configuration
+# Plugin configuration
+## RAW plugin configuration
+**NOTE: This plugin is not very useful for L3/BGP Control. Only Sites instructed by SENSE Team should use this.**
+
+This is dummy switch only for modelling. It has no real hardware to control. Configuration is only defined in https://github.com/sdn-sense/rm-configs repo and it does not require `fe/conf/etc/ansible-conf.yaml` file modification.
 
 In case you use RAW (fake virtual switch) plugin - you do not need to modify `fe/conf/etc/ansible-conf.yaml` file. Make an inventory variable empty dictionary. Like this:
 ```angular2html
 inventory: {}
 ```
 
-# Dell OS 9 plugin configuration
+## Dell OS 9
+If you device is Dell OS 9, for network_os make sure to set `sense.dellos9.dellos9`
 
-1. If you device is Dell OS 9, for network_os make sure to set `sense.dellos9.dellos9`
+## Dell OS 10
+If you device is Dell OS 10, for network_os make sure to set `sense.dellos10.dellos10`
 
-# Dell OS 10 plugin configuration
+## Azure SONiC
+If you device is Azure SONiC, for network_os make sure to set `sense.sonic.sonic`
 
-1. If you device is Dell OS 10, for network_os make sure to set `sense.dellos10.dellos10`
+## Arista EOS
+If you device is Arista EOS, for network_os make sure to set `sense.aristaeos.aristaeos`
 
-# Azure SONiC plugin configuration
-
-1. If you device is Azure SONiC, for network_os make sure to set `sense.sonic.sonic`
-
-# Arista EOS plugin configuration
-
-1. If you device is Arista EOS, for network_os make sure to set `sense.aristaeos.aristaeos`
-
-# Juniper Junos plugin configuration
-
+## Juniper Junos
 **THIS IS NOT SUPPORTED YET**
+If you device is Juniper Junos , for network_os make sure to set `sense.junos.junos`
 
-1. If you device is Juniper Junos , for network_os make sure to set `sense.junos.junos`
+## FreeRTR
+If you device is FreeRTR, for network_os make sure to set `sense.freertr.freertr`
 
-# FreeRTR plugin configuration
+## Cisco Nexus 9
+If you device is Cisco Nexus 9, for network_os make sure to set `sense.cisconx9.cisconx9`
 
-1. If you device is FreeRTR, for network_os make sure to set `sense.freertr.freertr`
+## Cisco Nexus 10
+If you device is Cisco Nexus 10, for network_os make sure to set `sense.cisconx9.cisconx9`
 
-# Cisco Nexus 9 plugin configuration
+## FRRouting (FRR)
+If you device is FRRouting (FRR), for network_os make sure to set `sense.frr.frr`
+For VPP - plugin expects to have vpp container running. In case no vpp container running - it will work as FRR plugin without VPP.
 
-1. If you device is Cisco Nexus 9, for network_os make sure to set `sense.cisconx9.cisconx9`
-
-# RAW Switch plugin configuration
-
-**NOTE: This plugin is not very useful for L3/BGP Control. Only Sites instructed by SENSE Team should use this.**
-
-This is dummy switch only for modelling. It has no real hardware to control. Configuration is only defined in https://github.com/sdn-sense/rm-configs repo and it does not require `fe/conf/etc/ansible-conf.yaml` file modification.
+## FRRouting (FRR+VPP)
+If you device is FRRouting (FRR+VPP), for network_os make sure to set `sense.frr.frr`
+For VPP - plugin expects to have vpp container running. In case no vpp container running - it will work as FRR plugin without VPP.
 
 # How to use SSH Keys
 To configure Site-RM to use ssh keys to access device, you need to put all ssh keys in this directory `fe/conf/opt/siterm/config/ssh-keys/`. (if you use siterm-startup scripts).
@@ -123,20 +124,32 @@ Site-RM uses easysnmp library to query devices and their usage. Site-RM support 
 
 1. SNMPv1:
 ```
-    snmp_params:
-      session_vars:
-        community: public
-        hostname: 123.123.123.123
-        version: 1
+snmp_params:
+  session_vars:
+    community: public
+    hostname: 123.123.123.123
+    version: 1
 ```
 
 2. SNMPv2c:
 ```
-    snmp_params:
-      session_vars:
-        community: public
-        hostname: 123.123.123.123
-        version: 2
+snmp_params:
+  session_vars:
+    community: public
+    hostname: 123.123.123.123
+    version: 2
 ```
 
-3. SNMPv3: To be defined
+3. SNMPv3:
+```
+snmpParams:
+  session_vars:
+    version: 3
+    hostname: <full-qualified-domain-name.com>
+    security_level: <auth_with_privacy>
+    security_username: <security_username>
+    auth_protocol: <auth_protocol, like: SHA, MD5>
+    auth_password: <auth_password>
+    privacy_protocol: <privacy_protocol, like: DES, AES>
+    privacy_password: <privacy_password>
+```
