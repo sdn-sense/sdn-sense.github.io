@@ -86,6 +86,7 @@ Sitenames section (**NOTE:** For each site, there must be a section with the nam
   * rsts_enabled: List of enabled routing services. Mandatory. Available options: ['ipv4', 'ipv6']
   * private_asn: Private ASN number. Mandatory if rst is defined. **NOTE: private_asn must be unique for all SENSE. To find next available private_asn, see here: TODO**.
   * external_snmp: External SNMP server URL exposing information in Prometheus format. Optional. Default: None
+  * ansible_params: Pass additional paramaters to ansible (in case templates support. Currently only Junos devices have option to specify '{'vlanip': 'irb'} - to control what to use for routing vlan or irb). Optional. Default: None.
   * vrf: VRF name if all vlans/interfaces need to be in vrf. Optional.
   * vlan_mtu: VLAN MTU. Optional. Default: None (based on device)
   * allports: If allports flag set to True - it will include all Ports in the model, except the ones listed inside the ports_ignore list. Optional. Default: false
