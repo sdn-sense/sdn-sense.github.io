@@ -1,4 +1,4 @@
-[[Home](index.md)]   [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)]
+[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debuging.md)]
 
 # Information
 
@@ -11,7 +11,7 @@ Site resource manager supports the following switches and control:
 |     Dell OS 10      |           1           |       1       |        0         |           1           |      1      |   [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)   |
 |     Azure SONiC     |           1           |       1       |        0         |           1           |      1      |   [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)    |
 |     Arista EOS      |           1           |       1       |        0         |           1           |      0      |  [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)  |
-|    Juniper Junos    |           1           |       0       |        0         |           0           |      0      |   [Juniper Junos Ansible Collection](https://github.com/sdn-sense/junipernetworks.junos)   |
+|    Juniper Junos    |           1           |       1       |        0         |           1           |      1      |   [Juniper Junos Ansible Collection](https://github.com/sdn-sense/sense-junos-collection)   |
 |       FreeRTR       |           1           |       0       |        0         |           0           |      0      |    [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)     |
 |  Cisco Nexus 9/10   |           1           |       1       |        0         |           1           |      1      | [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection) |
 |   FRRouting (FRR)   |           1           |       1       |        0         |           1           |      1      |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
