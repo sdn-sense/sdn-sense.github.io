@@ -1,4 +1,4 @@
-[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)]
+[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)][[QOS](QoS.md)]
 
 # Information
 
@@ -156,7 +156,7 @@ inventory:
 
 ## RAW plugin configuration
 
-**NOTE: This plugin is not very useful for L3/BGP Control. Only Sites instructed by SENSE Team should use this.**
+**NOTE: This plugin is not very useful for L2/L3/BGP Control. Only Sites instructed by SENSE Team should use this.**
 
 This is dummy switch only for modelling. It has no real hardware to control. Configuration is only defined in [https://github.com/sdn-sense/rm-configs](https://github.com/sdn-sense/rm-configs) repo and it does not require `fe/conf/etc/ansible-conf.yaml` file modification.
 

@@ -1,4 +1,4 @@
-[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)]
+[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)][[QOS](QoS.md)]
 
 # Configuration
 
@@ -6,9 +6,9 @@ SENSE SiteRM keeps most configuration on GitHub (Frontend and Agent). 
 
 **IMPORTANT: DO NOT UPLOAD ANSIBLE CONFIGURATION WITH PASSWORD/SSH KEY**. For more details about Ansible configuration, see here: [[Network Control via Ansible](NetControlAnsible.md)]
 
-Please consult individual cases with the SENSE team before deploying: [sense-all@googlegroups.com](sense-all@googlegroups.com) or create an issue at [here](https://github.com/sdn-sense/ops/issues/new) with the title **"[NEW Site] ..."**
+Please consult individual cases with the SENSE team before deploying: [sense-all@googlegroups.com](sense-all@googlegroups.com)
 
-In case have issues with any SENSE SiteRM Software, please create a ticket [here](https://github.com/sdn-sense/ops) or send an email to [sense-all@googlegroups.com](sense-all@googlegroups.com)
+In case have issues with any SENSE SiteRM Software, please send an email to [sense-all@googlegroups.com](sense-all@googlegroups.com)
 
 Notes for configuration files:
 

@@ -1,4 +1,5 @@
-[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)]
+<!-- markdownlint-disable MD024 -->
+[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)][[QOS](QoS.md)]
 
 # Debugging SiteRM Issues
 
@@ -6,19 +7,36 @@ If you encounter failures or issues with SiteRM, this guide provides debugging s
 
 ---
 
+## Kubernetes install issues
+
+### Error Message
+
+```text
+Error: INSTALLATION FAILED: create: failed to create: Request entity too large: limit is 3145728
+```
+
+### Cause
+
+This error occurs when the size of the Helm chart or the generated Kubernetes resources exceeds the default size limit set by the Kubernetes API server or ingress controllers.
+
+### Resolution
+
+Use `helm template ... | kubectl apply -f` command and not `helm install`.
+OR Use `helm template ... &> deployment.yaml && kubectl apply -f deployment.yaml`
+
 ## Docker Startup Failure (Frontend)
 
-### Error Message:
+### Error Message
 
-```
+```text
 ERROR: Configuration file ../conf/etc/ansible-conf.yaml was not modified. SiteRM Will fail to start.
 ```
 
-### Cause:
+### Cause
 
 This occurs when the configuration file has not been modified. Even if your Frontend RM runs in raw switch mode, this file still needs to be modified, although it may not be used.
 
-### Resolution:
+### Resolution
 
 Ensure the correct information is added to the `ansible-conf.yaml` file. Refer to the documentation for proper configuration:
 [NetControl Ansible Documentation](https://sdn-sense.github.io/NetControlAnsible.html).
@@ -27,17 +45,17 @@ Ensure the correct information is added to the `ansible-conf.yaml` file. Refer t
 
 ## PluginException: Interface Not Found
 
-### Error Message:
+### Error Message
 
-```
+```text
 SiteRMLibs.CustomExceptions.PluginException: Interface enp1s0np0 was not found on the system. Misconfiguration
 ```
 
-### Cause:
+### Cause
 
 The specified interface is not present on the system, but it is configured in the [sdn-sense/rm-configs](https://github.com/sdn-sense/rm-configs) configuration file.
 
-### Resolution:
+### Resolution
 
 1. Verify whether the interface exists on the system.
 2. If the interface is missing, check for kernel updates that may have renamed the interface.
@@ -47,17 +65,17 @@ The specified interface is not present on the system, but it is configured in th
 
 ## Interface Down
 
-### Error Message:
+### Error Message
 
-```
+```text
 Interface {interface} is not up. Check why interface is down.
 ```
 
-### Cause:
+### Cause
 
 The interface under SENSE control is currently down.
 
-### Resolution:
+### Resolution
 
 Investigate the cause of the interface being down and take appropriate action to bring it back up.
 
@@ -65,17 +83,17 @@ Investigate the cause of the interface being down and take appropriate action to
 
 ## Oversubscription Warning
 
-### Error Message:
+### Error Message
 
-```
+```text
 Interface {key} has no remaining reservable capacity! Over subscribed?
 ```
 
-### Cause:
+### Cause
 
 The node is oversubscribed due to too many requests.
 
-### Resolution:
+### Resolution
 
 This is a warning. No new path requests can be provisioned on the affected node. Consider reducing load or increasing capacity.
 
@@ -83,17 +101,17 @@ This is a warning. No new path requests can be provisioned on the affected node.
 
 ## VLAN Range Not Defined
 
-### Error Message:
+### Error Message
 
-```
+```text
 Interface {key} has no vlan range list defined!
 ```
 
-### Cause:
+### Cause
 
 A configured interface does not have a VLAN range defined.
 
-### Resolution:
+### Resolution
 
 Ensure the VLAN range is properly set in the configuration file.
 
@@ -101,17 +119,17 @@ Ensure the VLAN range is properly set in the configuration file.
 
 ## No Remaining VLANs
 
-### Error Message:
+### Error Message
 
-```
+```text
 No remaining vlans in vlan range list for interface {key}. All used?
 ```
 
-### Cause:
+### Cause
 
 All VLANs in the range are currently in use.
 
-### Resolution:
+### Resolution
 
 This is a warning. No new requests can be processed until VLANs are freed up.
 
@@ -119,17 +137,17 @@ This is a warning. No new requests can be processed until VLANs are freed up.
 
 ## Port Not Added to Model
 
-### Error Message:
+### Error Message
 
-```
+```text
 SiteRMLibs.CustomExceptions.ServiceWarning: Warning. Port aristaeos_s0Ethernet23/1 not added into model. Its status not switchport. Ansible runner returned: {'bandwidth': 100000, 'duplex': 'duplexFull', 'lineprotocol': 'notPresent', 'macaddress': '44:4c:a8:55:2d:3c', 'mtu': 9214, 'operstatus': 'notconnect'}.
 ```
 
-### Cause:
+### Cause
 
 The port is missing the `switchport: true` flag.
 
-### Resolution:
+### Resolution
 
 1. The port may have gone down. Check the status.
 2. The port may not have a switchport trunk defined. Refer to the device documentation for the correct configuration.
@@ -138,45 +156,37 @@ The port is missing the `switchport: true` flag.
 
 ## VLAN Manually Configured
 
-### Error Message:
+### Error Message
 
-```
+```text
 Vlan {vlan} is configured manually on {host}. It comes not from delta. Either deletion did not happen or was manually configured.
 ```
 
-### Cause:
+### Cause
 
 A VLAN allocated as part of the SENSE range is manually configured on the system.
 
-### Resolution:
+### Resolution
 
-1. If manually configured, delete it using:
-   ```
+1. **HOST**: If manually configured, delete it using the following command:
+
+   ```bash
    ip link delete vlan.XXXX
    ```
-2. If SiteRM failed to delete or cancel the resource, check:
-   - **Provisioning Service Logs**
-   - **Lookup Service Logs**
 
-For host issues, check:
+2. **SWITCH**: If manually configured, delete vlan on the network device.
 
-```
-/var/log/siterm-agent/Ruler/
-```
-
-For network device issues, check:
-
-```
-/var/log/siterm-site-fe/{LookUpService,ProvisioningService}
-```
+3. There might be cases, where SiteRM failed to delete or cancel the resource, check:
+   - For **host**, check the following log file inside agent container: `/var/log/siterm-agent/Ruler/api.log`
+   - For **switch**, check the following log file inside agent container: `/var/log/siterm-site-fe/{LookUpService,ProvisioningService}/api.log`
 
 ---
 
 ## Errors in `isAlias` or Switch Port Configuration
 
-### Error Messages:
+### Error Messages
 
-```
+```text
 Interface {key} already has isAlias in git config (and we get it from Kube Labels. Which one is right?
 Interface {key} already has switch port in git config (and we get it from Kube Labels. Which one is right?
 Interface {key} already has switch in git config (and we get it from Kube Labels. Which one is right?
@@ -185,11 +195,11 @@ Interface {key} has no switch defined, nor was available from Kube (in case Kube
 Interface {key} has no switch port defined, nor was available from Kube (in case Kube install)!
 ```
 
-### Cause:
+### Cause
 
 A misconfiguration in Agent settings, possibly due to missing port configuration or conflicts between Kubernetes labels and the git configuration.
 
-### Resolution:
+### Resolution
 
 Refer to the documentation for proper mapping of ports to resolve the issue.
 
@@ -199,9 +209,9 @@ Refer to the documentation for proper mapping of ports to resolve the issue.
 
 The `siterm-ansible-runner` script inside the SiteRM-FE container provides debugging and cleaning options.
 
-### Usage:
+### Usage
 
-```
+```text
 # siterm-ansible-runner -h
 usage: siterm-ansible-runner [-h] [--printports] [--dumpconfig] [--cleanswitch {exceptactive,onlyactive,all}] [--autoapply] [--fulldebug]
 
@@ -220,7 +230,7 @@ optional arguments:
   --fulldebug           Run ansible with full debug output.
 ```
 
-### Notes:
+### Notes
 
 - The `exceptactive` option is safe.
 - The `onlyactive` and `all` options are **dangerous**—use with caution.

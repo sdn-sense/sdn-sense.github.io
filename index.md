@@ -1,10 +1,10 @@
-[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)]
+[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)][[QOS](QoS.md)]
 
 The overarching goal of SENSE is to enable National Labs and Universities to request and provision end-to-end intelligent network services for their application workflows, leveraging SDN capabilities. Our approach is to design network abstractions and an operating framework to allow host, LAN, and WAN auto-configurations based on infrastructure policy constraints designed to meet end-to-end service requirements.
 
-We are working on a comprehensive approach that combines deployment of SDN infrastructure across multiple labs/campuses and WAN with a focus on usability, performance and resilience through: 
+We are working on a comprehensive approach that combines deployment of SDN infrastructure across multiple labs/campuses and WAN with a focus on usability, performance and resilience through:
 Policy-guided end-to-end orchestration of network resources, in a manner coordinated with the science programs’ systems that provide real time orchestration of computing and storage resources.
-Auto-provisioning of network devices and Data Transfer Nodes (DTNs);
+Auto-provisioning of network devices and SiteRM Agents (SiteRM-Agent);
 Intent-based, real time application interfaces providing intuitive access by Virtual Organization (VO) services and managers to intelligent SDN services;
 Network real time measurement, analytics and feedback to build resilience, and provide the foundation for coordination between the SENSE intelligent network services, and the science programs’ system services.
 
@@ -23,11 +23,12 @@ This Product (Application) requirements document contains description about the 
 ![Alt text](documentation/SENSE-Architecture.png?raw=true "SENSE Architecture")
 
 # SENSE Architeture
-In the SENSE Architecture there are two distinct functional roles: Orchestrators and Resource Managers. The interaction between Orchestrator(s) and Resource Manager(s) follows a hierarchical workflow structure whereby of the Orchestrator accepts requests from users, user applications, and science program-operated management services and determines the appropriate Resource Managers to contact and coordinate the End-To-End service request.  Resource Managers (RMs) are (administrative or technology) domain specific and are responsible for committing and managing local resources. In further section, we describe Data Transfer Node Resource manager;
 
+In the SENSE Architecture there are two distinct functional roles: Orchestrators and Resource Managers. The interaction between Orchestrator(s) and Resource Manager(s) follows a hierarchical workflow structure whereby of the Orchestrator accepts requests from users, user applications, and science program-operated management services and determines the appropriate Resource Managers to contact and coordinate the End-To-End service request.  Resource Managers (RMs) are (administrative or technology) domain specific and are responsible for committing and managing local resources. In further section, we describe SiteRM Resource manager;
 
-# Data Transfer Node Resource Manager
-A Data Transfer Node (DTN) is a server that constitutes the endpoint of a data transfer. From the scientific application point of view, DTNs are the source and destination of the data. In the context of SENSE and SDN in general, a few important DTN features are important. They are described in the following list:
+# SiteRM Resource Manager
+
+A SiteRM (RM) is a server that constitutes the endpoint of a data transfer. From the scientific application point of view, DTNs are the source and destination of the data. In the context of SENSE and SDN in general, a few important DTN features are important. They are described in the following list:
 
 Flow Termination: The ability to terminate a (known, trusted) flow, for example on a DTN or other Science DMZ end-point. Flow Termination involves the termination of a flow and consumption of the flow packets by an application or NFV process. The DTNs are a typical flow termination point.
 
@@ -42,7 +43,8 @@ In addition to this information which is static, i.e. does not vary over time (o
 An end-host agent will be present on the DTN to provide a complete profile of the end-system in terms of its performance and various (CPU, IO, storage) load levels, updated in real time. This is needed to monitor and track end-system health, to match  network performance to the (loaded) expected capability and, where needed, to distinguish network problems from end-host problems in case the achievable throughput is degraded.
 
 # Architecture and Implementation Plans
-![Alt text](documentation/dtnrm-architecture.png?raw=true "Data Transfer Node Resource Manager Architecture")
+
+![Alt text](documentation/dtnrm-architecture.png?raw=true "SiteRM Resource Manager Architecture")
 DTN-RM Architecture diagram explanation (from bottom to top):
 
 * DTN-RM Agent consist several components, which are responsible for the following actions:
@@ -55,7 +57,7 @@ DTN-RM Architecture diagram explanation (from bottom to top):
   * **Real Time Monitoring** component monitors all system statistics, usage and stores this information in Time Series database. Also, it provides a Restful interface for getting specific metric information and HTML based web page for debugging. Restful API interface and HTML web page is accessible through **Site Frontend Forwarding Service**.
   * **QOS (Quality of Service)** makes sure that appended policies are respected, does traffic shaping, make sure resource requests do not overcommit what was requested. In case policy request neglect or overcommit requested resources, **Site Level Frontend** is informed and action is taken.
 
-* **Site Frontend** is a gateway for any information consumer or action appender to specific data transfer node agent. More detailed components:
+* **Site Frontend** is a gateway for any information consumer or action appender to specific SiteRM agent. More detailed components:
   * **GUI - Graphical user interface** about Site Topology, all Site Resources, their capabilities, statistics, pending and committed actions.
   * **Restful API** accepts action updates from higher level services (etc.: **Orchestrator, Global Frontend**) and also accepts JSON information about their statistics from all **DTN-RM Agents**.
   * **LookUp Service** is responsible for gathering, analyzing and preparing MRML schema about all Site DTN-RM Agents. In case update is not received for a specified time range, **Notification Service** is informed about situation.
