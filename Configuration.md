@@ -92,6 +92,12 @@ Sitenames section (**NOTE:** For each site, there must be a section with the nam
 * switch: List of switches used by the site. Mandatory. Each switch must have a section with the name of the switch. The name must be defined in the switch list.
   * vsw: Virtual Switching - to allow vlan creation (same as switch name);
   * vswmp: Virtual Switching - to allow vlan creation with multiple ports (same as switch name + _mp);
+  * rate_limit: Enable traffic control class on network devices (Default False)
+  * qos_policy: Configure default QoS traffic classes for network devices (Used only if rate_limit True). It supports 4 following classes: default, bestEffort, softCapped, guaranteedCapped. Defaults are highlisted below.
+    * default: 1
+    * bestEffort: 2
+    * softCapped: 4
+    * guaranteedCapped: 7
   * rst: Routing Service - to allow configure BGP (private_asn number is mandatory to define if rst is defined). **NOTE: There can be only 1 rst defined per site**.
   * rsts_enabled: List of enabled routing services. Mandatory. Available options: ['ipv4', 'ipv6']
   * private_asn: Private ASN number. Mandatory if rst is defined. **NOTE: private_asn must be unique for all SENSE. To find next available private_asn, see here: TODO**.

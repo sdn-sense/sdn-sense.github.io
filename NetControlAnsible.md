@@ -17,6 +17,7 @@ Site resource manager supports the following switches and control options:
 |   FRRouting (FRR)   |      1      |       1       |        0         |        1        |      1      |       1       |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
 | FRRouting (FRR+VPP) |      1      |       1       |        0         |        1        |      1      |       1       |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
 |     Mellanox OS     |      0      |       0       |        0         |        0        |      0      |       0       |                          Development, expected 2025                                        |
+|     Nokia SR OS     |      0      |       0       |        0         |        0        |      0      |       0       |                          Development, expected 2025                                        |
 
 Here is description of each action:
 

@@ -2,10 +2,11 @@
 
 # Information
 
-Site resource manager require several Services (Frontend and Agent).
+Site resource manager require several Services (Frontend, Agent, Debugger).
 
 * **Frontend** is responsible for: communication with Orchestrator(s), Accept deltas, Prepare Model, Control switches on LAN, Get all configuration from all DTNs/Agents. Minimum one Frontend is needed for a single domain.
-* **Agent** is responsible for: gathering DTN Information, creating vlan interfaces, applying QOS.  
+* **Agent** is responsible for: gathering DTN Information, creating vlan interfaces, applying QOS.
+* **Debugger** is responsible for issuing iPerf, FDT, Ping, Traceroute tests.
 
 Please consult individual cases with the SENSE team before deploying: [sense-all@googlegroups.com](sense-all@googlegroups.com)
 
@@ -13,7 +14,7 @@ In case have issues with any SENSE SiteRM Software, please send an email to [sen
 
 # Before start
 
-**Supported architectures**: amd64/x86_64 and ppc64le (beta).
+**Supported architectures**: amd64/x86_64.
 
 **Frontend**: Each site requires 1 Frontend.
 
@@ -32,9 +33,16 @@ In case have issues with any SENSE SiteRM Software, please send an email to [sen
 * **Networking**: No ports open needed (see exception below for monitoring)
 * **Monitoring**: SENSE Uses Prometheus and node_exporter to monitor all DTN deployments. If you want your DTN to be monitored and alerted - please ensure you have node_exporter installed and the port open.
 
-# SiteRM-Frontend and SiteRM-Agent configuration
+**Debugger**: Runs on each DTN along to an Agent container. In case of Kubernetes and Multus deployments, it is expected to run Debugger also in each of the Multus Network Namespaces (to allow issue L3 probes).
+
+* **Installation type supported**: **Docker** or **Kubernetes**
+* **Certificate**: The debugger requires a host certificate and key pair. (Let's encrypt/Incommon)
+* **Networking**: No ports open needed
+
+# Frontend, Agent and Debugger configuration
 
 SiteRM-FE and SiteRM-Agent Configuration files are kept on GitHub repo [here](https://github.com/sdn-sense/rm-configs). Each SiteRM Service (Frontend/Agent) pull from Github repo configuration files once an hour and use the latest configuration. Please refer to this [link](https://github.com/sdn-sense/rm-configs) for Frontend and Agent configuration and it's parameters, examples.
+In case of Debugger - it can re-use any of the agent configurations (no need additional config file). Debugger only looks for Frontend hostname and dynamically reports all information.
 
 # Installation documentation
 
