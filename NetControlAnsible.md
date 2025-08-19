@@ -4,20 +4,20 @@
 
 Site resource manager supports the following switches and control options:
 
-|      Switch OS      | Viz in MRML | VLAN Creation | VLAN Translation | Ping/Traceroute | BGP Control | BGP Multipath |                                          Comments                                          |
-|:-------------------:|:-----------:|:-------------:|:----------------:|:---------------:|:-----------:|:-------------:|:------------------------------------------------------------------------------------------:|
-|         RAW         |      1      |       0       |        0         |        0        |      0      |       0       |   RAW Plugin (Fake switch, no control on hardware. use only if instructed by SENSE Team)   |
-|      Dell OS 9      |      1      |       1       |        0         |        1        |      1      |       0       |    [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection)    |
-|     Dell OS 10      |      1      |       1       |        0         |        1        |      1      |       1       |   [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)   |
-|     Azure SONiC     |      1      |       1       |        0         |        1        |      1      |       1       |   [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)    |
-|     Arista EOS      |      1      |       1       |        0         |        1        |      0      |       0       |  [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)  |
-|    Juniper Junos    |      1      |       1       |        0         |        1        |      1      |       1       |  [Juniper Junos Ansible Collection](https://github.com/sdn-sense/sense-junos-collection)   |
-|       FreeRTR       |      1      |       0       |        0         |        0        |      0      |       0       |    [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)     |
-|  Cisco Nexus 9/10   |      1      |       1       |        0         |        1        |      1      |       1       | [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection) |
-|   FRRouting (FRR)   |      1      |       1       |        0         |        1        |      1      |       1       |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
-| FRRouting (FRR+VPP) |      1      |       1       |        0         |        1        |      1      |       1       |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
-|     Mellanox OS     |      0      |       0       |        0         |        0        |      0      |       0       |                          Development, expected 2025                                        |
-|     Nokia SR OS     |      0      |       0       |        0         |        0        |      0      |       0       |                          Development, expected 2025                                        |
+|      Switch OS      | Viz in MRML | VLAN Creation | VLAN Translation | Ping/Traceroute | BGP Control | BGP Multipath |      QoS      |                                          Comments                                          |
+|:-------------------:|:-----------:|:-------------:|:----------------:|:---------------:|:-----------:|:-------------:|:-------------:|:------------------------------------------------------------------------------------------:|
+|         RAW         |      1      |       0       |        0         |        0        |      0      |       0       |       0       |   RAW Plugin (Fake switch, no control on hardware. use only if instructed by SENSE Team)   |
+|      Dell OS 9      |      1      |       1       |        0         |        1        |      1      |       0       |       0       |    [Dell OS9 Ansible Collection](https://github.com/sdn-sense/sense-dellos9-collection)    |
+|     Dell OS 10      |      1      |       1       |        0         |        1        |      1      |       1       |       0       |   [Dell OS10 Ansible Collection](https://github.com/sdn-sense/sense-dellos10-collection)   |
+|     Azure SONiC     |      1      |       1       |        0         |        1        |      1      |       1       |       0       |   [Azure SONiC Ansible Collection](https://github.com/sdn-sense/sense-sonic-collection)    |
+|     Arista EOS      |      1      |       1       |        0         |        1        |      0      |       0       |       1       |  [Arista EOS Ansible Collection](https://github.com/sdn-sense/sense-aristaeos-collection)  |
+|    Juniper Junos    |      1      |       1       |        0         |        1        |      1      |       1       |       0       |  [Juniper Junos Ansible Collection](https://github.com/sdn-sense/sense-junos-collection)   |
+|       FreeRTR       |      1      |       0       |        0         |        0        |      0      |       0       |       0       |    [FreeRTR Ansible Collection](https://github.com/sdn-sense/sense-freertr-collection)     |
+|  Cisco Nexus 9/10   |      1      |       1       |        0         |        1        |      1      |       1       |       0       | [Cisco Nexus 9 Ansible Collection](https://github.com/sdn-sense/sense-cisconx9-collection) |
+|   FRRouting (FRR)   |      1      |       1       |        0         |        1        |      1      |       1       |       0       |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
+| FRRouting (FRR+VPP) |      1      |       1       |        0         |        1        |      1      |       1       |       0       |     [FRRouting Ansible Collection](https://github.com/sdn-sense/sense-frr-collection)      |
+|     Mellanox OS     |      0      |       0       |        0         |        0        |      0      |       0       |       0       |                          Development, expected 2025                                        |
+|     Nokia SR OS     |      0      |       0       |        0         |        0        |      0      |       0       |       0       |                          Development, expected 2025                                        |
 
 Here is description of each action:
 
@@ -94,6 +94,67 @@ no ipv6 prefix-list sense-eb95dea88c650f9564357b952959e48d-to
 ```
 
 * **BGP Multipath** allows SiteRM to install multiple routes to the same destination to be used simultaneously and use paths for load balancing and redundancy. There is no special configuration and SiteRM reuses same VLAN and BGP Creation (and create multiple vlans, route-maps, prefix-list and multiple bgp peers.)
+
+* **QoS** allows to control Quality of Service on the network devices. 
+The default configuration specifies the following parameters under Site Switch, which can be overridden:
+
+```angular2html
+"qos_policy": {
+    "traffic_classes": {
+        "default": 1,
+        "bestEffort": 2,
+        "softCapped": 4,
+        "guaranteedCapped": 7
+    },
+    "max_policy_rate": "268000",
+    "burst_size": "256"
+}
+```
+
+Arista has certain limits. For example:
+
+```angular2html
+    max_policy_rate is the maximum police rate that can be set for a class.
+    burst_size is the maximum burst size.
+```
+
+SENSE can request one of the following bandwidth types: guaranteedCapped, softCapped, or bestEffort. When SiteRM receives a request, it calculates the bandwidth for all requests based on the following parameters:
+
+* Available port capacity (can be overridden by RM config if the site wants to reserve a certain percentage of bandwidth for other purposes).
+* If the request is guaranteedCapped, SiteRM will add the following configuration on the Arista device:
+
+```angular2html
+    policy-map type quality-of-service SENSE_QOS
+       class VLAN{VLAN_ID}
+          set traffic-class {TRAFFICCLASSGC}
+          police rate {GC_REQUEST_BW} mbps burst-size {BURST_SIZE} mbytes
+```
+
+* After all guaranteedCapped allocations are configured, SiteRM calculates the remaining bandwidth:
+
+```angular2html
+{NewRemainingCapacity} = {AvailablePortCapacity} - {ActiveGuaranteedCapped}
+```
+
+* For softCapped, SiteRM will configure:
+
+```angular2html
+   class VLAN{VLAN_ID}
+      set traffic-class {TRAFFICCLASSSC}
+      police rate {SC_REQUEST_BW} mbps burst-size {BURST_SIZE} mbytes \
+         action set drop-precedence rate {NewRemainingCapacity} mbps burst-size {BURST_SIZE} mbytes
+```
+
+* For bestEffort, SiteRM will configure (always allowing at least 100 Mbps, up to the maximum remaining capacity):
+
+```angular2html
+   class VLAN{VLAN_ID}
+      set traffic-class {TRAFFICCLASSBE}
+      police rate 100 mbps burst-size {BURST_SIZE} mbytes \
+         action set drop-precedence rate {NewRemainingCapacity} mbps burst-size {BURST_SIZE} mbytes
+```
+
+Note: SoftCapped and BestEffort are very similar in that both can reach the maximum remaining capacity of the link (excluding guaranteedCapped request). However, if both compete for bandwidth simultaneously, traffic class prioritization applies (2 vs 4), and BestEffort has lower priority than SoftCapped.
 
 # Allow Switch control for SENSE
 
