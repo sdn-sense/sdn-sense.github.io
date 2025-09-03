@@ -5,6 +5,38 @@
 
 If you encounter failures or issues with SiteRM, this guide provides debugging steps and potential fixes.
 
+## SiteRM Frontend
+
+SiteRM provides a few ways to monitor your endpoints. Each SiteRM Frontend runs Frontend Web UI. You can identify Web UI URL from Git configuration, for example, here is for Caltech: [FE-Config.yaml](https://github.com/sdn-sense/rm-configs/blob/master/T2_US_Caltech/FE/main.yaml#L5).
+
+To access SiteRM Frontend, you need to have your Certificate DN Whitelisted or OIDC Authentication Service credentials. 
+
+- (This is currently default) In case of certificate, access permissions are controlled in Github repository for FE: [Fe-Auth.yaml](https://github.com/sdn-sense/rm-configs/blob/master/T2_US_Caltech/FE/auth.yaml)
+- In case of OIDC, please contact your OIDC Issuer and administrator to create you an account or provide permissions.
+
+![Alt text](documentation/SiteRM-FE.png?raw=true "SiteRM Frontend UI")
+
+SiteRM Frontend Web UI provides a way to monitor Site in real-time, track it's status, connectivity, health of overall system at any given site. Key features:
+
+- Topology - Displays the current network topology, that includes all known switches, servers, enabled pors, WAN connections.
+- Frontend Configuration - Displays current runtime configuration for Frontend and any registered agents. In case of config update, or node removal, this page provides a way to reload configuration (force SiteRM to read new configuration from Github) or delete host.
+- ServiceStates - Show information about each Service running at the site and it's status.
+- Models - View and show latest site Models in MRML, Turtle, Json-ld format. This is a format that represents Sites topology back to SENSE Orchestrator.
+- Deltas - View and track state of all Deltas. Deltas are the submission by SENSE Orchestrator to make changes at the Site, e.g. Create vlan, remove vlan, set ip, etc...
+- Active Requests - Shows SENSE Active requests in Json format.
+- Debugging tools - Allow to request new debug action, like Ping, Traceroute, Arp, Ethr, FDT, Iperf3 tests.
+- Change Active Start/End - Allows to change SENSE Active resource request start/end time. Useful if need to drain site and or some resources were not deleted correctly.
+
+On the Top Right, Web-UI shows System status, by providing brief status overview of Alive,Ready,Readiness,Liveness. Additionally, it provides a link to a Swagger documentation for ALL APIs supported by SiteRM.
+
+## Autogole monitoring and Slack alerts
+
+SENSE team maintains an Autogole monitoring, where each Site has a dedicated dashboard and automated Slack alerts for Site issues. You can find all Sites, and each site status information here: [Autogole monitoring](https://autogole-grafana.nrp-nautilus.io). This webpage requires either Github Authentication (send your gihtub username to SENSE team) or SENSE-O account.
+
+![Alt text](documentation/Autogole-mon.png?raw=true "Autogole Monitoring for T2_US_SDSC")
+
+Some of the errors are described below, but not all. We continue to improve the documentation and expand explanation of error and potential fixes.
+
 ---
 
 ## Kubernetes install issues
@@ -235,5 +267,37 @@ optional arguments:
 - The `exceptactive` option is safe.
 - The `onlyactive` and `all` options are **dangerous**—use with caution.
 - Always validate configurations before applying changes.
+
+---
+
+## Autogole Warning State
+
+### Error Messages
+
+Autogole monitoring shows a warning state for a Service.
+
+### Cause
+
+SiteRM executes multiple validation actions, and there might be many reasons for a warning. Please take a look at your Frontend Service states page, that will give a more detailed error message
+
+### Resolution
+
+Detailed error message is available on Site's Frotend Service states page.
+
+---
+
+## Autogole Critical Errors
+
+### Error Messages
+
+Autogole monitoring shows a critical error.
+
+### Cause
+
+SiteRM executes multiple validation actions, and some errors are considered critical, like: Node down and agent not running, Disk/CPU/Memory overloaded, or many of the errors above (interface down, wrong link port, etc...)
+
+### Resolution
+
+Look at Current active alerts/warnings graph and identify alert state. Autogole monitoring also provides 'SiteRM Component Status (NOT OK)' graph, that status of the Component over time.
 
 ---
