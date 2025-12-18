@@ -1,6 +1,7 @@
+# Operations information
+
 [[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)][[QOS](QoS.md)]
 
-# Information
 
 SiteRM Frontend runs an httpd server and servers html website. You can access it via https://<hostname_of_fe>:<port_of_fe>. It is the same url as defined inside SiteRM configuration general->webdomain.
 
@@ -34,16 +35,108 @@ This can be done under **Frontend Configuration** section on the WEB UI.
 
 SiteRM Frontend allows you to delete host from SiteRM Frontend. This is useful when you want to remove host from SiteRM Frontend, but keep it in the network. This can be done under **Frontend Configuration** section on the WEB UI.
 
-# Ansible tester and cleaner
+# Frontend CLI Commands
 
-To test that ansible plugin is working correctly, you can run the following command:
+**All commands must be executed inside the Frontend container**
 
-* Enter your FE docker/Kubernetes pod container and run the following command: `siterm-ansible-runner`. It has the following options:
-  * -h, --help     show this help message and exit
-  * --printports   Run ansible and print ports for rm-configs.
-  * --dumpconfig   Run ansible and dump configuration received from ansible.
-  * --cleanswitch  Run ansible and print commands to clean switch.
-  * --fulldebug    Run ansible with full debug output.
+## Command siterm-fe-helper
+
+**siterm-fe-helper** - An interactive helper utility for inspecting and managing SiteRM resources from the Frontend container. All commands below are expected to be executed **inside the SiteRM Frontend container shell**.
+
+```bash
+siterm-fe-helper
+--------------------------------------------------
+Available commands:
+--------------------------------------------------
+print-help        : Print all available commands
+print-active      : Print all active resources in SiteRM.
+print-hosts       : Print all hosts information in Frontend
+change-delta      : Change Delta State
+cancel-resource   : Cancel resource in SiteRM.
+cancel-all        : Cancel all active resources in SiteRM.
+exit              : Exit helper script.
+--------------------------------------------------
+Which command you want to execute?
+```
+
+* **print-help** Displays all available helper commands.
+* **print-active** Lists all currently active SiteRM resources.
+* **print-hosts** Shows host-related information known to the Frontend.
+* **change-delta**  Modifies the internal delta state (Used to force re-apply).
+* **cancel-resource** Cancels a specific active resource in SiteRM.
+* **cancel-all** Cancels *all* active resources in SiteRM.
+* **exit** Exits the helper interface.
+
+## Command siterm-ansible-runner
+
+**siterm-ansible-runner** command inside the SiteRM FE container provides a way to run Ansible manually and print full output, configuration, clean switch, or run in full debug mode and see full Ansible output.
+
+```bash
+siterm-ansible-runner -h
+usage: siterm-ansible-runner [-h] [--printports] [--dumpconfig] [--cleanswitch {exceptactive,onlyactive,all}] [--autoapply] [--fulldebug]
+
+SENSE Ansible test runner
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --printports          Run ansible and print ports for rm-configs.
+  --dumpconfig          Run ansible and dump configuration received from ansible.
+  --cleanswitch {exceptactive,onlyactive,all}
+                        Run ansible to clean switch with specified option: 'exceptactive', 'onlyactive', or 'all'.It will not execute on the device, just print the
+                        commands. Default is None.IMPORTANT:While exceptactive is safe to run, onlyactive and all are dangerous and execute only if you know what you are
+                        doing.exceptactive - clean all vlans except active ones/provisioned by SENSE.onlyactive - clean all vlans provisioned by SENSE.all - clean all
+                        vlans.
+  --autoapply           auto apply the configuration to the switch. Only for 'cleanswitch' option.
+  --fulldebug           Run ansible with full debug output.
+```
+
+---
+
+# Frontend and Agent CLI commands
+
+**All commands must be executed inside the Frontend container**
+
+## Liveness check `siterm-liveness`
+
+Kubernetes **liveness probe** checker with an option to enable/disable controls. Used by Kubernetes to determine whether the container should be restarted. If disabled, Kubernetes will not restart container if any liveness checks fail.
+
+```bash
+siterm-liveness [OPTIONS]
+-h, --help       Show help message and exit
+--enable         Enable the liveness check
+--disable        Disable the liveness check
+--ignorelock     Ignore the liveness lock file and run all checks
+                 (useful for debugging failing services)
+```
+
+## Readiness check `siterm-readiness`
+
+Kubernetes **readiness probe** checker with runtime enable/disable controls. Controls whether Kubernetes considers the service *ready to receive traffic*. If disabled, Kubernetes will not restart container if any readiness checks fail.
+
+```bash
+siterm-readiness [OPTIONS]
+-h, --help       Show help message and exit
+--enable         Enable the readiness check
+--disable        Disable the readiness check
+--ignorelock     Ignore the readiness lock file and run all checks
+                 (useful for debugging failing service)
+```
+
+## Log Archiver for Developers `siterm-log-archiver`
+
+Utility command to create a compressed archive of SiteRM logs for support
+
+```bash
+siterm-log-archiver
+```
+
+The script checks for log directories in the following order and archives all of them:
+
+1. `/var/log/siterm-agent/`
+2. `/var/log/siterm-site-fe/`
+3. `/var/log/httpd/`
+
+Finally, creates a `tar.gz` archive of SiteRM logs and stores it in `/tmp/log-YYMMDD.tar.gz`.
 
 # Network devices debugging
 
