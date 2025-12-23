@@ -1,0 +1,569 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.27.3 by Michael Rose
+  Copyright 2013-2025 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Agent Configuration - SDN SENSE</title>
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="SDN SENSE">
+<meta property="og:title" content="Agent Configuration">
+<meta property="og:url" content="http://localhost:4000/customization/configuration-agent/">
+
+
+  <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/customization/configuration-agent/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="SDN SENSE Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          SDN SENSE
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/"
+                
+                
+              >Home Page</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      <nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      
+      
+        <li>
+          
+            <span class="nav__sub-title">Getting Started</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/install-quick-start/">Quick-Start Guide</a></li>
+            
+              <li><a href="/getting-started/install-supported-network-devices/">Supported network devices</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Customization</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/customization/configuration-layout/">Directory Layout</a></li>
+            
+              <li><a href="/customization/configuration-frontend/">Frontend</a></li>
+            
+              <li><a href="/customization/configuration-agent/" class="active">Agent</a></li>
+            
+              <li><a href="/customization/configuration-debugger/">Debugger</a></li>
+            
+              <li><a href="/customization/enable-switch-control/">Enable Switch Control</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Main Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/main-install/frontend/">Frontend</a></li>
+            
+              <li><a href="/main-install/agent/">Agent</a></li>
+            
+              <li><a href="/main-install/debugger/">Debugger</a></li>
+            
+              <li><a href="/main-install/node-exporter/">Node Exporter</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Optional Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/optional-install/software-based-router/">Software Based Router (FRR)</a></li>
+            
+              <li><a href="/optional-install/software-based-router-dpdk/">Software Based Router (FRR) + DPDK</a></li>
+            
+              <li><a href="/optional-install/custom-snmp-exporter/">Custom SNMP Exporter</a></li>
+            
+              <li><a href="/optional-install/dscp-marking/">DSCP Marking Tool</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Operational Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/operational/siterm-operations/">SiteRM Operations</a></li>
+            
+              <li><a href="/operational/common-issues/">Common Issues and Troubleshooting</a></li>
+            
+              <li><a href="/operational/quality-of-service/">Quality of Service (QoS)</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Extras</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/docs/useful-links/">Useful Links</a></li>
+            
+              <li><a href="/docs/publications/">Publications/Presentations</a></li>
+            
+          </ul>
+          
+        </li>
+      
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Agent Configuration">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="http://localhost:4000/customization/configuration-agent/" itemprop="url">Agent Configuration
+</a>
+          </h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="intro">Intro</h2>
+
+<p>As higlighted in <a href="/customization/configuration-layout/">Directory layour</a> page, Agent support only one configuration file inside the configuration directory:</p>
+
+<ul>
+  <li>main.yaml - Main configuration file for Agent;</li>
+</ul>
+
+<p>File must exist in the Agent directory. Directory layout will be:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└── T3_US_SITENAME
+    ├── Agent01 <span class="o">(</span>directory<span class="o">)</span>
+    │   └── main.yaml <span class="o">(</span>file<span class="o">)</span>
+    ├── FE <span class="o">(</span>directory<span class="o">)</span>
+    └── mapping.yaml <span class="o">(</span>file<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Below you will find details for configuration parameters and available options.</p>
+
+<h2 id="agent-configuration-agent01mainyaml">Agent Configuration (<code class="language-plaintext highlighter-rouge">Agent01/main.yaml</code>)</h2>
+
+<h3 id="maingeneral"><code class="language-plaintext highlighter-rouge">MAIN.general</code></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ip</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>IP of the host. This is used as unique identifier for an Agent during registration to the frontend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sitename</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>Sitename in format of <code class="language-plaintext highlighter-rouge">T&lt;level&gt;_&lt;country_2_letter&gt;_&lt;facility_name&gt;</code>. It must match Sitename configured for Frontend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">webdomain</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>Frontend full HTTP URL.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logDir</code></td>
+      <td>No</td>
+      <td><code class="language-plaintext highlighter-rouge">/var/log/siterm-agent/</code></td>
+      <td>Directory for Agent logs.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logLevel</code></td>
+      <td>No</td>
+      <td><code class="language-plaintext highlighter-rouge">INFO</code></td>
+      <td>Logging verbosity (<code class="language-plaintext highlighter-rouge">DEBUG</code>, <code class="language-plaintext highlighter-rouge">INFO</code>, <code class="language-plaintext highlighter-rouge">WARNING</code>, <code class="language-plaintext highlighter-rouge">ERROR</code>, <code class="language-plaintext highlighter-rouge">CRITICAL</code>).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">privatedir</code></td>
+      <td>No</td>
+      <td><code class="language-plaintext highlighter-rouge">/opt/siterm/config/</code></td>
+      <td>Base directory for runtime artifacts.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">node_exporter</code></td>
+      <td>No</td>
+      <td>-</td>
+      <td>Node exporter hostname:port. See <a href="/main-install/node-exporter/">Node Exporter Installation</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="mainagent"><code class="language-plaintext highlighter-rouge">MAIN.agent</code></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">interfaces</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>List of all interfaces for SENSE to control</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">hostname</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>Full qualified hostname</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="mainport_name"><code class="language-plaintext highlighter-rouge">MAIN.&lt;PORT_NAME&gt;</code></h3>
+
+<p>All interfaces listed under <code class="language-plaintext highlighter-rouge">MAIN.agent.interfaces</code> require to have configuration for each port. Port configuration parameters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">switch</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>Name of the switch the host port is connected to</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">port</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>Name of the switch port the host port is connected to</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vlan_range</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>VLAN range per interface for SENSE Control. This tells which VLANs are allowed to be created on the interface by SENSE between one or more ports. Supports comma and dash syntax (<code class="language-plaintext highlighter-rouge">100-200,300</code>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="83-mainqos">8.3 <code class="language-plaintext highlighter-rouge">MAIN.qos</code></h3>
+
+<p>This controls QoS parameters for any SENSE created paths. More detailed QoS behavior defined in <a href="/operational/quality-of-service/">Quality of Service page</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">policy</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>Which policy to use: hostlevel or privatens. In most cases, use hostlevel, if your Host sees all IPs at the host. In case Private network namespaces used, use privatens. See <a href="/operational/quality-of-service/">Quality of Service page</a> for more details</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">qos_params</code></td>
+      <td>No</td>
+      <td><code class="language-plaintext highlighter-rouge">mtu 9000 mpu 9000 quantum 200000 burst 300000 cburst 300000 qdisc sfq balanced</code></td>
+      <td>Quality of service parameters. These are tuned for high-throughput transfers, see this for more details: <a href="/operational/quality-of-service/">Quality of Service page</a> page for more details</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">interfaces</code></td>
+      <td>Yes</td>
+      <td>-</td>
+      <td>list all interfaces that QoS is allowed to be configured. This must include master_intf. In case bridges are used, interface_name and master_intf can be different. SiteRM requires to know which master interface carries the traffic. For more details see <a href="/operational/quality-of-service/">Quality of Service page</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example for QoS configuration:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">qos</span><span class="pi">:</span>
+  <span class="na">policy</span><span class="pi">:</span> <span class="s">hostlevel</span>
+  <span class="na">qos_params</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mtu</span><span class="nv"> </span><span class="s">9000</span><span class="nv"> </span><span class="s">mpu</span><span class="nv"> </span><span class="s">9000</span><span class="nv"> </span><span class="s">quantum</span><span class="nv"> </span><span class="s">200000</span><span class="nv"> </span><span class="s">burst</span><span class="nv"> </span><span class="s">300000</span><span class="nv"> </span><span class="s">cburst</span><span class="nv"> </span><span class="s">300000</span><span class="nv"> </span><span class="s">qdisc</span><span class="nv"> </span><span class="s">sfq</span><span class="nv"> </span><span class="s">balanced"</span>
+  <span class="na">interfaces</span><span class="pi">:</span>
+    <span class="na">ens1f0np0</span><span class="pi">:</span>
+      <span class="na">master_intf</span><span class="pi">:</span> <span class="s">ens1f0np0</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025 <a href="http://localhost:4000">SDN SENSE</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

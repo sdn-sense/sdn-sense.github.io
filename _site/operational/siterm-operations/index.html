@@ -1,0 +1,562 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.27.3 by Michael Rose
+  Copyright 2013-2025 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>SiteRM Operations - SDN SENSE</title>
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="SDN SENSE">
+<meta property="og:title" content="SiteRM Operations">
+<meta property="og:url" content="http://localhost:4000/operational/siterm-operations/">
+
+
+  <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/operational/siterm-operations/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="SDN SENSE Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          SDN SENSE
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/"
+                
+                
+              >Home Page</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      <nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      
+      
+        <li>
+          
+            <span class="nav__sub-title">Getting Started</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/install-quick-start/">Quick-Start Guide</a></li>
+            
+              <li><a href="/getting-started/install-supported-network-devices/">Supported network devices</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Customization</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/customization/configuration-layout/">Directory Layout</a></li>
+            
+              <li><a href="/customization/configuration-frontend/">Frontend</a></li>
+            
+              <li><a href="/customization/configuration-agent/">Agent</a></li>
+            
+              <li><a href="/customization/configuration-debugger/">Debugger</a></li>
+            
+              <li><a href="/customization/enable-switch-control/">Enable Switch Control</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Main Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/main-install/frontend/">Frontend</a></li>
+            
+              <li><a href="/main-install/agent/">Agent</a></li>
+            
+              <li><a href="/main-install/debugger/">Debugger</a></li>
+            
+              <li><a href="/main-install/node-exporter/">Node Exporter</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Optional Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/optional-install/software-based-router/">Software Based Router (FRR)</a></li>
+            
+              <li><a href="/optional-install/software-based-router-dpdk/">Software Based Router (FRR) + DPDK</a></li>
+            
+              <li><a href="/optional-install/custom-snmp-exporter/">Custom SNMP Exporter</a></li>
+            
+              <li><a href="/optional-install/dscp-marking/">DSCP Marking Tool</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Operational Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/operational/siterm-operations/" class="active">SiteRM Operations</a></li>
+            
+              <li><a href="/operational/common-issues/">Common Issues and Troubleshooting</a></li>
+            
+              <li><a href="/operational/quality-of-service/">Quality of Service (QoS)</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Extras</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/docs/useful-links/">Useful Links</a></li>
+            
+              <li><a href="/docs/publications/">Publications/Presentations</a></li>
+            
+          </ul>
+          
+        </li>
+      
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SiteRM Operations">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="http://localhost:4000/operational/siterm-operations/" itemprop="url">SiteRM Operations
+</a>
+          </h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="operations-information">Operations information</h2>
+
+<p>SiteRM Frontend runs an httpd server and servers html website. You can access it via https://<hostname_of_fe>:<port_of_fe>. It is the same url as defined inside SiteRM configuration general-&gt;webdomain.</port_of_fe></hostname_of_fe></p>
+
+<p>Frontend allows you to view and interact with SiteRM, e.g.:</p>
+
+<ul>
+  <li>View topology</li>
+  <li>View Frontend and Agent Configurations;</li>
+  <li>Reload Configuration for frontend or Agent</li>
+  <li>Delete host from SiteRM Frontend;</li>
+  <li>View state of all Services running (on FE and Agents)</li>
+  <li>View latest models and deltas;</li>
+  <li>Request and view debug action’s, like rapid ping, tcpdump, arptable, iperf.</li>
+</ul>
+
+<p>Additionally, all SiteRMs are monitored by Prometheus and Grafana under AUTOGOLE. It can alert you once services are failing or if there are any issues with your SiteRM. It can be accessed here: <a href="https://autogole-grafana.nrp-nautilus.io">URL</a> (Requires github or SENSE authentication - please contact SENSE team to add your git username). Slack Alerts are also sent by Grafana once failure, fix occurs.
+Please join Slack Workspace <a href="https://autogolealarms.slack.com">“Autogole Alarms”</a> Please join at least the channel for your domain, and address problems identified in the alerts as soon as possible. This is a free version of Slack, so messages only visible for last 90 days</p>
+
+<p>Channel Organizations:</p>
+
+<ul>
+  <li>one channel for each Site-RM Domain</li>
+  <li>one channel for each NSI Domain</li>
+  <li>channel for all_nsi_endpoints</li>
+  <li>channel for all_siterm_endpoints</li>
+</ul>
+
+<h2 id="configuration-reload">Configuration reload</h2>
+
+<p>SiteRM by default reloads configuration <strong>every hour</strong> if there is a configuration change.
+SiteRM Frontend and Agent can be reloade manually via Frontend. This is useful when you want to apply new configuration to Frontend or Agent faster than the cycle of automated refresh.
+This can be done under <strong>Frontend Configuration</strong> section on the WEB UI.</p>
+
+<h2 id="delete-host-from-siterm-frontend">Delete host from SiteRM Frontend</h2>
+
+<p>SiteRM Frontend allows you to delete host from SiteRM Frontend. This is useful when you want to remove host from SiteRM Frontend, but keep it in the network. This can be done under <strong>Frontend Configuration</strong> section on the WEB UI.</p>
+
+<h2 id="frontend-cli-commands">Frontend CLI Commands</h2>
+
+<p><strong>All commands must be executed inside the Frontend container</strong></p>
+
+<h2 id="command-siterm-fe-helper">Command siterm-fe-helper</h2>
+
+<p><strong>siterm-fe-helper</strong> - An interactive helper utility for inspecting and managing SiteRM resources from the Frontend container. All commands below are expected to be executed <strong>inside the SiteRM Frontend container shell</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>siterm-fe-helper
+<span class="nt">--------------------------------------------------</span>
+Available commands:
+<span class="nt">--------------------------------------------------</span>
+print-help        : Print all available commands
+print-active      : Print all active resources <span class="k">in </span>SiteRM.
+print-hosts       : Print all hosts information <span class="k">in </span>Frontend
+change-delta      : Change Delta State
+cancel-resource   : Cancel resource <span class="k">in </span>SiteRM.
+cancel-all        : Cancel all active resources <span class="k">in </span>SiteRM.
+<span class="nb">exit</span>              : Exit helper script.
+<span class="nt">--------------------------------------------------</span>
+Which <span class="nb">command </span>you want to execute?
+</code></pre></div></div>
+
+<ul>
+  <li><strong>print-help</strong> Displays all available helper commands.</li>
+  <li><strong>print-active</strong> Lists all currently active SiteRM resources.</li>
+  <li><strong>print-hosts</strong> Shows host-related information known to the Frontend.</li>
+  <li><strong>change-delta</strong>  Modifies the internal delta state (Used to force re-apply).</li>
+  <li><strong>cancel-resource</strong> Cancels a specific active resource in SiteRM.</li>
+  <li><strong>cancel-all</strong> Cancels <em>all</em> active resources in SiteRM.</li>
+  <li><strong>exit</strong> Exits the helper interface.</li>
+</ul>
+
+<h2 id="command-siterm-ansible-runner">Command siterm-ansible-runner</h2>
+
+<p><strong>siterm-ansible-runner</strong> command inside the SiteRM FE container provides a way to run Ansible manually and print full output, configuration, clean switch, or run in full debug mode and see full Ansible output.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>siterm-ansible-runner <span class="nt">-h</span>
+usage: siterm-ansible-runner <span class="o">[</span><span class="nt">-h</span><span class="o">]</span> <span class="o">[</span><span class="nt">--printports</span><span class="o">]</span> <span class="o">[</span><span class="nt">--dumpconfig</span><span class="o">]</span> <span class="o">[</span><span class="nt">--cleanswitch</span> <span class="o">{</span>exceptactive,onlyactive,all<span class="o">}]</span> <span class="o">[</span><span class="nt">--autoapply</span><span class="o">]</span> <span class="o">[</span><span class="nt">--fulldebug</span><span class="o">]</span>
+
+SENSE Ansible <span class="nb">test </span>runner
+
+optional arguments:
+  <span class="nt">-h</span>, <span class="nt">--help</span>            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  <span class="nt">--printports</span>          Run ansible and print ports <span class="k">for </span>rm-configs.
+  <span class="nt">--dumpconfig</span>          Run ansible and dump configuration received from ansible.
+  <span class="nt">--cleanswitch</span> <span class="o">{</span>exceptactive,onlyactive,all<span class="o">}</span>
+                        Run ansible to clean switch with specified option: <span class="s1">'exceptactive'</span>, <span class="s1">'onlyactive'</span>, or <span class="s1">'all'</span>.It will not execute on the device, just print the
+                        commands. Default is None.IMPORTANT:While exceptactive is safe to run, onlyactive and all are dangerous and execute only <span class="k">if </span>you know what you are
+                        doing.exceptactive - clean all vlans except active ones/provisioned by SENSE.onlyactive - clean all vlans provisioned by SENSE.all - clean all
+                        vlans.
+  <span class="nt">--autoapply</span>           auto apply the configuration to the switch. Only <span class="k">for</span> <span class="s1">'cleanswitch'</span> option.
+  <span class="nt">--fulldebug</span>           Run ansible with full debug output.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="frontend-and-agent-cli-commands">Frontend and Agent CLI commands</h2>
+
+<p><strong>All commands must be executed inside the Frontend container</strong></p>
+
+<h2 id="liveness-check-siterm-liveness">Liveness check <code class="language-plaintext highlighter-rouge">siterm-liveness</code></h2>
+
+<p>Kubernetes <strong>liveness probe</strong> checker with an option to enable/disable controls. Used by Kubernetes to determine whether the container should be restarted. If disabled, Kubernetes will not restart container if any liveness checks fail.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>siterm-liveness <span class="o">[</span>OPTIONS]
+<span class="nt">-h</span>, <span class="nt">--help</span>       Show <span class="nb">help </span>message and <span class="nb">exit</span>
+<span class="nt">--enable</span>         Enable the liveness check
+<span class="nt">--disable</span>        Disable the liveness check
+<span class="nt">--ignorelock</span>     Ignore the liveness lock file and run all checks
+                 <span class="o">(</span>useful <span class="k">for </span>debugging failing services<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="readiness-check-siterm-readiness">Readiness check <code class="language-plaintext highlighter-rouge">siterm-readiness</code></h2>
+
+<p>Kubernetes <strong>readiness probe</strong> checker with runtime enable/disable controls. Controls whether Kubernetes considers the service <em>ready to receive traffic</em>. If disabled, Kubernetes will not restart container if any readiness checks fail.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>siterm-readiness <span class="o">[</span>OPTIONS]
+<span class="nt">-h</span>, <span class="nt">--help</span>       Show <span class="nb">help </span>message and <span class="nb">exit</span>
+<span class="nt">--enable</span>         Enable the readiness check
+<span class="nt">--disable</span>        Disable the readiness check
+<span class="nt">--ignorelock</span>     Ignore the readiness lock file and run all checks
+                 <span class="o">(</span>useful <span class="k">for </span>debugging failing service<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="log-archiver-for-developers-siterm-log-archiver">Log Archiver for Developers <code class="language-plaintext highlighter-rouge">siterm-log-archiver</code></h2>
+
+<p>Utility command to create a compressed archive of SiteRM logs for support</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>siterm-log-archiver
+</code></pre></div></div>
+
+<p>The script checks for log directories in the following order and archives all of them:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">/var/log/siterm-agent/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/var/log/siterm-site-fe/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/var/log/httpd/</code></li>
+</ol>
+
+<p>Finally, creates a <code class="language-plaintext highlighter-rouge">tar.gz</code> archive of SiteRM logs and stores it in <code class="language-plaintext highlighter-rouge">/tmp/log-YYMMDD.tar.gz</code>.</p>
+
+<h2 id="network-devices-debugging">Network devices debugging</h2>
+
+<p>In case you want to debug and see all actions performed on your network devices, you can use the following commands:</p>
+
+<ul>
+  <li>Enter your FE docker/Kubernetes pod container and go to this directory <code class="language-plaintext highlighter-rouge">cd /opt/siterm/config/ansible/sense</code></li>
+  <li>Run <code class="language-plaintext highlighter-rouge">python3 test-runner.py</code> to see all actions performed on your network devices (this runs in a full debug mode, and can be very verbose)</li>
+</ul>
+
+<h2 id="in-case-of-issue-with-a-service">In case of issue with a Service</h2>
+
+<ul>
+  <li>Look at the logs of the service. You can access logs via <code class="language-plaintext highlighter-rouge">/var/log/siterm-site-fe/&lt;Service&gt;/api.log</code> or <code class="language-plaintext highlighter-rouge">/var/log/siterm-site-agent/&lt;Service&gt;/api.log</code></li>
+  <li>In case of unknown issue, please create a ticket <a href="https://github.com/sdn-sense/siterm">here</a></li>
+  <li>We might ask you to provide us with the full logs of the service. You can do this by running <code class="language-plaintext highlighter-rouge">siterm-log-archiver</code> on the host where the service is running. This will create a tarball with all logs of the service. Please provide us with this tarball privately (DO NOT UPLOAD TARBALL TO GITHUB)</li>
+</ul>
+
+<h2 id="host-cleaner">Host cleaner</h2>
+
+<p>In case you want to remove all configurations from the host, you can use the following command:</p>
+
+<ul>
+  <li>Enter your FE docker/Kubernetes pod container and run the following command: <code class="language-plaintext highlighter-rouge">siterm-agent-cleaner</code>. It will print all commands to clean all SENSE configurations on the host. Script will not execute any commands, it will only print them.</li>
+</ul>
+
+<h2 id="monitoring-inside-autogole">Monitoring inside Autogole</h2>
+
+<p>All SiteRMs are monitored by Prometheus and Grafana under AUTOGOLE. It can alert you once services are failing or if there are any issues with your SiteRM. It can be accessed here: <a href="https://autogole-grafana.nrp-nautilus.io">URL</a> (Requires github or SENSE-O authentication - please contact SENSE team to add your git username). Slack Alerts are also sent by Grafana once failure, fix occurs.
+In case of a new FE or Agent, please contact SENSE team to add it to the monitoring system. Admin with full privileges <a href="https://github.com/sdn-sense/autogole-monitoring">URL</a> can force resync of the monitoring endpoints and push it prometheus.</p>
+
+<p><img src="http://localhost:4000/images/Autogole-mon.png" alt="alt" title="Autogole monitoring view" /></p>
+
+<h3 id="custom-monitorings">Custom Monitorings</h3>
+
+<p>In case you want to add custom monitoring, please contact SENSE team. We can add custom monitoring to the monitoring system as needed. For example, right now there are few additional tools:</p>
+
+<ul>
+  <li>NSI SNMPMonitor - monitors NSI Domains. This includes ESnet Startdust wrapper, Internet2 OESS wrapper, CENIC SNMP. This can be expanded to other network providers;</li>
+  <li>XrootD Node Exporter - SiteRM monitors node level endpoint, but sometimes for pods you might want to monitor xrootd service. This is done by adding node exporter in your xrootd pod and updating configuration.</li>
+  <li>All custom configs are added manually here: <a href="https://github.com/sdn-sense/autogole-monitoring/blob/main/scripts/default-prometheus-config.yml">URL</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025 <a href="http://localhost:4000">SDN SENSE</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

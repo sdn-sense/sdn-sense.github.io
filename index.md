@@ -1,81 +1,90 @@
-[[Home](index.md)] [[Installation Information](Installation.md)] [[Docker Install](DockerInstallation.md)] [[Kubernetes Install](KubernetesInstallation.md)] [[Configuration Parameters](Configuration.md)] [[Network Control via Ansible](NetControlAnsible.md)] [[Operations](Operations.md)] [[Debuggging](Debugging.md)][[QOS](QoS.md)]
+---
+title: "SDN for End-to-End Networked Science at the Exascale"
+layout: single
+classes: wide
+author_profile: false
+sidebar:
+  nav: "docs"
+---
 
-The overarching goal of SENSE is to enable National Labs and Universities to request and provision end-to-end intelligent network services for their application workflows, leveraging SDN capabilities. Our approach is to design network abstractions and an operating framework to allow host, LAN, and WAN auto-configurations based on infrastructure policy constraints designed to meet end-to-end service requirements.
+Domain science applications and workflow processes are currently forced to view the network as an opaque infrastructure into which they inject data and hope that it emerges at the destination with an acceptable Quality of Experience.  There is little ability for applications to interact with the network to exchange information, negotiate performance parameters, discover expected performance metrics, or receive status/troubleshooting information in real time.  
 
-We are working on a comprehensive approach that combines deployment of SDN infrastructure across multiple labs/campuses and WAN with a focus on usability, performance and resilience through:
-Policy-guided end-to-end orchestration of network resources, in a manner coordinated with the science programs’ systems that provide real time orchestration of computing and storage resources.
-Auto-provisioning of network devices and SiteRM Agents (SiteRM-Agent);
-Intent-based, real time application interfaces providing intuitive access by Virtual Organization (VO) services and managers to intelligent SDN services;
-Network real time measurement, analytics and feedback to build resilience, and provide the foundation for coordination between the SENSE intelligent network services, and the science programs’ system services.
+The Software-Defined Network for End-to-end Networked Science at Exascale (SENSE) system is motivated by a vision for a new smart network and smart application ecosystem that will provide a more deterministic and interactive environment for domain science workflows.  The Software-Defined Network for End-to-end Networked Science at Exascale (SENSE) system includes a model-based architecture, implementation, and deployment which enables automated end-to-end network service instantiation across administrative domains.  
 
-An important feature of SENSE is a coherent, responsive and adaptive end-to-end administration and management solution for SENSE Orchestrator and Resource Managers.  These features must support sufficient quality assurance and reliability to provide a high level of workflow efficiency in concert with the science program services, and a reasonable Quality of Experience (QoE) for any administrator of this highly distributed environment. This includes all aspects of a virtualized service lifecycle including:
-Resource Reservation Phase;
-Resource Setup/Teardown Phase;
-Resource usage Phase;
-Post Processing/Analysis.
-
-Coordination with the Intent and Rendering Service and all components of the solution is a key aspect to driving coherent collection and correlation of service-related events during all phases of the service lifecycle. This information will need to be made available to the Intent and Rendering Service for correlation to orchestrated services that may have been impacted.
-
-This is a key part of any production service offered to an end-user, and one that is often ignored. The SENSE project will investigate the right components to monitor and the metrics to determine the appropriate health of the component.
-
-This Product (Application) requirements document contains description about the Resource Managers and Orchestrator, the requirements for coherent end-to-end monitoring, their measurements and management of this service.
-
-![Alt text](documentation/SENSE-Architecture.png?raw=true "SENSE Architecture")
+An intent based interface allows applications to express their high-level service requirements, an intelligent orchestrator and resource control systems allow for custom tailoring of scalability and real-time responsiveness based on individual application and infrastructure operator requirements.  This allows the science applications to manage the network as a first-class schedulable resource as is the current practice for instruments, compute, and storage systems.
 
 # SENSE Architeture
 
-In the SENSE Architecture there are two distinct functional roles: Orchestrators and Resource Managers. The interaction between Orchestrator(s) and Resource Manager(s) follows a hierarchical workflow structure whereby of the Orchestrator accepts requests from users, user applications, and science program-operated management services and determines the appropriate Resource Managers to contact and coordinate the End-To-End service request.  Resource Managers (RMs) are (administrative or technology) domain specific and are responsible for committing and managing local resources. In further section, we describe SiteRM Resource manager;
+In the SENSE Architecture there are three distinct functional roles:
 
-# SiteRM Resource Manager
+- **Orchestrators** – accept user and workflow intents, perform end-to-end planning, and coordinate provisioning over multiple domains
+- **Resource Managers (RMs)** – manage and commit resources within a single administrative domain
+- **Addons** – capability-specific extensions that augment orchestration (e.g., Real-Time Monitoring dashboards, Container Runtime, Janus controller)
 
-A SiteRM (RM) is a server that constitutes the endpoint of a data transfer. From the scientific application point of view, DTNs are the source and destination of the data. In the context of SENSE and SDN in general, a few important DTN features are important. They are described in the following list:
+![alt]({{ site.url }}{{ site.baseurl }}/images/sense-arch.png "SENSE Architecture")
 
-Flow Termination: The ability to terminate a (known, trusted) flow, for example on a DTN or other Science DMZ end-point. Flow Termination involves the termination of a flow and consumption of the flow packets by an application or NFV process. The DTNs are a typical flow termination point.
 
-Future flow termination points may include NFV based routers for integration of Science DMZ flows with campus and science program-managed infrastructures, storage systems, NAT services, application specific codes, or other value added services.
+Traditional scientific workflows interact with the network blindly. Applications inject data and hope the network behaves well enough. When performance degrades, it is unclear whether the cause is the network, the host, the storage system, or the application itself.
 
-End system configurations and monitoring need to be integrated into the overall End-To-End service orchestration. This is made programmable by creating an instance of the cluster groups that focuses on hosts, and contains policies to manage such configurations by the DTN administrator. Higher level monitoring SiteRM Agents also have software agents running on the end-system that communicate with the SENSE-Orchestrator controller, and automates Layer 2 and Layer 3 configurations; For example, switching traffic through Open vSwitch and later other local site cluster SDN-capable controllers. These configurations include VLANs, IP Addresses, data transfer protocols, host pacing and other feature sets which are needed as part of application processes.
+SENSE addresses this by introducing:
 
-The DTN Resource Manager provides information with regards to switch and host system specs, OS, software configuration of the system, etc. in MRML format. This allows external users/applications within SENSE to obtain the necessary details for understanding the capability offered by the DTN. 
+- **Intent-based requests** from applications and workflows
+- **Automated orchestration** across administrative domains
+- **Real-time visibility and control** of network and end-system behavior
 
-In addition to this information which is static, i.e. does not vary over time (or varies infrequently), it also exposes real time information about the state of the DTN, such as the load on the server and network, etc. In the following sections we also describe other information that will be exposed, such as info about the profiling of the system and applications.
+Within this architecture, **SiteRM** is the component that makes *site-local reality* visible, controllable, and enforceable.
 
-An end-host agent will be present on the DTN to provide a complete profile of the end-system in terms of its performance and various (CPU, IO, storage) load levels, updated in real time. This is needed to monitor and track end-system health, to match  network performance to the (loaded) expected capability and, where needed, to distinguish network problems from end-host problems in case the achievable throughput is degraded.
+## SiteRM Resource Manager
 
-# Architecture and Implementation Plans
 
-![Alt text](documentation/dtnrm-architecture.png?raw=true "SiteRM Resource Manager Architecture")
-SiteRM Architecture diagram explanation (from bottom to top):
+![alt]({{ site.url }}{{ site.baseurl }}/images/sense-detail-arch.png "SENSE Detailed Architecture")
 
-* SiteRM Agent consist several components, which are responsible for the following actions:
-  * Pluggable Service Layer implementation allows to plug-in new component through recurring action mechanism. By default, component has these plug-ins available:
-    * **System Statistics** - Information about CPU (*lscpu*), Memory (*/proc/meminfo*) and Storage information (*df --output=source,fstype,itotal,iused,iavail,ipcent,size,used,avail,pcent,target*);
-    * **Network Statistics** plugin gathers all information about NIC interfaces, like: *family, address, netmask, broadcast, ptp, bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout, type, txqueulen*;
-    * Application Statistics plugin stores information about these application configurations: GridFTP, FDT, XRootD, HTCondor-CE.
-  * Every plugin also gathers its own historical information about usage from Monitoring Application and prepares consolidated values for these ranges (**1 minute, 15minutes, 1hour, 6hours, 12hours**). After each information gathering iteration, Site-RM Agent sends all collected information (JSON format) to Site Frontend for MRML schema preparation.
-  * **Ruler Component** queries Site Frontend for any state or system change or specific action, which is approved at the Site Level Frontend as allowed action.
-  * **Real Time Monitoring** component monitors all system statistics, usage and stores this information in Time Series database. Also, it provides a Restful interface for getting specific metric information and HTML based web page for debugging. Restful API interface and HTML web page is accessible through **Site Frontend Forwarding Service**.
-  * **QOS (Quality of Service)** makes sure that appended policies are respected, does traffic shaping, make sure resource requests do not overcommit what was requested. In case policy request neglect or overcommit requested resources, **Site Level Frontend** is informed and action is taken.
+SiteRM is the **site-level resource manager** within the **SENSE (Software-Defined Network for End-to-End Networked Science at Exascale)** ecosystem. It provides the missing link between *global intent* expressed by orchestrators and *concrete, enforceable actions* on real sites infrastructure: hosts, switches.
 
-* **Site Frontend** is a gateway for any information consumer or action appender to specific SiteRM agent. More detailed components:
-  * **GUI - Graphical user interface** about Site Topology, all Site Resources, their capabilities, statistics, pending and committed actions.
-  * **Restful API** accepts action updates from higher level services (etc.: **Orchestrator, Global Frontend**) and also accepts JSON information about their statistics from all **SiteRM Agents**.
-  * **LookUp Service** is responsible for gathering, analyzing and preparing MRML schema about all Site SiteRM Agents. In case update is not received for a specified time range, **Notification Service** is informed about situation.
-  * **Real Time Monitoring** Component responsibilities are the same as in **SiteRM Agent**, to monitor all system statistics, usage and store all information in **Time Series database**. Also, as **SiteRM Agent**, it provides Restful interface and HTML web page accessible through **Forwarding Service**.
-  * **Notification Service** informs Site Administrators by sending an email about occured action updates, system instabilities, usage, failures.
-  * **Forwarding Service** works as a proxy to access monitoring Restful interface, HTML web pages and also Repository information. **Site Frontend** is also able to forward a request to any **SiteRM Agent** (No actions or status updates are forwarded directly to **Site Agents**).
-  * **Policy Service** responds to user requested deltas and state changes.
-  * **Provisioning Service** keeps all information about stored future deltas and reservations. Whenever specific time is reached for delta request is forwarded to Site **SiteRM Agent**. Also, it is responsible for the following actions:
-    * Prepare information about the all switches and links. Also it provides all statistics about possible vlan ranges;
-    * Apply rules to a specific controller. There are two main controllers currently being developed: Static vlans and OVS.
+The core idea: **Treat the network and end systems as first-class, schedulable resources**, just like compute and storage. SiteRM exists to make that idea operational in multi-domain context.
 
-* **Time Series Database** accepts all information updates from all components and stores them in database. Values stored in database are consolidated to minimize database size. To review historical information, Time Series Database provides Restful interface and HTML web page for debugging purposes. All of this information is accessible through Forwarding Service.
 
-* **Higher level Service** is running a **Top FE (Top Frontend)** which is nearly similar to the **Site Frontend** functionality. Any **Site Level Frontend** can register to one higher level frontend, which allows to keep a track of all available Sites and their SiteRM Agents. Site Frontend has to register only with one Top Frontend, and in case there are multiple Top FEs, they share this information through Restful APIs and make sure that each Frontend knows about all Sites. Top Frontend is not running these components: Policy Service and Provisioning Service because these functions are handled in the Site Frontend components. This architecture and expansion allows not to have any Single point of failure and make sure that any instabilities are visible right away. Some differences between Top Frontend and **Site Frontend**:
-  * **GUI (Graphical User Interface)** provides a map with site endpoints and links (Global Topology) between them. More higher level statistics about failures on Sites, links and also forwarding links to Site Frontend.
-Addition to Top Frontend is that it keeps a track of all Sites and their available resources. (Site Frontend keeps track of all SiteRM Agents)
-  * **LookUp Service** is responsible for gathering, analyzing and preparing MRML schema from all Site Frontends (Site Frontend - from SiteRM Agents). In case update is not received for a specified time range, Notification Service is informed about situation.
-  * **Notification Service** informs higher level administrators by sending an email about occured action updates, system instabilities, usage, failures. Also, same information is sent to Site Administrator.
-  * **Forwarding Service** works as a proxy to access monitoring Restful interface, HTML web pages and also Repository information. Top Frontend is also able to forward any request to any Site Frontend, which can be also an action request or status update for the Site.
-* **Time Series Database** accepts all information updates from all components and stores them in database. Also it accepts any historical information from other Time Series Database, and filters values which to store in database.  Values stored in database are consolidated to minimize database size. To review historical information, Time Series Database provides Restful interface and HTML web page for debugging purposes. All of this information is accessible through Forwarding Service.
-* **Authorization and Authentication** will use **X509 and Grid-based certificate requirement**. In order to guarantee strong security, for any HTTPS based configuration it also has `Strict-Transport-Security` option mandatory. The authentication and authorization part is done in the way that it has several options to choose at each level what actions are allowed for a given user. By default, any Frontend described in this document will require 2 ports open in firewall: 443, 8443.
+## What SiteRM Is (and Is Not)
+
+**SiteRM is:**
+
+- A site-controlled service that exposes capabilities, state, and policy to SENSE Orchetrator
+- An execution point for approved configuration changes on the network and host devices
+- A monitoring and telemetry source for hosts and networks
+- A policy enforcement layer protecting site resources based on administrator policies
+
+**SiteRM is not:**
+
+- A global scheduler
+- A user-facing workflow engine
+- A replacement for batch systems, SDN controllers
+
+## SiteRM Components
+
+SiteRM is modular. At a minimum, it consists of three cooperating components usually running at the Sites:
+
+### 1. SiteRM Frontend (FE)
+
+The **SiteRM Frontend** is the authoritative control and visibility plane for a site. The Frontend is the *only* component that external systems talk to directly. It is responsible for:
+
+- Expose REST APIs for Orchestrator(s)
+- Maintain site policy and authorization information
+- Aggregate and normalize telemetry
+- Produce MRML Model and accept Delta (Model changes)
+- Accept, Check, Deny/Approve configuration actions before execution
+- Interface with local site controllers and network devices (e.g., OVS, Switches, Software Based Routers)
+- Accept Debug actions (Ping, Traceroute, IPerf, tcpdump, arp)
+
+### 2. SiteRM Agent
+
+The **SiteRM Agent** runs on the resources it manages (data transfer nodes, storage nodes, compute nodes). Agents never act autonomously. Every action is explicitly approved and dispatched by the Frontend. It is responsible for:
+
+- Collect detailed system and network telemetry
+- Execute approved configuration changes from SiteRM Frontend (Create/Delete vlan, Add/Remove IP)
+- Enforce QoS and traffic policies
+
+---
+
+### 3. SiteRM Debugger
+
+The **SiteRM Debugger** provides observability and introspection. Debugger never act's on its own. All debug actions come from the Frontend. it is responsible for action execution on the host. The Debugger is critical for distinguishing **network problems from host or application problems**. TODO: ADD Link to Debugger Actions for more details.

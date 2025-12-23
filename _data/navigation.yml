@@ -1,0 +1,68 @@
+main:
+  - title: "Home Page"
+    url: /
+  - title: "Posts"
+    url: /posts/
+
+docs:
+  - title: Getting Started
+    children:
+      - title: "Quick-Start Guide"
+        url: /install-quick-start/
+      - title: "Supported network devices"
+        url: /getting-started/install-supported-network-devices/
+ #     - title: "Installation"
+ #       url: /docs/installation/
+ #     - title: "Upgrading"
+ #       url: /docs/upgrading/
+
+  - title: Customization
+    children:
+      - title: "Directory Layout"
+        url: "/customization/configuration-layout/"
+      - title: "Frontend"
+        url: "/customization/configuration-frontend/"
+      - title: "Agent"
+        url: "/customization/configuration-agent/"
+      - title: "Debugger"
+        url: "/customization/configuration-debugger/"
+      - title: "Enable Switch Control"
+        url: "/customization/enable-switch-control/"
+
+  - title: "Main Installation Guides"
+    children:
+      - title: "Frontend"
+        url: /main-install/frontend/
+      - title: "Agent"
+        url: /main-install/agent/
+      - title: "Debugger"
+        url: /main-install/debugger/
+      - title: "Node Exporter"
+        url: /main-install/node-exporter/
+    
+  - title: "Optional Installation Guides"
+    children:
+      - title: "Software Based Router (FRR)"
+        url: /optional-install/software-based-router/
+      - title: "Software Based Router (FRR) + DPDK"
+        url: /optional-install/software-based-router-dpdk/
+      - title: "Custom SNMP Exporter"
+        url: /optional-install/custom-snmp-exporter/
+      - title: "DSCP Marking Tool"
+        url: /optional-install/dscp-marking/
+
+  - title: Operational Guides
+    children:
+      - title: "SiteRM Operations"
+        url: /operational/siterm-operations/
+      - title: "Common Issues and Troubleshooting"
+        url: /operational/common-issues/
+      - title: "Quality of Service (QoS)"
+        url: /operational/quality-of-service/
+
+  - title: Extras
+    children:
+      - title: "Useful Links"
+        url: /docs/useful-links/
+      - title: "Publications/Presentations"
+        url: /docs/publications/

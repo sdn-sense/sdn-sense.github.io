@@ -1,0 +1,481 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.27.3 by Michael Rose
+  Copyright 2013-2025 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>SDN for End-to-End Networked Science at the Exascale - SDN SENSE</title>
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="SDN SENSE">
+<meta property="og:title" content="SDN for End-to-End Networked Science at the Exascale">
+<meta property="og:url" content="http://localhost:4000/">
+
+
+  <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/">
+
+
+
+
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+    "name": null,
+    "url": "http://localhost:4000/"
+}
+</script>
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="SDN SENSE Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          SDN SENSE
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/"
+                
+                
+              >Home Page</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      <nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      
+      
+        <li>
+          
+            <span class="nav__sub-title">Getting Started</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/install-quick-start/">Quick-Start Guide</a></li>
+            
+              <li><a href="/getting-started/install-supported-network-devices/">Supported network devices</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Customization</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/customization/configuration-layout/">Directory Layout</a></li>
+            
+              <li><a href="/customization/configuration-frontend/">Frontend</a></li>
+            
+              <li><a href="/customization/configuration-agent/">Agent</a></li>
+            
+              <li><a href="/customization/configuration-debugger/">Debugger</a></li>
+            
+              <li><a href="/customization/enable-switch-control/">Enable Switch Control</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Main Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/main-install/frontend/">Frontend</a></li>
+            
+              <li><a href="/main-install/agent/">Agent</a></li>
+            
+              <li><a href="/main-install/debugger/">Debugger</a></li>
+            
+              <li><a href="/main-install/node-exporter/">Node Exporter</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Optional Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/optional-install/software-based-router/">Software Based Router (FRR)</a></li>
+            
+              <li><a href="/optional-install/software-based-router-dpdk/">Software Based Router (FRR) + DPDK</a></li>
+            
+              <li><a href="/optional-install/custom-snmp-exporter/">Custom SNMP Exporter</a></li>
+            
+              <li><a href="/optional-install/dscp-marking/">DSCP Marking Tool</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Operational Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/operational/siterm-operations/">SiteRM Operations</a></li>
+            
+              <li><a href="/operational/common-issues/">Common Issues and Troubleshooting</a></li>
+            
+              <li><a href="/operational/quality-of-service/">Quality of Service (QoS)</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Extras</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/docs/useful-links/">Useful Links</a></li>
+            
+              <li><a href="/docs/publications/">Publications/Presentations</a></li>
+            
+          </ul>
+          
+        </li>
+      
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SDN for End-to-End Networked Science at the Exascale">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="http://localhost:4000/" itemprop="url">SDN for End-to-End Networked Science at the Exascale
+</a>
+          </h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Domain science applications and workflow processes are currently forced to view the network as an opaque infrastructure into which they inject data and hope that it emerges at the destination with an acceptable Quality of Experience.  There is little ability for applications to interact with the network to exchange information, negotiate performance parameters, discover expected performance metrics, or receive status/troubleshooting information in real time.</p>
+
+<p>The Software-Defined Network for End-to-end Networked Science at Exascale (SENSE) system is motivated by a vision for a new smart network and smart application ecosystem that will provide a more deterministic and interactive environment for domain science workflows.  The Software-Defined Network for End-to-end Networked Science at Exascale (SENSE) system includes a model-based architecture, implementation, and deployment which enables automated end-to-end network service instantiation across administrative domains.</p>
+
+<p>An intent based interface allows applications to express their high-level service requirements, an intelligent orchestrator and resource control systems allow for custom tailoring of scalability and real-time responsiveness based on individual application and infrastructure operator requirements.  This allows the science applications to manage the network as a first-class schedulable resource as is the current practice for instruments, compute, and storage systems.</p>
+
+<h1 id="sense-architeture">SENSE Architeture</h1>
+
+<p>In the SENSE Architecture there are three distinct functional roles:</p>
+
+<ul>
+  <li><strong>Orchestrators</strong> – accept user and workflow intents, perform end-to-end planning, and coordinate provisioning over multiple domains</li>
+  <li><strong>Resource Managers (RMs)</strong> – manage and commit resources within a single administrative domain</li>
+  <li><strong>Addons</strong> – capability-specific extensions that augment orchestration (e.g., Real-Time Monitoring dashboards, Container Runtime, Janus controller)</li>
+</ul>
+
+<p><img src="http://localhost:4000/images/sense-arch.png" alt="alt" title="SENSE Architecture" /></p>
+
+<p>Traditional scientific workflows interact with the network blindly. Applications inject data and hope the network behaves well enough. When performance degrades, it is unclear whether the cause is the network, the host, the storage system, or the application itself.</p>
+
+<p>SENSE addresses this by introducing:</p>
+
+<ul>
+  <li><strong>Intent-based requests</strong> from applications and workflows</li>
+  <li><strong>Automated orchestration</strong> across administrative domains</li>
+  <li><strong>Real-time visibility and control</strong> of network and end-system behavior</li>
+</ul>
+
+<p>Within this architecture, <strong>SiteRM</strong> is the component that makes <em>site-local reality</em> visible, controllable, and enforceable.</p>
+
+<h2 id="siterm-resource-manager">SiteRM Resource Manager</h2>
+
+<p><img src="http://localhost:4000/images/sense-detail-arch.png" alt="alt" title="SENSE Detailed Architecture" /></p>
+
+<p>SiteRM is the <strong>site-level resource manager</strong> within the <strong>SENSE (Software-Defined Network for End-to-End Networked Science at Exascale)</strong> ecosystem. It provides the missing link between <em>global intent</em> expressed by orchestrators and <em>concrete, enforceable actions</em> on real sites infrastructure: hosts, switches.</p>
+
+<p>The core idea: <strong>Treat the network and end systems as first-class, schedulable resources</strong>, just like compute and storage. SiteRM exists to make that idea operational in multi-domain context.</p>
+
+<h2 id="what-siterm-is-and-is-not">What SiteRM Is (and Is Not)</h2>
+
+<p><strong>SiteRM is:</strong></p>
+
+<ul>
+  <li>A site-controlled service that exposes capabilities, state, and policy to SENSE Orchetrator</li>
+  <li>An execution point for approved configuration changes on the network and host devices</li>
+  <li>A monitoring and telemetry source for hosts and networks</li>
+  <li>A policy enforcement layer protecting site resources based on administrator policies</li>
+</ul>
+
+<p><strong>SiteRM is not:</strong></p>
+
+<ul>
+  <li>A global scheduler</li>
+  <li>A user-facing workflow engine</li>
+  <li>A replacement for batch systems, SDN controllers</li>
+</ul>
+
+<h2 id="siterm-components">SiteRM Components</h2>
+
+<p>SiteRM is modular. At a minimum, it consists of three cooperating components usually running at the Sites:</p>
+
+<h3 id="1-siterm-frontend-fe">1. SiteRM Frontend (FE)</h3>
+
+<p>The <strong>SiteRM Frontend</strong> is the authoritative control and visibility plane for a site. The Frontend is the <em>only</em> component that external systems talk to directly. It is responsible for:</p>
+
+<ul>
+  <li>Expose REST APIs for Orchestrator(s)</li>
+  <li>Maintain site policy and authorization information</li>
+  <li>Aggregate and normalize telemetry</li>
+  <li>Produce MRML Model and accept Delta (Model changes)</li>
+  <li>Accept, Check, Deny/Approve configuration actions before execution</li>
+  <li>Interface with local site controllers and network devices (e.g., OVS, Switches, Software Based Routers)</li>
+  <li>Accept Debug actions (Ping, Traceroute, IPerf, tcpdump, arp)</li>
+</ul>
+
+<h3 id="2-siterm-agent">2. SiteRM Agent</h3>
+
+<p>The <strong>SiteRM Agent</strong> runs on the resources it manages (data transfer nodes, storage nodes, compute nodes). Agents never act autonomously. Every action is explicitly approved and dispatched by the Frontend. It is responsible for:</p>
+
+<ul>
+  <li>Collect detailed system and network telemetry</li>
+  <li>Execute approved configuration changes from SiteRM Frontend (Create/Delete vlan, Add/Remove IP)</li>
+  <li>Enforce QoS and traffic policies</li>
+</ul>
+
+<hr />
+
+<h3 id="3-siterm-debugger">3. SiteRM Debugger</h3>
+
+<p>The <strong>SiteRM Debugger</strong> provides observability and introspection. Debugger never act’s on its own. All debug actions come from the Frontend. it is responsible for action execution on the host. The Debugger is critical for distinguishing <strong>network problems from host or application problems</strong>. TODO: ADD Link to Debugger Actions for more details.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025 <a href="http://localhost:4000">SDN SENSE</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

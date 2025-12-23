@@ -1,0 +1,509 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.27.3 by Michael Rose
+  Copyright 2013-2025 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Enable Switch Control - SDN SENSE</title>
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="SDN SENSE">
+<meta property="og:title" content="Enable Switch Control">
+<meta property="og:url" content="http://localhost:4000/customization/enable-switch-control/">
+
+
+  <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/customization/enable-switch-control/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="SDN SENSE Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          SDN SENSE
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/"
+                
+                
+              >Home Page</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      <nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      
+      
+        <li>
+          
+            <span class="nav__sub-title">Getting Started</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/install-quick-start/">Quick-Start Guide</a></li>
+            
+              <li><a href="/getting-started/install-supported-network-devices/">Supported network devices</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Customization</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/customization/configuration-layout/">Directory Layout</a></li>
+            
+              <li><a href="/customization/configuration-frontend/">Frontend</a></li>
+            
+              <li><a href="/customization/configuration-agent/">Agent</a></li>
+            
+              <li><a href="/customization/configuration-debugger/">Debugger</a></li>
+            
+              <li><a href="/customization/enable-switch-control/" class="active">Enable Switch Control</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Main Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/main-install/frontend/">Frontend</a></li>
+            
+              <li><a href="/main-install/agent/">Agent</a></li>
+            
+              <li><a href="/main-install/debugger/">Debugger</a></li>
+            
+              <li><a href="/main-install/node-exporter/">Node Exporter</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Optional Installation Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/optional-install/software-based-router/">Software Based Router (FRR)</a></li>
+            
+              <li><a href="/optional-install/software-based-router-dpdk/">Software Based Router (FRR) + DPDK</a></li>
+            
+              <li><a href="/optional-install/custom-snmp-exporter/">Custom SNMP Exporter</a></li>
+            
+              <li><a href="/optional-install/dscp-marking/">DSCP Marking Tool</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Operational Guides</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/operational/siterm-operations/">SiteRM Operations</a></li>
+            
+              <li><a href="/operational/common-issues/">Common Issues and Troubleshooting</a></li>
+            
+              <li><a href="/operational/quality-of-service/">Quality of Service (QoS)</a></li>
+            
+          </ul>
+          
+        </li>
+      
+        <li>
+          
+            <span class="nav__sub-title">Extras</span>
+          
+
+          
+          <ul>
+            
+              <li><a href="/docs/useful-links/">Useful Links</a></li>
+            
+              <li><a href="/docs/publications/">Publications/Presentations</a></li>
+            
+          </ul>
+          
+        </li>
+      
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Enable Switch Control">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="http://localhost:4000/customization/enable-switch-control/" itemprop="url">Enable Switch Control
+</a>
+          </h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="allow-switch-control-for-sense">Allow Switch control for SENSE</h2>
+
+<p>Each switch for SENSE to control, must be added to Sites configuration Frontend <code class="language-plaintext highlighter-rouge">main.yaml</code> file. Few important notes:</p>
+
+<ul>
+  <li>Define all switch names under Site -&gt; switch. (Name must match same name defined inside the ansible configuration)</li>
+  <li>If LLDP is enabled on the switches - you do not need to make individual links (isAlias) between them. isAlias in most cases mainly needed for pointer to Network Resource manager STP.
+ <strong>NOTE: isAlias is needed for PortChannels and LAGs.</strong></li>
+  <li>if allports flag set to True - it will include all switch ports, except the ones listed inside the <code class="language-plaintext highlighter-rouge">ports_ignore</code> list under Frontend <code class="language-plaintext highlighter-rouge">main.yaml</code> file.</li>
+  <li>if allports flag set to False - it will only include ports listed inside <code class="language-plaintext highlighter-rouge">ports</code> list under Frontend <code class="language-plaintext highlighter-rouge">main.yaml</code> file.</li>
+  <li>Each port can override any additional parameters via configuration file <code class="language-plaintext highlighter-rouge">main.yaml</code>. For example, to override allowed <code class="language-plaintext highlighter-rouge">vlan_range</code> per port:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"</span><span class="s">Ethernet</span><span class="nv"> </span><span class="s">1/1/30"</span><span class="err">:</span>
+  <span class="na">vlan_range</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">3985-3989</span><span class="pi">,</span><span class="nv">3610</span><span class="pi">,</span><span class="nv">3611</span><span class="pi">,</span><span class="nv">3612</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>Please refer to <a href="/customization/configuration-frontend/">Frontend Configuration parameters</a> for more options. More examples are available in the <a href="https://github.com/sdn-sense/rm-configs">Github repo</a></p>
+
+<h2 id="configuration-for-ansible-control">Configuration for ansible control</h2>
+
+<p><strong>IMPORTANT: Do not upload ansible configuration file to any public repos.</strong></p>
+
+<p>Notes:</p>
+
+<ul>
+  <li>If you installed Site-RM using siterm-startup git repo - you need to prepare <code class="language-plaintext highlighter-rouge">fe/conf/etc/ansible-conf.yaml</code>. Based on your device(s) - look for examples below.</li>
+  <li>Ansible can be configured to use SSH-Password and SSH-PrivKey authentication. Documentation below explains both methods.</li>
+  <li><strong>Switch defined inside the Ansible inventory file will not be represented in topology - unless it is explicitly mentioned inside the configuration for Site <a href="https://github.com/sdn-sense/rm-configs">here</a></strong></li>
+  <li><strong>IMPORTANT</strong> If your network device accepts only SSH via IPv6 (and Site-RM install uses docker) - docker is known to have issues with IPv6. Please use “-n host” for frontend container startup.</li>
+  <li><strong>IMPORTANT</strong> Ports in SENSE control on the network device, must be in trunk mode and not use access vlan. Use native vlan for traffic without vlan tag.</li>
+  <li><strong>IMPORTANT</strong> Cisco NX OS9 and Arista EOS devices require to have empty list of allowed vlans (or any other vlans not controlled by SENSE). Please make sure SENSE controlled ports have <code class="language-plaintext highlighter-rouge">switchport trunk allowed vlan &lt;none|or any other non sense controlled vlans&gt;</code> parameter.</li>
+  <li><strong>IMPORTANT</strong> If you use Dell OS9 and <code class="language-plaintext highlighter-rouge">rate_limit: True</code> - Dell OS 9 allows maximum 3 rate limits per port. If you have more than 3 rate limits per port - you will get an error. Please make sure to remove rate limits which are not needed. SENSE does not limit of how many rate limits can be set on the port.</li>
+  <li><strong>IMPORTANT</strong> If you use Arista EOS devices, max_policy_rate is 268Gbps. Please confirm this on the device before enabling rate_limit flag.</li>
+</ul>
+
+<h2 id="general-ansible-configuration-template-file">General ansible configuration template file</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">inventory</span><span class="pi">:</span>
+  <span class="na">dellos9_s0</span><span class="pi">:</span> <span class="c1"># This name must match same name inside Site configuration main.yaml file</span>
+    <span class="na">network_os</span><span class="pi">:</span> <span class="s">&lt;NETWORK_OS_BASED_ON_MODEL_SEE_BELOW&gt;</span>
+    <span class="na">host</span><span class="pi">:</span> <span class="s">192.168.1.1</span> <span class="c1"># Change this to IP of the device</span>
+    <span class="c1"># One of two (pass or sshkey) must be defined. Defining both or none with result in failure.</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">&lt;Change to user which will be used to access device&gt;</span>
+    <span class="na">pass</span><span class="pi">:</span> <span class="s">&lt;Change To password if using password. Remove if using sshkey&gt;</span>
+    <span class="na">sshkey</span><span class="pi">:</span> <span class="s">&lt;Change to ssh key path, if using sshkey. See Section 'How to use SSH Keys' on path location. Remove if using pass&gt;</span>
+    <span class="na">become</span><span class="pi">:</span> <span class="s">&lt;true|false|0|1&gt;</span> <span class="c1"># Change it to true or false if it is required to use become feature on your network device.</span>
+    <span class="na">ssh_common_args</span><span class="pi">:</span> <span class="s">&lt;Change to ssh common args if needed. For example -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q  username@jump.host.net -i &lt;sshkey&gt;" Will allow to use jump host&gt;</span>
+    <span class="na">snmp_params</span><span class="pi">:</span>
+      <span class="na">session_vars</span><span class="pi">:</span>
+        <span class="c1"># See 'How to enable SNMP' section for supported parameters</span>
+        <span class="na">community</span><span class="pi">:</span> <span class="s">&lt;SNMP COMMUNITY&gt;</span>
+        <span class="na">hostname</span><span class="pi">:</span> <span class="s">&lt;SNMP HOSTNAME&gt;</span>
+        <span class="s">&lt;ANY_OTHER_SNMP_METADATA_PARAMS&gt;</span>
+</code></pre></div></div>
+
+<h2 id="plugin-configuration-options">Plugin configuration options</h2>
+
+<h3 id="network-os-selection">Network OS Selection</h3>
+
+<ul>
+  <li>Dell OS 9 - <code class="language-plaintext highlighter-rouge">sense.dellos9.dellos9</code></li>
+  <li>Dell OS 10 - <code class="language-plaintext highlighter-rouge">sense.dellos10.dellos10</code></li>
+  <li>Azure SONiC - <code class="language-plaintext highlighter-rouge">sense.sonic.sonic</code></li>
+  <li>Arista EOS - <code class="language-plaintext highlighter-rouge">sense.aristaeos.aristaeos</code></li>
+  <li>Juniper Junos - <code class="language-plaintext highlighter-rouge">sense.junos.junos</code></li>
+  <li>FreeRTR - <code class="language-plaintext highlighter-rouge">sense.freertr.freertr</code></li>
+  <li>Cisco Nexus 9 - <code class="language-plaintext highlighter-rouge">sense.cisconx9.cisconx9</code></li>
+  <li>Cisco Nexus 10 - <code class="language-plaintext highlighter-rouge">sense.cisconx9.cisconx9</code></li>
+  <li>FRRouting (FRR) - <code class="language-plaintext highlighter-rouge">sense.frr.frr</code></li>
+  <li>FRRouting (FRR+VPP) - <code class="language-plaintext highlighter-rouge">sense.frr.frr</code></li>
+</ul>
+
+<h3 id="how-to-use-ssh-keys-docker-siterm-frontend-installation">How to use SSH Keys (Docker SiteRM Frontend Installation)</h3>
+
+<p>To configure Site-RM to use ssh keys to access device, you need put ssh keys in this directory <code class="language-plaintext highlighter-rouge">fe/conf/opt/siterm/config/ssh-keys/</code>. (if you use <code class="language-plaintext highlighter-rouge">siterm-startup</code> scripts for docker/podman instalation).
+For example, if you put a key with name <code class="language-plaintext highlighter-rouge">fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense</code>, then in siterm to use that key, modify <code class="language-plaintext highlighter-rouge">fe/conf/etc/ansible-conf.yaml</code> and set <code class="language-plaintext highlighter-rouge">sshkey</code> parameter to: <code class="language-plaintext highlighter-rouge">/opt/siterm/config/ssh-keys/id-rsa-sense</code>.
+Be aware that key is put in path: <code class="language-plaintext highlighter-rouge">fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense</code>, but for <code class="language-plaintext highlighter-rouge">siterm-startup</code> mounts this directory <code class="language-plaintext highlighter-rouge">fe/conf/opt/</code> under <code class="language-plaintext highlighter-rouge">/opt</code> inside container.</p>
+
+<h3 id="how-to-use-ssh-keys-kubernetes-siterm-frontend-installation">How to use SSH Keys (Kubernetes SiteRM Frontend Installation)</h3>
+
+<p>TODOTODO</p>
+
+<h3 id="how-to-enable-snmp">How to enable SNMP</h3>
+
+<p>Site-RM uses easysnmp library to query devices. Site-RM support following parameters under <code class="language-plaintext highlighter-rouge">session_vars</code>. All parameters can be found <a href="https://easysnmp.readthedocs.io/en/latest/session_api.html">here</a>. Here are few examples below:</p>
+
+<ul>
+  <li>SNMPv1:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">snmp_params</span><span class="pi">:</span>
+  <span class="na">session_vars</span><span class="pi">:</span>
+    <span class="na">community</span><span class="pi">:</span> <span class="s">public</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">123.123.123.123</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<ul>
+  <li>SNMPv2c:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">snmp_params</span><span class="pi">:</span>
+  <span class="na">session_vars</span><span class="pi">:</span>
+    <span class="na">community</span><span class="pi">:</span> <span class="s">public</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">123.123.123.123</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="m">2</span>
+</code></pre></div></div>
+
+<ul>
+  <li>SNMPv3:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">snmpParams</span><span class="pi">:</span>
+  <span class="na">session_vars</span><span class="pi">:</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="m">3</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">&lt;full-qualified-domain-name.com&gt;</span>
+    <span class="na">security_level</span><span class="pi">:</span> <span class="s">&lt;auth_with_privacy&gt;</span>
+    <span class="na">security_username</span><span class="pi">:</span> <span class="s">&lt;security_username&gt;</span>
+    <span class="na">auth_protocol</span><span class="pi">:</span> <span class="s">&lt;auth_protocol, like</span><span class="err">:</span> <span class="s">SHA, MD5&gt;</span>
+    <span class="na">auth_password</span><span class="pi">:</span> <span class="s">&lt;auth_password&gt;</span>
+    <span class="na">privacy_protocol</span><span class="pi">:</span> <span class="s">&lt;privacy_protocol, like</span><span class="err">:</span> <span class="s">DES, AES&gt;</span>
+    <span class="na">privacy_password</span><span class="pi">:</span> <span class="s">&lt;privacy_password&gt;</span>
+</code></pre></div></div>
+
+<h3 id="examples">Examples</h3>
+
+<p>TODO</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025 <a href="http://localhost:4000">SDN SENSE</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
