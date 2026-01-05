@@ -1,38 +1,31 @@
 ---
-title: "Frontend Installation"
+title: "Frontend Update"
 layout: single
 classes: wide
-permalink: "/main-install/frontend/"
+permalink: "/main-update/frontend/"
 author_profile: false
 sidebar:
   nav: "docs"
 ---
 
-## Information and Requirements
+## Information
 
 * **Frontend** is responsible for: communication with Orchestrator(s), Accept deltas, Prepare Model, Control switches on LAN, Get all configuration from all DTNs/Agents. Minimum one Frontend is required for a single domain.
 
 * **Installation type supported**: **Docker**, **Podman**, **Kubernetes**
-* **Certificates**: Frontend requires cert, key certificates for its services. (Make sure you have tls.crt and tls.key files in PEM format)
+* **Certificates**: Frontend requires cert, key certificates for its services. (Let's Encrypt/InCommon)
 * **Networking**: Frontend requires some ports open (Can be limited to a specific list of nodes. See list [here](/install-quick-start/#firewall-requirements)
-
-Choose the installation type, based on your Site's functionalities. In case you are not using Docker/Podman/Kubernetes at your site, easiest "path forward" is to use either Docker or Podman.
 
 ## SiteRM-FE Installation First time (Docker/Podman)
 
 * Prerequisites:
   * **Make sure you have docker/podman installed and service is up and running.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash for Frontend Service). MD5 is optional - and if not specified, SiteRM will compute md5(hostname -f) by default**
-  * **You have Certificate, Key ready.**
+  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash for Frontend Service). MD5 is optional - and if not specified, SiteRM will compute md5(hostname) by default**
+  * **You have Certificate, Key generated.**
 
-* Clone the following repo on the machine, where Frontend will be installed: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
-
-```bash
-git clone https://github.com/sdn-sense/siterm-startup
-```
-
-* **It is recomended to use stable tag version. master branch is used for developement. Stable version is shown at the sidebar on the left** Use `git fetch --all --tags` and `git checkout <tag>`
-* Modify FE Contig File in cloned repo, path:`fe/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Frontend (based on your `mapping.yaml` file).
+* Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
+* **It is recomended to use stable tag version. master branch is used as a developement. Look at Readme file [here](https://github.com/sdn-sense/siterm/blob/master/README.MD) to identify stable version.** Use `git fetch --all --tags` and `git checkout <tag>`
+* Modify FE Contig File in cloned repo, path:`fe/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Frontend (based on your `mapping.yalm` file).
 * Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`. This can be anything secure and should not change between redeployments.
 * Prepare ansible configuration file at `fe/conf/etc/ansible-conf.yaml`. For more details, see [Supported network devices](/getting-started/install-supported-network-devices/) page
 * Copy Certificates to correct location:
@@ -41,6 +34,13 @@ git clone https://github.com/sdn-sense/siterm-startup
 * Start the service: `cd fe/docker/ && ./run.sh -i latest`
 * **NOTE** -i (image) is `latest` (most stable image).
 * **NOTE** If your network device use only IPv6 for access, add `-n host` parameter to Start the service command. Full command will be: `cd fe/docker/ && ./run.sh -i latest -n host`
+
+## SiteRM-FE Upgrade (Docker/Podman)
+
+* Please look for any changes required to support new release in release notes: [https://github.com/sdn-sense/siterm/tags](https://github.com/sdn-sense/siterm/tags)
+* Pull latest runtime version by issuing: `git pull` inside siterm-startup repo directory;
+* **It is recomended to use stable tag version. master branch is used as a developement. Look at Readme file [here](https://github.com/sdn-sense/siterm/blob/master/README.MD) to identify stable version.** Use `git fetch --all --tags` and `git checkout <tag>`
+* Once all changes are done as noted in a new release description, proceed to restart the service: `cd fe/docker/ && ./restart-new-image.sh -i latest`. p.s. if you used `-n host` - dont forget to add it too.
 
 ## SiteRM-FE Installation First time (Kubernetes cluster with Helm)
 
@@ -54,6 +54,13 @@ git clone https://github.com/sdn-sense/siterm-startup
 * If done first time, install helm repo: `helm repo add siterm https://sdn-sense.github.io/helm-charts`
 * Update to latest helm repo charts: `helm repo update`
 * Install the helm chart on your Kubernetes cluster: `helm install siterm siterm/siterm-fe -f values.yaml`
+
+## SiteRM-FE Upgrade (Using Kubernetes with Helm)
+
+* Please look for any changes required to support new release here: [https://github.com/sdn-sense/siterm/releases](https://github.com/sdn-sense/siterm/releases)
+* Update to latest helm repo charts: `helm repo update`
+* Modify the values.yaml file with new parameters or changes as per new release. (if needed)
+* Upgrade the helm chart on your Kubernetes cluster: `helm install siterm siterm/siterm-fe -f values.yaml`
 
 ## Check if services are running correctly
 

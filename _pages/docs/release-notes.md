@@ -1,0 +1,1211 @@
+---
+title: "Release Notes"
+layout: single
+classes: wide
+permalink: "/docs/release-notes/"
+author_profile: false
+sidebar:
+  nav: "docs"
+---
+
+## SiteRM 1.5.63 Bug fix release
+
+### New features and fixes
+
+- Increase Daemonizer logging for Configuration refresh
+- Break loop during alive/readiness check if service is fully ready
+- Add version information inside the model
+- Clean ServiceStates if host is deleted from Frontend (previously raised False Alarms)
+- Fix bug that allows fake ports specified, if allports is set to True.
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10|u22>` version (`1.5.63`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20251204-<el8|el9|el10|u22>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10|u22>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20251204-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20251204` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.63
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.63
+- **Frontend:** Chart version siterm/siterm-fe 1.5.63
+
+## SiteRM 1.5.62 Bug fix release
+
+### New features and fixes
+
+- Retry implementation for failed instance apply.
+- Expand OIDC support and configuration via custom provider.
+- Improve logging and and review warnings, errors raise.
+- Fix recurring time override for provisioned instances (if time not specified for start/end)
+- Fix QoS apply for L3.
+- Allow to cancel kube and singleport instances (mainly for instances without switchingservice)
+- Use HTTP Retries for HTTP calls and not override git configuration.
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10|u22>` version (`1.5.62`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20251126-<el8|el9|el10|u22>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10|u22>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20251126-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20251126` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.62
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.62
+- **Frontend:** Chart version siterm/siterm-fe 1.5.62
+
+## SiteRM 1.5.61 Bug fix release
+
+### New features and fixes
+
+- Always check VLAN and IP Overlap, not only if IP address was requested
+- Fix port scanning, when there is no Switch. e.g. Node connects to another domains via isAlias
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10|u22>` version (`1.5.61`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20251009-<el8|el9|el10|u22>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10|u22>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20251009-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20251009` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.61
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.61
+- **Frontend:** Chart version siterm/siterm-fe 1.5.61
+
+## SiteRM 1.5.60 Production release
+
+### New features and fixes
+
+- VPP/DPDK In Kubernetes with NIC passthrough. SENSE now builds containers for VPP/FRR/DPDK Router, that is preconfigured for SENSE.
+- RTMon and SiteRM full workflow: Automatically issue Iperf3, FDT, ETHR. Ping, traceroute from Host and Network devices;
+- Junos devices queries moved to use XML. Improvement to get configuration from ~2m to 30sec.
+- VLAN Identitification and conflict resolution. SiteRM checks all ports and vlan ranges to ensure that it is not used in any other port.
+- VRF Support in Arista devices
+- Node Exporter Passthrough via Frontend. Sites are not required anymore to open node_exporter port to autogole monitoring.
+- Ansible runtime output store in files. Hit a limit of Subprocess and AsyncIO (>500kb messages are not guaranteed to work.)
+- Container images built and uploaded to Quay.io (default registry). Dockerhub - as a fallback. Only last 2 stable containers are kept
+- And many other small fixes: No lldpd is not an error, monitor disk usage, snmp mac table for vpp/dpdk, Network status in the model fix...
+
+Full list of issues resolved: https://github.com/sdn-sense/siterm/issues?q=is%3Aissue%20state%3Aclosed%20milestone%3A1.5.50
+And all changes diff 1.5.52 and 1.5.60 releases in any of the repos: https://github.com/sdn-sense
+
+### New Sites
+
+- Internet2 and NRP (40 nodes) - all connected to one of Internet2 ports.
+- UChicago running VPP/DPDK Software based router on Kubernetes
+- KIT (2 Servers + 1 Router) connected via Surfnet
+
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10|u22>` version (`1.5.60`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20251006-<el8|el9|el10|u22>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10|u22>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20251006-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20251006` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.60
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.60
+- **Frontend:** Chart version siterm/siterm-fe 1.5.60
+
+## SiteRM 1.5.51 Bugfix release
+
+### Fixes
+
+- Add Ansible operation timeout. Issue with Edgecore devices during cleanup after operation
+- FastAPI documentation update. Defaults for Debug actions.
+- Fix DebugService and ServiceStates FastAPI calls.
+- Frontend accept ethr-server/ethr-client
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10|u22>` version (`1.5.51`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20250823-<el8|el9|el10|u22>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10|u22>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20250823-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20250823` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.51
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.51
+- **Frontend:** Chart version siterm/siterm-fe 1.5.51
+
+## SiteRM 1.5.50 Production release
+
+⚠️  Breaking Release
+**This version introduces a new REST framework (FastAPI), database layout changes, and configuration simplification.**
+**Sites upgrading from v1.5.43 must follow the upgrade procedure below and clean activated resources**
+
+🚨 Upgrade Instructions
+
+- Download the following script inside SiteRM FE Container: https://raw.githubusercontent.com/sdn-sense/siterm/refs/heads/master/packaging/siterm-site-fe/scripts/siterm-fe-helper
+- Run script inside SiteRM FE Container: `python3 siterm-fe-helper`. Select option cancel-all
+- Inform the SENSE team about cleaned resources.
+- Wait a few minutes (or monitor the LookupService log file for cleanup progress).
+- Update your git configuration file (see example here: https://github.com/sdn-sense/rm-configs/blob/master/NRM_CENICDEV/FE/main.yaml or for agent here: https://github.com/sdn-sense/rm-configs/blob/master/T2_US_Caltech_DEV/Agent01/main.yaml) If you are unsure of changes, please contact SENSE team.
+- Remove the existing MySQL database and perform a full upgrade to the new image. (rm -rf /opt/siterm/config/mysql/)
+
+🚀 New Features & Improvements
+
+- **QoS Enhancements (Arista)**
+  - Introduced default QoS policy handling for guaranteedCapped, softCapped, and bestEffort allocations for Arista devices.
+  - SiteRM now ensures correct bandwidth sharing between guaranteed, soft-capped, and best-effort traffic.
+  - Guarantees at least 100 Mbps to bestEffort traffic even during contention.
+- **REST API Change**
+  - Migrated SiteRM API to FastAPI framework. Documentation of all available api calls is under each Sites FE: https://<FQDN>/docs#/
+  - Introduced new calls for application readiness: /api/alive, /api/ready, /api/liveness, /api/readiness, and etc.
+- **Configuration simplification**
+  - Many parameters are now embedded in the codebase. Sites no longer need to manually specify them.
+  - Agent's and FEs specify site as str (not list)
+- **New OS Release**
+  - SiteRM agent is now built also for Ubuntu 22. Image tag `latest-u22`.
+- **Other fixes**
+  - Automatic cleanup of old models based on timestamp (instead of database state).
+  - Improved handling of database failures: readiness/liveness probes now correctly fail and trigger restarts.
+  - Docker startup scripts enable modprobes auatomatically (if SELinux in use).
+  - Fixed SSH connection issue when establishing sessions with remote nodes (seen issue with Edgecore devices).
+  - Status check logic improved: now validates if the process is alive, not just if the PID exists.
+  - Readiness probe now restarts crashed MySQL instances instead of leaving them in a broken state.
+  - Fixed warnings in Ansible cleanup when running in parallel.
+  - Certificates: readiness and liveness checks now fail if a certificate is expired.
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10|u22>` version (`1.5.50`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20250820-<el8|el9|el10|u22>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10|u22>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20250820-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20250820` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.50
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.50
+- **Frontend:** Chart version siterm/siterm-fe 1.5.50
+
+
+## SiteRM 1.5.43 Bug fix Production release
+
+### SiteRM fixes and improvements
+
+- Do not apply IP Route rules on the host if host uses private network namespaces for transfer containers
+- Increase logging for Network Status identification and log each state change
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10>` version (`1.5.43`) as candidate for production release.
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20250722-<el8|el9|el10>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20250722-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20250722` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.43
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.43
+- **Frontend:** Chart version siterm/siterm-fe 1.5.43
+
+## SiteRM 1.5.42 Bug fix Production release
+
+### SiteRM fixes and improvements
+
+- Fix docker startup to use correct image
+- Remove version update inside the model.
+- Clean up models in batch of 10 (many updates at once overload memory usage)
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10>` version (`1.5.42`) as candidate for production release.
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20250720-<el8|el9|el10>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20250720-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20250720` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.42
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.42
+- **Frontend:** Chart version siterm/siterm-fe 1.5.42
+
+## SiteRM 1.5.41 Production release
+
+Production release after 1.5.40 pre-release validation
+
+## 🔧  Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥  Installation Details
+
+- 🔗  **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `latest-<el8|el9|el10>` version (`1.5.41`) as candidate for production release.
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20250718-<el8|el9|el10>` *(or use `latest`)*, optionally, can specify os version *`latest-<el8|el9|el10>`*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20250718-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20250718` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.41
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.41
+- **Frontend:** Chart version siterm/siterm-fe 1.5.41
+
+## SiteRM 1.5.40 Staging Release
+
+### SiteRM fixes and improvements
+
+- **Frontend**
+  - Support 3 RDF types for delta and model: turtle, json-ld, n-triples. In the backend, SiteRM moved from turtle to n-triples, which gives 10x improvement for model serialization #218
+  - Support iPerf, FDT, Traceroute, Ping from L3 actions #860
+  - Agents will not accept delta if the Ruler service is disabled #777
+  - Liveness and Readiness status reported in Prometheus and raise warnings #792
+  - Policy Service and LookupService will not accept deltas while the first run not finished. This allows SiteRM to ensure that the SiteRM has up to date model based on the real-time network information #793, #795
+  - Check that the Delta request does not allow overlapping IP Requests #890
+  - Allow control of Traffic classes for network devices via configuration. Defaults are: 1 - bestEffort; 4 - softCapepd, 7 - guaranteedCapped. #440
+  - Frontend migrated to EL9 as the default image
+  - Install and export Apache stats in Prometheus format
+
+- **Agent**
+  - Agent and Debugger processes are split into separate containers. Debugger can be deployed on any Host or Public IP Range to allow L3 actions #860
+  - Debugger support for iPerf and FDT actions under L2/L3 Addresses. #860
+  - Missing Routing service information in the model for hosts # 870
+  - Identify the routing table ID dynamically in case no routing table file is available #877
+  - Junos devices issue rollback 0 in case of apply failures #721
+  - Allow to use LLDP Daemon socket or enable running the LLDP Daemon inside the container #881
+  - SiteRM Agent releases EL8, EL9, EL10 containers. This is required to select the proper release if the LLDP Daemon socket is used. #881
+
+- **Ansible improvements**
+  - Junos devices issue rollback 0 in case of apply failures #721
+  - Junos identifies switchport and raises a warning if the interface state is incorrect #869
+
+### Deployment (Docker, Kubernetes) fixes and improvements
+
+- **Helm**
+  - Support of StatefulSet for deployment type
+  - Helm charts migrated to a single repository: https://github.com/sdn-sense/helm-charts This includes 3 charts now: agent, debugger, fe
+  - Allow control LLDP socket, rt_tables file location
+  - Remove the need to mount network namespaces inside a container
+  - Improve helm checks before deployment: Volume name, claims, deployment type
+  - Allow control of hostPID and hostNetwork flags
+  - Allow choosing the EL release tag for deployment
+
+- **Docker**
+  - Remove the requirement to have a privileged container.
+  - Build automatically EL8, EL9, EL10 images for Agent; Debugger - EL10; Frontend - EL9;
+  - Enhance Docker startup and satisfy requirements for file mount if SELinux is enabled.
+  - Default all images to Python 3.12
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL8
+  - EL9
+  - EL10 **Default for release**
+- **Debugger (x86_64)**
+  - EL10
+
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+- This particular release is `stage-<el8|el9|el10>` version (`1.5.40`) as candidate for production release.
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:stage-20250710-<el8|el9|el10>` *(or use `stage`)*, optionally, can specify os version *`stage-<el8|el9|el10>`*
+- **Debugger:** `sdnsense/siterm-debugger:stage-20250710-el10` *(or use `stage`)*
+- **Frontend:** `sdnsense/siterm-fe:stage-20250512` *(or use `stage`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.5.40
+- **Debugger:** Chart version siterm/siterm-debugger 1.5.40
+- **Frontend:** Chart version siterm/siterm-fe 1.5.40
+
+## SiteRM 1.5.32 BugFix Release
+
+### SiteRM Codebase Fixes
+
+- **Record Disk Usage in Database**
+  - The previous release did not record disk usage in the database, which prevented it from being displayed in Grafana/Prometheus. This has been fixed.
+
+- **Fix Debugger to Use New API Format**
+  - The Debugger service (on agents) used an outdated API to retrieve debug information (e.g., ping) and was unable to execute actions. This update enables the debugger service to function correctly on agents.
+
+- **Fix Misleading Validation Errors**
+  - Dell OS10 showed misleading validation errors when comparing MAC addresses with LLDP info. This has been corrected to compare the appropriate keys for Dell OS10.
+
+### Kubernetes Helm Fixes
+
+- **Allow CPU Requests/Limits Below 1 Core (e.g., 600m)**
+- **Support Custom Volume Name for Storage Mounting**
+- **Update Documentation in `values.yaml` for All Certificate Options**
+
+### 🔧 Supported Architectures
+
+- **x86_64** ✅ (Stable)
+
+## 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest`.
+- If enforcing a specific version is needed, refer to the following details for tag or chart version below.
+
+### Docker Versions
+
+- **Agent:** `sdnsense/site-agent-sense:latest-20250512` *(or use `latest`)*
+- **Frontend:** `sdnsense/site-rm-sense:latest-20250512` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm-agent/siterm-agent 1.5.32
+- **Frontend:** Chart version siterm-fe/siterm-fe 1.5.32
+
+## SiteRM 1.5.3 Release
+
+### Networking and Routing Enhancements
+
+- **BGP Multipath Support (ECMP Equivalent)**
+  Added support for BGP Multipath to allow the same BGP peering over multiple paths, similar to Equal-Cost Multi-Path (ECMP).
+
+- **Juniper BGP Control Support**
+  Initial Juniper BGP control integration added.
+  > _Note: VRF support is not yet available and will be included in the next release._
+
+- **Cisco Nexus 9/10 Fixes**
+  Resolved an issue with neighbor peerings not being removed during path deletion.
+
+### Deployment and Environment Separation
+
+- **Separated Development and Production Environments**
+  New developments are deployed only on select Development Sites, reducing risk to Production environments.
+
+### Containerization and Kubernetes Improvements
+
+- **Docker Startup Script Enhancements**
+  Startup parameters are now recorded and reused on container restarts. This resolves issues with incorrect startup or changes to networking (e.g., switching to host networking).
+- **Init Containers for Directory Creation**
+  Kubernetes deployments now use init containers to pre-create required directories.
+- **Disk Usage Monitoring**
+  Frontend now records and exposes disk usage metrics to Prometheus. Alerts are triggered when usage exceeds 80%.
+- **Database Optimization on Container Restart**
+  On each container restart, all database tables are optimized to improve performance.
+- **Persistent Logging Volume**
+  Option to use a persistent volume for logs is now supported (except when using Kubernetes DaemonSet, due to dynamic PVC limitations).
+
+### Stability and Error Detection
+
+- **LLDP Consistency Checks**
+  Errors are raised if the switch LLDP information does not match the MAC address of the interface.
+  > _This prevents issues when switch ports are changed without updating SiteRM configuration._
+- **Correct Agent Warnings**
+  In case Agent unable to communicate with Frontend, error message will show this in the logs (without proceeding further).
+
+### Memory and Performance Improvements
+
+- **Resolved Memory Leaks. Memory usage remains stable (< 2GB for 2 switches and 10 nodes Site)**
+  - Migrated from `MariaDB` Python connector to `MySQL` connector.
+  - Prometheus output generation moved to a background process. Memory usage remains stable
+  - Removed use of `ast.literal_eval` to prevent excessive memory usage.
+
+- **QoS Handling Update**
+  BestEffort QoS will **not** limit traffic for Layer 3 (L3) requests. Instead, it sets a committed rate of 1 Gbps or `max_interface` capacity.
+  In case of Multipath-BGP, QoS requests are summed on the Agent.
+
+### Backend and Application Architecture
+
+- **Longtext Storage Optimization**
+  Longtext entries are now stored on disk rather than within the database.
+
+- **Migrated from WSGI to ASGI**
+  Application backend migrated from synchronous WSGI to asynchronous ASGI (using `gunicorn` and `uvicorn`) for improved concurrency.
+
+### Debugging and Observability
+
+- **Memory Debugging Controls**
+  - All processes now source `/etc/environment`.
+  - Enabling `SITERM_MEMORY_DEBUG=1` triggers memory snapshots and displays the top 10 memory-holding objects using `tracemalloc`.
+
+- **Liveness and Readiness Probes**
+  - Kubernetes deployments can now fully control parameters for liveness and readiness probes.
+
+### New Feature Flags
+
+- `bgpmp`: Instructs the SENSE Orchestrator that BGP Multipath is supported.
+  > _Default: `False`_
+
+- `noqos`: Tells agents not to apply any QoS settings on host systems.
+  > _Default: `False`_
+
+Please refer to the official documentation for upgrade or installation instructions:
+
+📖 **Documentation:** [SiteRM Documentation](https://sdn-sense.github.io)
+
+All sites managed by the **SENSE Team** will be updated automatically.
+
+### 🔧 Supported Architectures
+
+- **x86_64** ✅ (Stable)
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest` or `latest-ppc64le`.
+- If enforcing a specific version is needed, refer to the following details:
+
+### Docker Versions
+
+* **x86_64:**
+  - **Agent:** `sdnsense/site-agent-sense:latest-20250508` *(or use `latest`)*
+  - **Frontend:** `sdnsense/site-rm-sense:latest-20250508` *(or use `latest`)*
+
+## SiteRM 1.5.23 Bugfix release for 1.5.22
+
+Bandwidth static based on documentation and vlan-range for ports static too.
+
+Peering nml:BidirectionalPort instances should have nml:LabelGroup with matching label ranges. We use nml:LabelGroup range to represent available labels and use individual nml:Label instances to represent labels that have been allocated under nml:BidirectionalPort.
+See: https://github.com/esnet/SENSE-Orchestrator/wiki/Modeling-Guide https://github.com/esnet/StackV/wiki/Clarification-for-BandwidthService-and-lifetime-modeling
+
+Please refer to the official documentation for upgrade or installation instructions:
+
+📖  **Documentation:** [SiteRM Documentation](https://sdn-sense.github.io)
+
+All sites managed by the **SENSE Team** will be updated automatically.
+
+### 🔧  Supported Architectures
+
+- **x86_64** ✅  (Stable)
+- **ppc64le** ⚠️ (Beta)
+
+### 📥  Installation Details
+
+- 🔗  **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest` or `latest-ppc64le`.
+- If enforcing a specific version is needed, refer to the following details:
+
+### Docker Versions
+
+* **x86_64:**
+  - **Agent:** `sdnsense/site-agent-sense:latest-20250328` *(or use `latest`)*
+  - **Frontend:** `sdnsense/site-rm-sense:latest-20250328` *(or use `latest`)*
+
+## SiteRM 1.5.22 Bugfix release for 1.5.21
+
+Modeling fix. Remove vlan-range-filtered from Model (remains in database and processes)
+
+Peering nml:BidirectionalPort instances should have nml:LabelGroup with matching label ranges. We use nml:LabelGroup range to represent available labels and use individual nml:Label instances to represent labels that have been allocated under nml:BidirectionalPort.
+See: https://github.com/esnet/SENSE-Orchestrator/wiki/Modeling-Guide https://github.com/esnet/StackV/wiki/Clarification-for-BandwidthService-and-lifetime-modeling
+
+Please refer to the official documentation for upgrade or installation instructions:
+
+📖 **Documentation:** [SiteRM Documentation](https://sdn-sense.github.io)
+
+All sites managed by the **SENSE Team** will be updated automatically.
+
+### 🔧 Supported Architectures
+
+- **x86_64** ✅ (Stable)
+- **ppc64le** ⚠️ (Beta)
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest` or `latest-ppc64le`.
+- If enforcing a specific version is needed, refer to the following details:
+
+### Docker Versions
+
+* **x86_64:**
+  - **Agent:** `sdnsense/site-agent-sense:latest-20250327` *(or use `latest`)*
+  - **Frontend:** `sdnsense/site-rm-sense:latest-20250327` *(or use `latest`)*
+
+## SiteRM 1.5.21 Bugfix release for 1.5.2
+
+We have identified new issue with scheduled allocations and excluding vlan from allowed vlan-range list. SiteRM was patched to not exclude vlan from vlan-range - which is used by SENSE-O to compute paths.
+
+Please refer to the official documentation for upgrade or installation instructions:
+
+📖  **Documentation:** [SiteRM Documentation](https://sdn-sense.github.io)
+
+All sites managed by the **SENSE Team** will be updated automatically.
+
+### 🔧  Supported Architectures
+
+- **x86_64** ✅  (Stable)
+- **ppc64le** ⚠️ (Beta)
+
+### 📥  Installation Details
+
+- 🔗  **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest` or `latest-ppc64le`.
+- If enforcing a specific version is needed, refer to the following details:
+
+### Docker Versions
+
+* **x86_64:**
+  - **Agent:** `sdnsense/site-agent-sense:latest-20250327` *(or use `latest`)*
+  - **Frontend:** `sdnsense/site-rm-sense:latest-20250327` *(or use `latest`)*
+
+
+## SiteRM 1.5.2 Stable Production Release
+
+We are pleased to announce the release of **SiteRM 1.5.2** as a Stable Production version. Please refer to the official documentation for upgrade or installation instructions:
+
+📖 **Documentation:** [SiteRM Documentation](https://sdn-sense.github.io)
+
+All sites managed by the **SENSE Team** will be updated automatically.
+
+### 🚀 New Features and Enhancements
+
+* 🔹 VLAN & IP Management
+  - **Exclude provisioned VLANs** from allowed VLAN range if used by system or delta.
+  - **Track all used IPs** on network devices and hosts.
+  - **Exclude IPs from allowed list** inside the model.
+
+* 🔹 Configuration Warnings & Health Monitoring. **Grafana and kube/docker health status reporting** for:
+  - IP configured from **SENSE Range**, but request is not from any delta.
+  - VLAN used from **SENSE range**, but request is not from any delta.
+  - **Remaining bandwidth below 1Gbps.**
+  - **Switchport misconfiguration** (e.g., missing trunk flag).
+
+* 🔹 QoS Policy Rewrite
+  - **Guaranteed Capped**: Requested **1Gbps**, rules set **max|min == 1Gbps**.
+  - **Soft Capped**: Requested **1Gbps**, rules set **min = 1Gbps, max = remaining bandwidth**.
+  - **Best Effort**: Requested **1Gbps**, rules set **min = 1Gbps, max = fraction (incremental order: 1/10, 1/9, 1/8, etc.)**.
+  - **Minimum QoS request granularity** decreased to **100Mbps**.
+
+* 🔹 Improved Request Handling
+  - **Auto-add start and end time** if not provided in the SENSE request:
+  - Default **Start:** +10s
+  - Default **End:** +3 months (configurable per site).
+
+- **Modification only allowed from the original request intent.**
+
+* 🔹 Custom Ansible Commands
+  - **Site Configuration now allows custom commands for Ansible**.
+  - **First supported command**: Juniper devices control to use `irb` or `vlan` for configuring L3 interfaces.
+
+* 🔹 Model Optimization & Debugging Improvements
+  - **Model minimized** to exclude **non-SENSE range VLANs and IPs**.
+  - **Ensure `tag` and `type` are always displayed** for debugging IP requests.
+  - **Liveness and Readiness state recorded** in the database and exposed in Prometheus format.
+  - **Enable/Disable Liveness and Readiness checks** for debugging purposes.
+
+* 🔹 Database Improvements
+  - **Modify requests only from the original intent request** (prevents overrides by new requests on the same VLAN).
+  - **Automatic database backups**:
+  - Every **hour**. Keeping the **last 72 backups**.
+
+* 🛠 Fixes and Improvements
+  - For a complete list of fixes and changes, check the detailed comparison:
+
+🔗 **[Compare 1.5.1 → 1.5.2](https://github.com/sdn-sense/siterm/compare/1.5.1...1.5.2)**
+
+### 🔧 Supported Architectures
+- **x86_64** ✅ (Stable)
+- **ppc64le** ⚠️ (Beta)
+
+### 📥 Installation Details
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- **Recommended Version:** Always use `latest` or `latest-ppc64le`.
+- If enforcing a specific version is needed, refer to the following details:
+
+### Docker Versions
+
+* **x86_64:**
+  - **Agent:** `sdnsense/site-agent-sense:latest-20250326` *(or use `latest`)*
+  - **Frontend:** `sdnsense/site-rm-sense:latest-20250326` *(or use `latest`)*
+
+
+## SiteRM 1.5.1
+
+SiteRM Frontend 1.5.1 release:
+
+  * Ansible Juniper Junos collection first version. This collection is used to manage Juniper devices; Plugin here: https://github.com/sdn-sense/sense-junos-collection
+  * Support to add Debug IP on Network devices;
+  * Support for Multipoint Deltas inside SiteRM;
+  * Control ansible repo for development with `ANSIBLE_REPO` env variable;
+  * Liveness and Readiness enable/disable flag. In case of any error, error will be shown via docker logs or kubectl describe pod;
+  * WebUI Changes: Allow modify delta start/end; Allow force commit delta; Allow change any active request state;
+  * Database updgrades and automatic migrations from old version to new version;
+  * Monitor memory usage if `SITERM_MEMORY_DEBUG` env variable is set to `true`; Memory usage decreased for most processes 50%;
+  * Allow control httpd ports via env variables;
+  * Delta check improvements: Host alive, port available and up, vlans, ips not used by other services;
+  * Helm updates: Auto add SSH key, Include version and app in yaml;
+
+Agent 1.5.1 release:
+
+  * Support Prometheus federate for Autogole monitoring (in case Site already run's Node Exporters and Prometheus);
+  * Report any exceptions back to Frontend;
+  * Liveness and Readiness enable/disable flag. In case of any error, error will be shown via docker logs or kubectl describe pod;
+  * Delta check improvements: port available and up, vlan not used, ips not used by other services;
+  * Ping Fixes for splitting netmask and allow to use IPv6;
+  * Support Prometheus federate endpoints for Autogole monitoring (in case Site already run's Node Exporters and Prometheus).
+
+For all fixes and improvements, see the difference here: https://github.com/sdn-sense/siterm/compare/1.5.1...1.4.62
+
+Supported systems: x86_64 and ppc64le(beta)
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged to always use the "latest" or "latest-ppc64le" version. If there is a need to enforce a specific version, please see the details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20250123 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20250123 (Or use latest)
+
+
+## SiteRM 1.4.62
+
+This release includes:
+
+SiteRM Frontend 1.4.62 release:
+
+  * Allow to control HTTP Port dynamically via environment variable;
+  * Allow to issue PING and Traceroute from Network devices;
+  * Fix Kubernetes isAlias labels and also update PolicyService to including information inside model;
+  * DBCleaner and AnsibleCleaner for Sites (Feature for reinstallation)
+
+Agent 1.4.62 release:
+
+  * Ping Fixes for splitting netmask and allow to use IPv6;
+  * Support Prometheus federate endpoints for Autogole monitoring (in case Site already run's Node Exporters and Prometheus)
+
+Supported systems: x86_64 and ppc64le(beta)
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged to always use the "latest" or "latest-ppc64le" version. If there is a need to enforce a specific version, please see the details below:
+
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20240812 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20240812 (Or use latest)
+
+## SiteRM 1.4.61
+
+This release includes:
+
+SiteRM Frontend bugfix for 1.4.6 release:
+  * BGP Removal requires `state: present` for ansible templates to initiate removal, if not present BGP configuration remains on network devices;
+  * Force reapply during service restart, or first FE start.
+  * Do not apply empty statements, unneeded ansible apply run;
+
+Supported systems: x86_64 and ppc64le(beta)
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged to always use the "latest" or "latest-ppc64le" version. If there is a need to enforce a specific version, please see the details below:
+
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20240625 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20240625 (Or use latest)
+
+## SiteRM 1.4.6
+
+This release includes:
+
+IMPORTANT:
+There are changes required to run a new version. Please make sure you do the following:
+Ask the SENSE team to cancel all provisioned services to your Site. (optional, if Change 1 is done)
+Modify Configuration Files for a new release. See the 'Changes needed' section.
+Depending on your installation - update the docker image or restart Kubernetes with a new release.
+
+Changes needed:
+1. (Frontend) Modify database schema to support new features. Run the following command to update the database schema:
+```
+# mysql -u root
+use sitefe;
+alter table deltas drop column reduction;
+alter table deltas drop column addition;
+alter table deltas drop column reductionid;
+alter table deltas drop column connectionid;
+commit;
+```
+1. (Frontend) supports auth_re.yaml file for wildcard certificate authentication and authorization.
+```
+# By adding the following line inside the configuration file, you can enable wildcard certificate authentication and authorization for all *.nrp-nautilus.io clients.
+agent:
+  full_dn: "/C=US/O=Let's Encrypt/CN=R3/CN=*.nrp-nautilus.io "
+  permissions: w
+```
+
+SiteRM Improvements:
+SiteRM Helm charts updates (0.1.46):
+
+  * Release for Frontend deployment Helm chart.
+  * Liveness/Readiness/Test probes added to the Helm charts. In case of issues with SiteRM Frontend/Agent - pods will be restarted.
+  * Use of predefined image tags for Frontend/Agent - based on latest stable release;
+  * Allow to control CPU/Mem Requests/Limits for Frontend/Agent pods.
+  * Allow adding nodeAffinity for Frontend/Agent pods via helm values.yaml.
+  * Minimized helm charts for Frontend/Agent (without including previous versions of the charts).
+  * Agent Helm chart requires ClusterRole/ClusterRoleBinding for the agent to work properly. Permissions needed: apiGroups: [""], resources: ["nodes"], verbs: ["get", "list"]. If using official Helm charts it will apply automatically.
+SiteRM Frontend updates:
+  * (Beta) Metadata Service to expose metadata information about the SiteRM services, e.g. Kuberenetes isAlias and Multus;
+  * Allow adding SiteRM agent without Switch control via Kubernetes label isAlias: <name>. It can connect to any other NSI domain URN.
+  * Support for ssh_common_args in ansible configuration. This allows to set the ssh options for all ansible connections.
+  * Full rewrite of LookupService. In case there are multiple devices at Site, each device for retrieving configuration or applying will use a separate thread.
+  * LookupService rewrite stability improvements and better error handling, reporting in the logs, web ui.
+  * Fix allowed vlan check at global level and or port level (depending on Site's configuration).
+  * New ServiceState page to view the state of all SiteRM services. Can be seen under https://<url>/servicestates.html
+  * Moved to pip3 installation for SiteRM Frontend and Agent. (PEP420)
+  * Docker auto restart and healthcheck for Frontend and agent. In case of issues, the container will be restarted.
+  * Support querying IPv6 SNMP Endpoints.
+  * Allow to specify external SNMP exporter url for SNMP monitoring.
+  * Fix ARP information reporting (in case of multiple entries under the switch)
+  * soft-reconfiguration added for BGP peering.
+  * API to allow re-add delta to the model. (only if the delta is in one of the final states)
+  * No restarts every hour for configuration changes. Restart of services will happen every hour only if there are changes in the configuration on git.
+  * Ansible retries in case of communication failures. (default 3 times, after which activate-error is reported).
+  * Support for Kubernetes yaml apply installation dropped. Please use HELM Charts for Frontend/Agent installation.
+
+Supported systems: x86_64 and ppc64le(beta)
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged to always use the "latest" or "latest-ppc64le" version. If there is a need to enforce a specific version, please see the details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20240614 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20240614 (Or use latest)
+
+## SiteRM 1.4.3
+
+This release includes (highlight main items):
+
+IMPORTANT:
+There are changes required to run a new version. Please make sure you do the following:
+Ask the SENSE team to cancel all provisioned services to your Site.
+Modify Configuration Files for a new release. See the 'Changes needed' section.
+Depending on your installation - update the docker image or restart Kubernetes with a new release.
+
+Changes needed:
+1. (Frontend) Port naming changed. Ports in the configuration are now listed without special character changes. Old way:
+
+```yaml
+  ports:
+    - "Ethernet1/49"
+    - "Ethernet1/51"
+    - "Ethernet1/52"
+  port_Ethernet1-49_capacity: 100000
+  port_Ethernet1-49_desttype: switch
+  port_Ethernet1-49_isAlias: "isAliasLink"
+  port_Ethernet1-49_wanlink: "Ethernet1/49"
+```
+
+New way:
+
+```yaml
+  ports:
+    "Ethernet1/49":
+        "capacity": 100000
+        "desttype": switch
+        "isAlias": "isAlias"
+        "wanlink": true
+    "Ethernet1/51": {}
+    "Ethernet1/52": {}
+```
+
+2. (Agent) Agents will use Bandwidth Parameters from the configuration. Old way:
+
+```yaml
+  intf_max: 40000
+  max_bandwidth: 40000
+  min_bandwidth: 1000
+```
+
+New way:
+
+```yaml
+  bwParams:
+    unit: mbps # Unit type
+    type: guaranteedCapped | bestEffort # Indicates type for Bandwidth Service
+    priority: 0 # Indicates priority compared to other interfaces
+    reservableCapacity: <0%-100%> # (Optional) Reservable capacity for siterm on that interface (Default 100%)
+    minReservableCapacity: <VAL_IN_UNIT> # Indicates minimum Reservable Capacity (1G suggested, no default)
+    maximumCapacity: <VAL_IN_UNIT> # Indicates maximum Capacity of interface
+    granularity: <VAL_IN_UNIT> # Indicates granularity
+    reservableCapacity: <0%-100%> # (Optional) Reservable capacity for all siterm interfaces (Default 100%)
+```
+
+3. (Frontend) Allows to control reservable Capacity under port/device. This can be set with the parameter `reservableCapacity` either under the device or port. It must be a percentage: <0%-100%> (Default 100%).
+
+
+SiteRM Improvements:
+SiteRM Agent Moved to HELM deployment. See here for details: https://sdn-sense.github.io/Installation.html
+Web UI allows us to see the state of all SiteRM services. Can be seen under https://<url>/servicestates.html
+Web UI allows to refresh configuration, and or delete hosts from SiteRM's database.
+Report NetworkStatus with data plane type status inside the model. This allows Orchestrator/Admins/Users to identify and know dataplane activation status.
+Report NetworkStatus with data-plane type status inside Prometheus output. New dashboards (under each site) deployed here: https://autogole-grafana.nrp-nautilus.io, which allows you to see the status of the data plane over time.
+Report BandwidthService requests inside Prometheus output. New dashboards (under each site) are available here: https://autogole-grafana.nrp-nautilus.io
+Support multiple lifetime scheduling requests for non-overlapping times, but the same VLANs or IP ranges.
+New APIs, which allow to deletion of old Debug calls, hosts, network devices.
+Routing information (received from Network devices) was removed from the model.
+A New Service, DBCleaner added to cleanup database of old entries.
+Any request is checked for conflicts. Checks are done: vlan overlap, ip overlap, bandwidth exceeding availability.
+The Debugger Service was rewritten to use threading (non-blocking execution). This allows to run multiple Debug services at the same time.
+Frontend introduced a new Debug service (still beta) with an idea to allow issue ping/traceroute from network devices for debugging purposes. (Expected in next release)
+Default txqueulen/mtu same as the master interface, if not specified in the agent configuration.
+If the port is not switchport type - it will be ignored by SiteRM and will not be added to the model.
+Allow to control site which VLANs to put inside model. Parameter `allvlans: True|False` indicates if the device should model all VLANs or only SENSE VLANs inside the model; (Default False)
+Docker/Podman startup script updates: check certificates and configuration files for validity.
+Documentation for all SiteRM Frontend and Agent parameters. See https://sdn-sense.github.io/Configuration.html
+
+
+Network Device improvements:
+(ALL) Implement functionwrapper/classwrapper with verbose logging (log timings, function parameters, output).
+(ALL) Separate VLAN and BGP apply in separate calls. Change order for VLAN/BGP Configuration. Order is now: VLAN, PREFIX-LIST, ROUTE-MAP, BGP.
+(SONiC,DellOS9) Enabled soft-reconfiguration for peering.
+(SONiC) Fix byte/str/int - diff versions of SONiC Release Python output returns either bytes/str/int for ASN Number.
+(SONiC) VRF Support.
+(SONiC) Retry any SONiC command in case of failure (up to 3 times). Visible if 2 modifications happen at the same time.
+(Arista EOS) Older Arista EOS Bandwidth reporting fixed.
+(Dell OS 10) VRF Support, BGP Fix, split prefix-list creation.
+(Dell OS9)(Beta feature) Support traffic police, based on service request if `rate_limit: True|False` is set under device port. (Default False)
+
+Supported systems: x86_64 and ppc64le(beta)
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged to always use the "latest" or "latest-ppc64le" version. If there is a need to enforce a specific version, please see the details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20240429 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20240429 (Or use latest)
+
+
+## SiteRM 1.3.12
+This release includes (highlight main items):
+
+IMPORTANT:
+There are changes required to run a new version. Please make sure you do the following:
+Ask SENSE team to cancel all provisioned services to your Site;
+Make sure you update your deployment scripts to use new way to define network devices: https://sdn-sense.github.io/NetControlAnsible.html
+Depending on your installation - use to update docker image or restart kubernetes with new configuration.
+
+SiteRM Improvements:
+Support VirtualPorts (Fake Ports and is Alias)
+Improved SNMP Monitoring and Mac information parsing
+Support QoS allowOvercommit flag. Allow site’s
+to control overcommit or not for L3 QoS.
+Delta Timing and Overlap check imporvements;
+Report Network Status of any configuration (L2,L3,Server Vlan, IP, MTU, QoS). Reporting done inside the model and in Prometheus output.
+Report QoS Requests in a Prometheus output.
+Allow sites to control allvlans flag - either report all vlans from network/host devices or only controlled ones.
+WebUI improvements (delta show, topology map)
+Separation of Ansible-templates and simplification for sites to specific controlled devices. Please look documentation here https://sdn-sense.github.io/NetControlAnsible.html - for a new way to configure control of network devices.
+Before start docker container (either FE or Agent) check all Certificates, configuration files and make sure they are valid.
+FE and Agent use docker volume.
+Upgrade osg-ca-certs (Needed to support Incommon V3)
+
+Network Device improvements:
+New NOS Support: Cisco Nexus 9 (Support Vlan creation/deletion, IPv4/6 assignment, BGP Configuration)
+SONiC: Use `set ipv6 next-hop prefer-global` and not add link-local address in the routing table. This issue is visible only between Cisco and SONiC BGP Peering.
+AristaEOS: Catch errors and report back to SiteRM.
+
+Code improvement:
+Any new code or modified code - requires to run linter.sh This includes for Python: black, isort, pylint. For yaml - yamllint, For bash - bashlint.
+
+Supported systems: x86_64 and ppc64le
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged always use "latest" or "latest-ppc64le" version. If there is need to enforce specific version, please see details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20231207 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20231207 (Or use latest)
+
+## SiteRM 1.3.0
+
+ This release includes (highlight main items):
+
+-  Conflict Check for rst, exclude vlans from modelling #169
+-  Debugger check improvements; # 205
+-  Allow configure  mtu and txqueuelen via config #206
+-  Dell OS 10 Vlan and BGP Control #173
+-  Log and report ansible errors #216 #194
+-  Report cert validity to FE and in prometheus #226
+-  Rewrite Ansible SoNIC plugin #292
+-  Minimal support for Cisco NX 9 #291
+-Full list of issues solved are here: https://github.com/sdn-sense/siterm/issues?q=is%3Aissue+milestone%3A%221.3.0+Release%22+is%3Aclosed
+ Supported systems: x86_64 and ppc64le
+ Installation details: https://sdn-sense.github.io/Installation.html
+
+ Sites are encouraged always use "latest" or "latest-ppc64le" version. If there is need to enforce specific version, please see details below:
+ Docker version for this release:
+ x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20230929 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20230929 (Or use latest)
+
+## SiteRM 1.1.0
+
+This release includes:
+  All:
+    Config parameters (for FE/Agent/Ansible) must be in YAML format. No INI format support.
+    Gentle stop for all containers (using trap) - so services are stopped nicely (not hard
+  Switches:
+    FreeRTR Ansible Module and support FreeRTR for visualization (no control support yet)
+    Sonic route-map clean up fix. It was not deleting routing maps during cancelation.
+    Arista EOS templates updated
+    SN3700 - Check for ASN in INT (no str == int comparisons)
+  Frontend:
+    Compute path between switches using lldp information;
+    Multiple Delta's support in single request or from multiple separate Orchestrators;
+    IP and Vlan Normalization for diff Ansible modules. (e.g. Dell uses Vlan 3600, Arista wants Vlan3600, FreeRTR - sdn5.3600)
+    Add IPv6 Routing information to Model from agents(DTNs).
+    Add Version, Name, Sitename to Model.
+    HTML GUI Update to fix visualization (normal dates, Desc order to list deltas/models)
+    UnitTests for Frontend
+    Add RST Ports. (Double split issue)
+    Check delta with config and not allow conflicts.
+  Agent:
+    Apply IPv6 Routing for BGP Requests (if DTN has IPv6 in range of BGP Requested override, it will add specific rules to redirect traffic to mavlan)
+    Use new formatting for defining vlan_range and ip4/6 list
+    RuleDB Check just IP without Range (no multitime apply of rules)
+    Formatting 'f' use in ip rule commands, QoS fix (either list or str for IP range)
+
+Supported systems: x86_64 and ppc64le
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged always use "latest" or "latest-ppc64le" version. If there is need to enforce specific version, please see details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20220920 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20220920 (Or use latest)
+
+1.1.0-dev1
+This release includes bugfixes for 1.1.0-dev release:
+  Switches:
+    SN3700 - Check for ASN in INT (no str == int comparisons)
+  Frontend:
+    Add RST Ports. (Double split issue)
+    Check delta with config and not allow conflicts.
+  Agent:
+    Use new formatting for defining vlan_range and ip4/6 list
+    RuleDB Check just IP without Range (no multitime apply of rules)
+    Formatting 'f' use in ip rule commands, QoS fix (either list or str for IP range)
+
+Supported systems: x86_64 and ppc64le
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged always use "latest" or "latest-ppc64le" version. If there is need to enforce specific version, please see details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:dev-20220912 (Or use dev)
+  Frontend: sdnsense/site-rm-sense:dev-20220912 (Or use dev)
+
+## SiteRM 1.1.0-dev
+
+This release includes:
+  ALL:
+    Config parameters (for FE/Agent/Ansible) must be in YAML format. No INI format support.
+    Gentle stop for all containers (using trap) - so services are stopped nicely (not hard kill)
+  Switches:
+    FreeRTR Ansible Module and support FreeRTR for visualization (no control support yet)
+    Sonic route-map clean up fix. It was not deleting routing maps during cancelation.
+    Arista EOS templates updated
+  Frontend:
+    Compute path between switches using lldp information;
+    Multiple Delta's support in single request or from multiple separate Orchestrators;
+    IP and Vlan Normalization for diff Ansible modules. (e.g. Dell uses Vlan 3600, Arista wants Vlan3600, FreeRTR - sdn5.3600)
+    Add IPv6 Routing information to Model from agents(DTNs).
+    Add Version, Name, Sitename to Model.
+    HTML GUI Update to fix visualization (normal dates, Desc order to list deltas/models)
+    UnitTests for Frontend
+  Agent:
+    Apply IPv6 Routing for BGP Requests (if DTN has IPv6 in range of BGP Requested override, it will add specific rules to redirect traffic to mavlan)
+
+Supported systems: x86_64 and ppc64le
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged always use "latest" or "latest-ppc64le" version. If there is need to enforce specific version, please see details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:dev-20220830 (Or use dev)
+  Frontend: sdnsense/site-rm-sense:dev-20220830 (Or use dev)
+
+
+## SiteRM 1.0.0
+
+First major release of Site Resource Manager.
+This includes model generation, communication with SENSE Orchestrator.
+Layer2 and Layer3 Control on Host and switches (Dell OS 9, Arista EOS, Sonic) using ansible.
+BGP control for Dell OS9 and Sonic using ansible.
+Fractional and Static QoS control per VLAN and or IPv[46] Range. More details: https://github.com/sdn-sense/siterm/blob/master/src/python/SiteRMAgent/Ruler/QOS.py#L5-L60
+Code base moved to Python 3.8.
+Templates ready for Kubernetes and Docker installation. More details: https://github.com/sdn-sense/siterm-startup
+
+Supported systems: x86_64 and ppc64le
+Installation details: https://sdn-sense.github.io/Installation.html
+
+Sites are encouraged always use "latest" or "latest-ppc64le" version. If there is need to enforce specific version, please see details below:
+Docker version for this release:
+x86_64:
+  Agent: sdnsense/site-agent-sense:latest-20220729 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-20220729 (Or use latest)
+ppc64le:
+  Agent: sdnsense/site-agent-sense:latest-ppc64le-20220729 (Or use latest)
+  Frontend: sdnsense/site-rm-sense:latest-ppc64le-20220729 (Or use latest)
