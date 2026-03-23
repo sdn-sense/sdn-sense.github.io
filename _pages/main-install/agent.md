@@ -63,4 +63,36 @@ sidebar:
 
 ## Check if services are running correctly
 
-siterm-readiness, siterm-liveness, webui-frontend TODO
+**Docker/Podman:** Run these from inside the Agent container:
+
+```bash
+# Enter the Agent container
+docker exec -it siterm-agent bash
+
+# Run the readiness check — confirms all agent services are ready
+siterm-readiness
+
+# Run the liveness check — confirms the agent process is alive
+siterm-liveness
+
+# If running on Kubernetes:
+kubectl exec -n sense <siterm-agent-pod> -- siterm-readiness
+kubectl exec -n sense <siterm-agent-pod> -- siterm-liveness
+```
+
+**Verify Agent registered to Frontend:** Open the SiteRM Frontend Web UI at `https://<frontend-fqdn>:<port>` and navigate to **Frontend Configuration**. The Agent's hostname should appear in the host list within a few minutes of starting.
+
+**Check kernel modules are loaded** (required for QoS):
+
+```bash
+# On the host running the Agent container, verify TC modules are loaded
+lsmod | grep -E 'sch_htb|sch_sfq|ifb|sch_ingress|cls_u32|act_mirred'
+```
+
+If any modules are missing, the Agent startup script will attempt to load them automatically. If it fails, load them manually:
+
+```bash
+modprobe sch_htb sch_sfq ifb sch_ingress cls_u32 act_mirred
+```
+
+**Monitoring:** See [SiteRM Operations](/operational/siterm-operations/) for information on Autogole monitoring and alerting for Agent health.

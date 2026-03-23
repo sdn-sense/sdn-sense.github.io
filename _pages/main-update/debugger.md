@@ -63,4 +63,23 @@ sidebar:
 
 ## Check if services are running correctly
 
-siterm-readiness, siterm-liveness, webui-frontend TODO
+After an upgrade, confirm the Debugger is healthy:
+
+```bash
+# Docker/Podman — enter the Debugger container
+docker exec -it siterm-debugger bash
+
+# Run health checks
+siterm-readiness
+siterm-liveness
+
+# Kubernetes
+kubectl exec -n sense <siterm-debugger-pod> -- siterm-readiness
+kubectl exec -n sense <siterm-debugger-pod> -- siterm-liveness
+```
+
+**Verify the Debugger is available** via the Frontend Web UI — go to the **Debug** section and confirm the DTN appears as a valid source for ping/traceroute/iperf tests.
+
+**Check the release notes** for any configuration changes required: [Release Notes](/docs/release-notes/).
+
+See [SiteRM Operations](/operational/siterm-operations/) for full details.

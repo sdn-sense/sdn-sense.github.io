@@ -63,4 +63,23 @@ sidebar:
 
 ## Check if services are running correctly
 
-siterm-readiness, siterm-liveness, webui-frontend TODO
+After an upgrade, confirm the Agent is healthy:
+
+```bash
+# Docker/Podman — enter the Agent container
+docker exec -it siterm-agent bash
+
+# Run health checks
+siterm-readiness
+siterm-liveness
+
+# Kubernetes
+kubectl exec -n sense <siterm-agent-pod> -- siterm-readiness
+kubectl exec -n sense <siterm-agent-pod> -- siterm-liveness
+```
+
+**Verify the Agent re-registered** to the Frontend by checking the Frontend Web UI under **Frontend Configuration** — the Agent's hostname should appear with an up-to-date status.
+
+**Check the release notes** for any configuration changes required: [Release Notes](/docs/release-notes/).
+
+See [SiteRM Operations](/operational/siterm-operations/) for full details.

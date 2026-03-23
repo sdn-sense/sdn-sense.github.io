@@ -57,4 +57,33 @@ git clone https://github.com/sdn-sense/siterm-startup
 
 ## Check if services are running correctly
 
-siterm-readiness, siterm-liveness, webui-frontend TODO
+**Docker/Podman:** Run these commands from inside the SiteRM Frontend container:
+
+```bash
+# Enter the Frontend container
+docker exec -it siterm-fe bash
+
+# Run the readiness check — confirms all internal services are ready
+siterm-readiness
+
+# Run the liveness check — confirms the service is alive
+siterm-liveness
+
+# If running on Kubernetes, you can trigger checks manually:
+kubectl exec -n sense <siterm-fe-pod> -- siterm-readiness
+kubectl exec -n sense <siterm-fe-pod> -- siterm-liveness
+```
+
+**Web UI:** Once the Frontend is running, open `https://<your-frontend-fqdn>:<port>` in your browser. You should see the SiteRM topology dashboard. If the page loads correctly, the service is operational.
+
+**Verify Ansible connectivity to switches:**
+
+```bash
+# From inside the Frontend container, test Ansible can reach a configured switch
+siterm-ansible-runner --printports
+
+# For full debug output
+siterm-ansible-runner --fulldebug
+```
+
+**Monitoring:** All SiteRM deployments are monitored by the Autogole Grafana dashboard. If your site is not yet registered, contact the SENSE team at sense-info@es.net. See [SiteRM Operations](/operational/siterm-operations/) for full details.

@@ -63,4 +63,30 @@ sidebar:
 
 ## Check if services are running correctly
 
-siterm-readiness, siterm-liveness, webui-frontend TODO
+**Docker/Podman:** Run these from inside the Debugger container:
+
+```bash
+# Enter the Debugger container
+docker exec -it siterm-debugger bash
+
+# Run the readiness check
+siterm-readiness
+
+# Run the liveness check
+siterm-liveness
+
+# If running on Kubernetes:
+kubectl exec -n sense <siterm-debugger-pod> -- siterm-readiness
+kubectl exec -n sense <siterm-debugger-pod> -- siterm-liveness
+```
+
+**Verify Debugger registered to Frontend:** Open the SiteRM Frontend Web UI at `https://<frontend-fqdn>:<port>` and go to the **Debug** section. The Debugger for this DTN should be listed and available for ping, traceroute, and iperf3 tests.
+
+**Test a debug action from the Web UI:**
+1. Navigate to the Frontend Web UI
+2. Go to **Debug** → **Ping**
+3. Select the source DTN (the host running the Debugger)
+4. Enter a destination IP address
+5. Submit — the Debugger will execute the ping and return results
+
+**Monitoring:** The Debugger is monitored alongside the Agent via Autogole. See [SiteRM Operations](/operational/siterm-operations/) for details.

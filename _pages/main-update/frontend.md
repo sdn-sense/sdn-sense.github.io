@@ -64,4 +64,23 @@ sidebar:
 
 ## Check if services are running correctly
 
-siterm-readiness, siterm-liveness, webui-frontend TODO
+After an upgrade, confirm the Frontend is healthy before informing the SENSE team:
+
+```bash
+# Docker/Podman — enter the container
+docker exec -it siterm-fe bash
+
+# Run health checks
+siterm-readiness
+siterm-liveness
+
+# Kubernetes
+kubectl exec -n sense <siterm-fe-pod> -- siterm-readiness
+kubectl exec -n sense <siterm-fe-pod> -- siterm-liveness
+```
+
+**Verify the Web UI** is accessible at `https://<your-frontend-fqdn>:<port>` and the topology and model sections load correctly.
+
+**Check the release notes** for any configuration changes required for the new version: [Release Notes](/docs/release-notes/).
+
+See [SiteRM Operations](/operational/siterm-operations/) for full details on CLI commands and monitoring.

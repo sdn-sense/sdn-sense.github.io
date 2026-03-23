@@ -7,7 +7,7 @@ main:
 docs:
   - title: ""
     children:
-      - title: "Stable Release: 1.5.63"
+      - title: "Stable Release: 1.6.0"
         url: /docs/stable-release/
     nav: sidebar-sample
   - title: Getting Started
@@ -27,6 +27,8 @@ docs:
         url: "/customization/configuration-agent/"
       - title: "Debugger"
         url: "/customization/configuration-debugger/"
+      - title: "Authentication"
+        url: "/customization/authentication/"
       - title: "Enable Switch Control"
         url: "/customization/enable-switch-control/"
 
@@ -71,6 +73,29 @@ docs:
         url: /operational/common-issues/
       - title: "Quality of Service (QoS)"
         url: /operational/quality-of-service/
+
+  - title: "Network Devices"
+    children:
+      - title: "Supported Devices Overview"
+        url: /getting-started/install-supported-network-devices/
+      - title: "Dell EMC OS 9"
+        url: /devices/dell-os9/
+      - title: "Dell EMC OS 10"
+        url: /devices/dell-os10/
+      - title: "Arista EOS"
+        url: /devices/arista-eos/
+      - title: "Juniper Junos"
+        url: /devices/juniper-junos/
+      - title: "Cisco Nexus 9/10"
+        url: /devices/cisco-nexus/
+      - title: "Azure SONiC"
+        url: /devices/azure-sonic/
+      - title: "FRRouting (FRR)"
+        url: /devices/frr/
+      - title: "FreeRTR"
+        url: /devices/freertr/
+      - title: "Nokia SR-OS"
+        url: /devices/nokia-sros/
 
   - title: Extras
     children:

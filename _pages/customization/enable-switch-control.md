@@ -85,7 +85,44 @@ Be aware that key is put in path: `fe/conf/opt/siterm/config/ssh-keys/id-rsa-sen
 
 ### How to use SSH Keys (Kubernetes SiteRM Frontend Installation)
 
-TODOTODO
+To configure SSH key access to network devices when running SiteRM Frontend on Kubernetes, store the SSH private key as a Kubernetes Secret and mount it into the Frontend pod.
+
+**Step 1 — Create a Kubernetes Secret with the SSH key:**
+
+```bash
+kubectl create secret generic siterm-ssh-keys \
+  --from-file=id-rsa-sense=/path/to/your/id_rsa_sense \
+  -n sense
+```
+
+**Step 2 — Reference the secret in your Helm `values.yaml`:**
+
+```yaml
+# In siterm-fe/values.yaml
+extraVolumes:
+  - name: ssh-keys
+    secret:
+      secretName: siterm-ssh-keys
+      defaultMode: 0400
+
+extraVolumeMounts:
+  - name: ssh-keys
+    mountPath: /opt/siterm/config/ssh-keys
+    readOnly: true
+```
+
+**Step 3 — Set the `sshkey` path in `ansible-conf.yaml`:**
+
+```yaml
+inventory:
+  my_switch:
+    network_os: sense.dellos10.dellos10
+    host: 192.168.1.1
+    user: admin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+```
+
+The key is mounted at `/opt/siterm/config/ssh-keys/id-rsa-sense` inside the Frontend pod, matching the path used in Docker deployments.
 
 ### How to enable SNMP
 
@@ -129,4 +166,166 @@ snmpParams:
 
 ### Examples
 
-TODO
+Below are complete `ansible-conf.yaml` examples for each supported network OS.
+
+**Dell OS 9 (SNMPv2c + SSH password):**
+
+```yaml
+inventory:
+  dellos9_s0:
+    network_os: sense.dellos9.dellos9
+    host: 10.0.1.10
+    user: admin
+    pass: mysecretpassword
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+    snmp_params:
+      session_vars:
+        community: public
+        hostname: 10.0.1.10
+        version: 2
+```
+
+**Dell OS 10 (SSH key + SNMPv3):**
+
+```yaml
+inventory:
+  dellos10_s0:
+    network_os: sense.dellos10.dellos10
+    host: 10.0.1.11
+    user: admin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+    snmp_params:
+      session_vars:
+        version: 3
+        hostname: 10.0.1.11
+        security_level: authPriv
+        security_username: snmpuser
+        auth_protocol: SHA
+        auth_password: authpassword
+        privacy_protocol: AES
+        privacy_password: privpassword
+```
+
+**Azure SONiC (SSH key + SNMPv2c):**
+
+```yaml
+inventory:
+  sonic_s0:
+    network_os: sense.sonic.sonic
+    host: 10.0.1.12
+    user: admin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+    become: true
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+    snmp_params:
+      session_vars:
+        community: public
+        hostname: 10.0.1.12
+        version: 2
+```
+
+**Arista EOS (SSH key + SNMPv2c):**
+
+```yaml
+inventory:
+  arista_s0:
+    network_os: sense.aristaeos.aristaeos
+    host: 10.0.1.13
+    user: admin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+    snmp_params:
+      session_vars:
+        community: public
+        hostname: 10.0.1.13
+        version: 2
+```
+
+**Juniper Junos (SSH key + SNMPv3):**
+
+```yaml
+inventory:
+  junos_s0:
+    network_os: sense.junos.junos
+    host: 10.0.1.14
+    user: netadmin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-junos
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+    snmp_params:
+      session_vars:
+        version: 3
+        hostname: 10.0.1.14
+        security_level: authPriv
+        security_username: snmpv3user
+        auth_protocol: SHA
+        auth_password: authpass
+        privacy_protocol: AES
+        privacy_password: privpass
+```
+
+**Cisco NX-OS 9 (SSH password + SNMPv2c):**
+
+```yaml
+inventory:
+  cisco_s0:
+    network_os: sense.cisconx9.cisconx9
+    host: 10.0.1.15
+    user: admin
+    pass: mysecretpassword
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+    snmp_params:
+      session_vars:
+        community: public
+        hostname: 10.0.1.15
+        version: 2
+```
+
+**FRRouting (FRR) - Software Router (SSH key):**
+
+```yaml
+inventory:
+  frr_router:
+    network_os: sense.frr.frr
+    host: 10.0.1.20
+    user: ubuntu
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+```
+
+**FreeRTR (SSH password):**
+
+```yaml
+inventory:
+  freertr_router:
+    network_os: sense.freertr.freertr
+    host: 10.0.1.21
+    user: admin
+    pass: mysecretpassword
+    become: false
+    ssh_common_args: "-o StrictHostKeyChecking=no"
+```
+
+**Using a Jump Host (for devices not directly reachable from Frontend):**
+
+```yaml
+inventory:
+  switch_behind_firewall:
+    network_os: sense.dellos10.dellos10
+    host: 192.168.100.50
+    user: admin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+    become: false
+    ssh_common_args: >-
+      -o StrictHostKeyChecking=no
+      -o UserKnownHostsFile=/dev/null
+      -o ProxyCommand="ssh -W %h:%p -q admin@jump.host.example.net -i /opt/siterm/config/ssh-keys/id-rsa-jumphost"
+```
+
+For full configuration repository examples with real-world switch configurations, see the [SiteRM rm-configs repository](https://github.com/sdn-sense/rm-configs).

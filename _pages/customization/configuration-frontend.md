@@ -159,4 +159,39 @@ For examples, please see [SiteRM Configuration repo](https://github.com/sdn-sens
 
 ## Startup configuration
 
-Start-up configuration files for SiteRM Frontend installation. TODO
+The startup configuration file tells SiteRM which site configuration to pull from Git at boot time.
+
+**Docker/Podman:** Edit `fe/conf/etc/siterm.yaml` in the cloned `siterm-startup` repository:
+
+```yaml
+GIT_REPO: https://github.com/<your-org>/rm-configs
+BRANCH: master
+MD5: <md5-hash-from-mapping.yaml>    # Leave empty to auto-compute md5(hostname -f)
+SITENAME: T2_US_YOURSITE
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `GIT_REPO` | Yes | URL to the Git repository containing site configuration files |
+| `BRANCH` | Yes | Branch of the Git repository to pull configuration from |
+| `MD5` | No | MD5 hash from `mapping.yaml` identifying this Frontend. If omitted, computed as `md5(hostname -f)` |
+| `SITENAME` | Yes | Must match the `sitename` value in `FE/main.yaml` and `mapping.yaml` |
+
+**Kubernetes (Helm):** These same parameters are specified directly in the Helm `values.yaml` under the `siterm` section:
+
+```yaml
+siterm:
+  gitrepo: https://github.com/<your-org>/rm-configs
+  gitbranch: master
+  md5: <md5-hash-from-mapping.yaml>
+  sitename: T2_US_YOURSITE
+```
+
+The environment file (`fe/conf/environment` for Docker, or Helm `env` values for Kubernetes) must also contain the MariaDB password:
+
+```bash
+# fe/conf/environment (Docker/Podman only)
+MARIA_DB_PASSWORD=<your-secure-password>
+```
+
+**Important:** Choose a strong password and do not change it between redeployments of the same Frontend, as the database will already contain data encrypted with the original password.
