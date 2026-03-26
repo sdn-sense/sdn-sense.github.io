@@ -61,7 +61,9 @@ Notes:
 
 ## Firewall Requirements
 
-The Frontend requires connectivity to the following services listed below. Access may be restricted to specific nodes.
+### Frontend Firewall Requirements
+
+The Frontend must have outbound connectivity to the following services. Access may be restricted to specific nodes.
 
 - **Production Orchestrator**
   - `sense-o.es.net` (ports 8080, 8443)
@@ -71,8 +73,10 @@ The Frontend requires connectivity to the following services listed below. Acces
   - `k8s-igrok-0[1–6].calit2.optiputer.net`
   - IP range: `67.58.51.132–67.58.51.137`
   - Ports: 8080, 8443, 9100
-- **Local Agents**
-  - All deployed Agents must be able to reach the Frontend
+
+### Agent Firewall Requirements
+
+- All deployed Agents must be able to reach the Frontend on port **443** (HTTPS).
 
 ## Installation Methods
 
@@ -83,11 +87,11 @@ SiteRM supports the following installation methods:
 
 While each site hardware and network topology is different. Proceed to component-specific documentation for detailed configuration files, installation steps, examples, and operational details. Start with:
 
-* Configuration preparation
-* Frontend Installation
-* Agent Installation
-* Debugger Installation
-* Node Exporter Installation
+* [Configuration preparation](/customization/configuration-layout/)
+* [Frontend Installation](/main-install/frontend/)
+* [Agent Installation](/main-install/agent/)
+* [Debugger Installation](/main-install/debugger/)
+* [Node Exporter Installation](/main-install/node-exporter/)
 * Host and Switch configuration tunings
 
 
@@ -103,13 +107,23 @@ GIT_USERNAME=<REPLACE_ME_TO_GIT_USERNAME>
 git clone https://github.com/${GIT_USERNAME}/rm-configs
 ```
 
-- Create new site directory, based on provided templates:
+- Create new site directory. You can use an existing site as a starting point (e.g. `T2_US_Nebraska`) or create the directory structure manually:
 
 ```bash
 SITENAME="T3_US_ExampleSite" # Replace sitename to T<1|2|3>_<COUNTRY_CODE>_<SITENAME>
 cd rm-configs
-mkdir $SITENAME
-cp -R SITE_TEMPLATES/* $SITENAME/
+# Option A: copy from an existing site as a template
+cp -R T2_US_Nebraska $SITENAME
+# Option B: create from scratch
+mkdir -p $SITENAME/FE
+```
+
+The minimum required layout inside `$SITENAME/` is:
+```
+mapping.yaml        # MD5 → config directory mapping
+FE/main.yaml        # Frontend configuration
+FE/auth.yaml        # Authorized X.509 DNs
+Agent01/main.yaml   # Agent configuration (one per DTN host)
 ```
 
 - Decide where you will run Frontend. Frontend can run anywhere (on the same nodes as Agents) or have an individual Node/VM/Kubernetes container. You need to know the FQDN Hostname Frontend will be deployed on. For steps below, we will use `sense-site.sdn-sense.dev` hostname.
@@ -118,8 +132,17 @@ cp -R SITE_TEMPLATES/* $SITENAME/
 SENSE_FQDN="sense-site.sdn-sense.dev"
 ```
 
-- Modify `mappings.yaml` file inside the new Sitename directory:
-  - Change md5 for Frontend to the output of `md5sum -n "{SENSE_FQDN}"`
+- Modify `mapping.yaml` file inside the new Sitename directory:
+  - Change md5 for Frontend to the MD5 hash of the Frontend FQDN hostname. Use the `md5-gen.py` helper script included in the repo:
+
+```bash
+# From inside the rm-configs checkout:
+python3 md5-gen.py "${SENSE_FQDN}"
+# Example output:
+# INPUT: sense-site.sdn-sense.dev MD5: a1b2c3d4e5f6...
+```
+
+  - Copy the hex string after `MD5:` and paste it as the `md5` value in `mapping.yaml`.
   - Change maintainer to either person's FirstName LastName, or email address for administrators;
 
 - Modify `FE/main.yaml` file inside the new Sitename directory:
@@ -154,3 +177,5 @@ siterm_frontend:
 - Push all configuration changes to Github repo. With this, we are ready to install SiteRM Frontend
 
 ### SiteRM Frontend Installation
+
+Please refer to the [Frontend Installation documentation](/main-install/frontend/) for detailed installation steps, Docker and Kubernetes configuration, and post-install verification.

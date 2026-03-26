@@ -8,7 +8,7 @@ sidebar:
   nav: "docs"
 ---
 
-## SiteRM 1.6.0 Production Release
+## SiteRM 1.6.0 Pre-Production Release
 
 ⚠️ **Breaking Release — Authentication system fully replaced.**
 Sites upgrading from 1.5.63 must follow the upgrade steps below before starting the new image.
@@ -85,27 +85,28 @@ See the full documentation: [Authentication Configuration](/customization/authen
 - Agent and Debugger containers **no longer require a host certificate** — they authenticate to the Frontend using the new M2M token flow
 - Log rotation: all processes write to log files capped at 2 files × 25 MB
 - VPP monitoring rewritten as a Python process (resolves single-thread issue)
+- **Certificate mount path changed** — host/grid certificates for Docker and Kubernetes are now mounted under `/etc/secret-mount/` (previously `/etc/grid-security/`). Certificate files are renamed: `hostcert.pem` → `tls.crt`, `hostkey.pem` → `tls.key`. This enables automatic certificate rotation without a service restart.
+- Kubernetes Helm deployments: certificates are also expected under `/etc/secret-mount/` (`tls.crt` / `tls.key`)
+
+**Helm Chart Changes:**
+- `siterm-fe`: `ssl-passthrough` annotation removed from `values.yaml` — it is not required and caused confusion
+- `siterm-agent`: clarified that `NET_ADMIN` capability **must be uncommented** for the agent to create VLAN interfaces and apply QoS rules
+- `siterm-agent`: corrected LLDPD socket path documentation — Ubuntu systems use `/var/run/lldpd.socket` (`.socket` suffix), not `/var/run/lldpd.sock`
 
 **Ansible Collections:**
 - `sense-aristaeos-collection`: MAC address normalization fix for LLDP parsing
 
 ### 🚨 Upgrade Instructions
 
-1. **Create at least one admin user before starting the new image:**
+1. **Cancel all SENSE Services. Contact SENSE team to clean up your site**
 
-   After pulling the new Frontend image but before restarting, enter the container and create an admin account:
-   ```bash
-   docker exec -it siterm-fe bash
-   siterm-usertool --action create --username admin --permissions admin
-   ```
+2. **Database migration runs automatically** on Frontend startup, but new release requires full removal of /opt/siterm/config/mysql. In futurem, no manual SQL changes are needed.
 
-2. **Database migration runs automatically** on Frontend startup. No manual SQL changes are needed. Ensure the database is accessible before starting the container.
+3. **Review your trust store** if your site uses X.509 M2M auth with non-standard CAs. Check `/etc/grid-security/allowed_truststore.yaml` (or create it) to ensure your site's CA is included.
 
-3. **Agent and Debugger certificates are no longer required** for API authentication. The Agents will use the M2M token flow automatically. You may leave existing cert mounts in place (they are ignored) or remove them from your `docker run`/Helm configuration.
+4. **Docker users: update certificate mount paths.** Certificates are now read from `/etc/secret-mount/` instead of `/etc/grid-security/` (or `/etc/httpd/certs/`). Rename your files: `hostcert.pem` → `tls.crt`, `hostkey.pem` → `tls.key`, and update your `docker run` or `docker-compose` volume mounts accordingly.
 
-4. **Review your trust store** if your site uses X.509 M2M auth with non-standard CAs. Check `/etc/grid-security/allowed_truststore.yaml` (or create it) to ensure your site's CA is included.
-
-5. **Helm users:** No chart changes in this release. Update image tag only.
+5. **Helm users:** Update image tags. The `ssl-passthrough` annotation has been removed from `siterm-fe/values.yaml`. If you had overridden this annotation locally, remove it from your site values. Also verify that `NET_ADMIN` is uncommented in your agent values if it was not already set.
 
 ### 🔧 Supported OS Releases
 
@@ -125,19 +126,19 @@ See the full documentation: [Authentication Configuration](/customization/authen
 - 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
 - 🔗 **Authentication Setup:** [Authentication Configuration](/customization/authentication/)
 - **Recommended Version:** Always use `latest`.
-- This particular release is `latest-<el9|el10|u22>` version (`TODO`).
+- This particular release is `pre-<el9|el10|u22>` version (`1.6.0`).
 
 ### Docker Versions
 
-- **Agent:** `sdnsense/siterm-agent:latest-20260322-<el9|el10|u22>` *(or use `latest`)*
-- **Debugger:** `sdnsense/siterm-debugger:latest-20260322-el10` *(or use `latest`)*
-- **Frontend:** `sdnsense/siterm-fe:latest-20260322` *(or use `latest`)*
+- **Agent:** `sdnsense/siterm-agent:pre-20260326-<el9|el10|u22>` *(or use `latest`)*
+- **Debugger:** `sdnsense/siterm-debugger:pre-20260326-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:pre-20260326` *(or use `latest`)*
 
 ### Helm versions
 
-- **Agent:** Chart version siterm/siterm-agent TODO 
-- **Debugger:** Chart version siterm/siterm-debugger TODO
-- **Frontend:** Chart version siterm/siterm-fe TODO
+- **Agent:** Chart version siterm/siterm-agent 1.6.0
+- **Debugger:** Chart version siterm/siterm-debugger 1.6.0
+- **Frontend:** Chart version siterm/siterm-fe 1.6.0
 
 ---
 
