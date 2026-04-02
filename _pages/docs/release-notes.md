@@ -8,7 +8,7 @@ sidebar:
   nav: "docs"
 ---
 
-## SiteRM 1.6.0 Pre-Production Release
+## SiteRM 1.6.0 Production Release
 
 ⚠️ **Breaking Release — Authentication system fully replaced.**
 Sites upgrading from 1.5.63 must follow the upgrade steps below before starting the new image.
