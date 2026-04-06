@@ -36,10 +36,47 @@ sidebar:
 
 ## SiteRM-Agent Upgrade (Docker/Podman)
 
-* Please look for any changes required to support new release.
-* **It is recomended to use stable tag version. master branch is used as a developement. Look at Readme file [here](https://github.com/sdn-sense/siterm/blob/master/README.MD) to identify stable version.** Use `git fetch --all --tags` and `git checkout <tag>`
-* Pull latest runtime version by issuing: `git pull` inside siterm-startup repo directory;
-* Once all changes are done as noted in a new release description, proceed to restart the service: `cd agent/docker/ && ./restart-new-image.sh -i latest`.
+Please check the [Release Notes](/docs/release-notes/) for any configuration changes required for the new version before upgrading.
+
+### Upgrading from 1.6.0 or later
+
+Pull the latest image and restart:
+
+```bash
+cd agent/docker/ && ./restart-new-image.sh -i latest
+```
+
+### Upgrading from 1.5.x or older
+
+The siterm-startup directory structure changed in 1.6.0 (certificate paths, mount names). A simple `git pull` is not sufficient — re-clone the repo and migrate your configuration:
+
+1. **Re-clone siterm-startup and migrate config:**
+
+   ```bash
+   mv siterm-startup siterm-startup-old
+   git clone https://github.com/sdn-sense/siterm-startup
+
+   cd siterm-startup/agent/conf/etc/
+   cp ~/siterm-startup-old/agent/conf/etc/siterm.yaml siterm.yaml
+   # Certificates are now under secret-mount/ with new filenames
+   cp ~/siterm-startup-old/agent/conf/etc/grid-security/hostcert.pem secret-mount/tls.crt
+   cp ~/siterm-startup-old/agent/conf/etc/grid-security/hostkey.pem secret-mount/tls.key
+   ```
+
+2. **Stop and remove old containers and volumes, then start fresh:**
+
+   ```bash
+   docker ps -a
+   docker stop <old-container-ids>
+   docker rm <old-container-ids>
+   docker volume ls
+   docker volume remove <old-volume-names>
+
+   cd ../../docker/
+   ./restart-new-image.sh -i latest
+   ```
+
+3. **Verify** the Agent re-registered to the Frontend by checking the Frontend Web UI under **Frontend Configuration** — the Agent's hostname should appear with an up-to-date status.
 
 ## SiteRM-Agent Installation (Kubernetes cluster with Helm)
 
@@ -56,10 +93,10 @@ sidebar:
 
 ## SiteRM-Agent Upgrade (Using Kubernetes cluster with Helm)
 
-* Please look for any changes required to support new release.
+* Please look for any changes required to support new release: [Release Notes](/docs/release-notes/)
 * Update to latest helm repo charts: `helm repo update`
 * Modify the values.yaml file with new parameters or changes as per new release. (if needed)
-* Upgrade the helm chart on your Kubernetes cluster: `helm install siterm siterm/siterm-agent -f values.yaml`
+* Upgrade the helm chart on your Kubernetes cluster: `helm upgrade siterm siterm/siterm-agent -f values.yaml`
 
 ## Check if services are running correctly
 

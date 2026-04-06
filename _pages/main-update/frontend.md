@@ -37,10 +37,65 @@ sidebar:
 
 ## SiteRM-FE Upgrade (Docker/Podman)
 
-* Please look for any changes required to support new release in release notes: [https://github.com/sdn-sense/siterm/tags](https://github.com/sdn-sense/siterm/tags)
-* Pull latest runtime version by issuing: `git pull` inside siterm-startup repo directory;
-* **It is recomended to use stable tag version. master branch is used as a developement. Look at Readme file [here](https://github.com/sdn-sense/siterm/blob/master/README.MD) to identify stable version.** Use `git fetch --all --tags` and `git checkout <tag>`
-* Once all changes are done as noted in a new release description, proceed to restart the service: `cd fe/docker/ && ./restart-new-image.sh -i latest`. p.s. if you used `-n host` - dont forget to add it too.
+Please check the [Release Notes](/docs/release-notes/) for any configuration changes required for the new version before upgrading.
+
+### Upgrading from 1.6.0 or later
+
+Pull the latest image and restart:
+
+```bash
+cd fe/docker/ && ./restart-new-image.sh -i latest
+```
+
+> If you started the service with `-n host`, include that flag here too.
+
+### Upgrading from 1.5.x or older
+
+The siterm-startup directory structure changed in 1.6.0 (certificate paths, mount names). A simple `git pull` is not sufficient — re-clone the repo and migrate your configuration:
+
+1. **Contact the SENSE team** to cancel all active services for your site first.
+
+2. **Clean the Frontend config and database state** (inside the container or on the host volume):
+
+   ```bash
+   rm -rf /opt/siterm/config/mysql/
+   rm -rf /opt/siterm/config/*
+   ```
+
+3. **Re-clone siterm-startup and migrate config:**
+
+   ```bash
+   mv siterm-startup siterm-startup-old
+   git clone https://github.com/sdn-sense/siterm-startup
+
+   cd siterm-startup/fe/conf/etc/
+   cp ~/siterm-startup-old/fe/conf/etc/siterm.yaml siterm.yaml
+   # Certificates are now under secret-mount/ with new filenames
+   cp ~/siterm-startup-old/fe/conf/etc/grid-security/hostcert.pem secret-mount/tls.crt
+   cp ~/siterm-startup-old/fe/conf/etc/grid-security/hostkey.pem secret-mount/tls.key
+   ```
+
+4. **Stop and remove old containers and volumes, then start fresh:**
+
+   ```bash
+   docker ps -a
+   docker stop <old-container-ids>
+   docker rm <old-container-ids>
+   docker volume ls
+   docker volume remove <old-volume-names>
+
+   cd ../../docker/
+   ./restart-new-image.sh -i latest
+   ```
+
+5. **Create the initial admin user** (inside the Frontend container):
+
+   ```bash
+   siterm-usertool create <USERNAME>
+   # Enter a strong password when prompted (minimum 12 characters)
+   ```
+
+6. **Verify** the Web UI is accessible and the status panel (top right) shows all services as **Ready**. See [Common Issues](/operational/common-issues/) if not.
 
 ## SiteRM-FE Installation First time (Kubernetes cluster with Helm)
 
@@ -57,10 +112,12 @@ sidebar:
 
 ## SiteRM-FE Upgrade (Using Kubernetes with Helm)
 
-* Please look for any changes required to support new release here: [https://github.com/sdn-sense/siterm/releases](https://github.com/sdn-sense/siterm/releases)
+* Please look for any changes required to support new release here: [Release Notes](/docs/release-notes/)
 * Update to latest helm repo charts: `helm repo update`
 * Modify the values.yaml file with new parameters or changes as per new release. (if needed)
-* Upgrade the helm chart on your Kubernetes cluster: `helm install siterm siterm/siterm-fe -f values.yaml`
+* Upgrade the helm chart on your Kubernetes cluster: `helm upgrade siterm siterm/siterm-fe -f values.yaml`
+
+> **Note for sites upgrading from 1.5.x:** Remove the `haproxy-ingress.github.io/ssl-passthrough: "true"` annotation from your Frontend ingress values if present — it is no longer needed and causes issues. Also clean the Frontend config before starting: `rm -rf /opt/siterm/config/mysql/ && rm -rf /opt/siterm/config/*`. After upgrade, create an admin user inside the Frontend container: `siterm-usertool create <USERNAME>` (minimum 12-character password).
 
 ## Check if services are running correctly
 

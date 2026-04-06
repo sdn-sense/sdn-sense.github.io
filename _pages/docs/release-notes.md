@@ -8,6 +8,161 @@ sidebar:
   nav: "docs"
 ---
 
+## SiteRM 1.6.1 Bug Fix Release
+
+### Bug Fixes
+
+**FRR VLAN sub-interface identification fix**
+- `Backends/Ansible.py`: VLAN ID extraction now handles dot-notation sub-interfaces (e.g., `eth0.100`). Previously, FRR sub-interfaces using dotted port naming were not recognized, causing VLAN check failures.
+
+**Base64 encode/decode type safety**
+- `MainUtilities.py`: `encodebase64` and `decodebase64` rewritten to correctly handle both `str` and `bytes` inputs without type errors. Previously, passing the wrong type caused silent failures or exceptions during model serialization and data transport.
+
+**Switch error recording in database**
+- `Backends/main.py`: Switch-side errors are now correctly recorded in the database. Previously, certain error paths in the Ansible backend did not persist error state, making switch failures invisible in the Web UI and Prometheus output.
+
+**Debug request table name fixes**
+- `SiteFE/Debugger/Debugger.py`, `SiteFE/REST/Debug.py`: Fixed incorrect database table names (`debugrequestsworker` → `debugrequests`, `debugrequestsfull` → `debugrequests`). This prevented debug request state updates from being recorded, leaving debug operations stuck.
+- `DBBackend.py`: DB update now skips `None` values to avoid overwriting valid fields with null.
+
+**Docker startup: secret-mount directory name corrected**
+- `siterm-startup`: Agent and Debugger Docker startup scripts and directory layout corrected from `secrets-mount` to `secret-mount`, matching the mount path documented in 1.6.0 release notes. Sites that have already updated to the correct `secret-mount` path are unaffected.
+
+### 🚨 Upgrade Instructions
+
+#### Upgrading from 1.6.0
+
+No configuration changes required. Simply pull the new image:
+
+**Docker/Podman (siterm-startup):**
+
+```bash
+# Frontend
+cd fe/docker/ && ./restart-new-image.sh -i latest
+
+# Agent
+cd agent/docker/ && ./restart-new-image.sh -i latest
+
+# Debugger
+cd debugger/docker/ && ./restart-new-image.sh -i latest
+```
+
+**Kubernetes (Helm):**
+
+```bash
+helm repo update
+helm upgrade siterm siterm/siterm-fe -f values.yaml
+helm upgrade siterm siterm/siterm-agent -f values.yaml
+helm upgrade siterm siterm/siterm-debugger -f values.yaml
+```
+
+#### Upgrading from 1.5.x or older
+
+Sites on 1.5.x must follow the full 1.6.0 upgrade path. The steps below incorporate both:
+
+1. **Contact the SENSE team** to cancel and clean up all active services for your site before proceeding.
+
+2. **Clean the Frontend config and database state** (inside the Frontend container or on the host volume):
+
+   ```bash
+   rm -rf /opt/siterm/config/mysql/
+   rm -rf /opt/siterm/config/*
+   ```
+
+3. **Docker/Podman users — re-clone siterm-startup** (directory structure changed in 1.6.0):
+
+   ```bash
+   mv siterm-startup siterm-startup-old
+   git clone https://github.com/sdn-sense/siterm-startup
+   ```
+
+   Copy your existing configuration and certificates, adapting to the new certificate filenames (`tls.crt` / `tls.key`):
+
+   ```bash
+   # Agent example — repeat equivalently for Frontend and Debugger
+   cd siterm-startup/agent/conf/etc/
+   cp ~/siterm-startup-old/agent/conf/etc/siterm.yaml siterm.yaml
+   cp ~/siterm-startup-old/agent/conf/etc/grid-security/hostcert.pem secret-mount/tls.crt
+   cp ~/siterm-startup-old/agent/conf/etc/grid-security/hostkey.pem secret-mount/tls.key
+   ```
+
+   Stop and remove old containers and volumes, then start fresh:
+
+   ```bash
+   docker ps -a
+   docker stop <old-container-ids>
+   docker rm <old-container-ids>
+   docker volume ls
+   docker volume remove <old-volume-names>
+
+   cd ../../docker/
+   ./restart-new-image.sh -i latest
+   ```
+
+4. **Kubernetes (Helm) users:**
+   - Update Helm repositories: `helm repo update`
+   - **Remove** the `haproxy-ingress.github.io/ssl-passthrough: "true"` annotation from your Frontend ingress values if present — it is no longer needed.
+   - Use `latest` for image tags, or remove explicit image definitions and let Helm set them. To check available chart versions:
+
+     ```bash
+     helm repo update
+     helm search repo siterm/siterm-fe --versions
+     helm search repo siterm/siterm-agent --versions
+     helm search repo siterm/siterm-debugger --versions
+     ```
+
+   - Apply the upgrade:
+
+     ```bash
+     helm upgrade siterm siterm/siterm-fe -f values.yaml
+     helm upgrade siterm siterm/siterm-agent -f values.yaml
+     ```
+
+5. **Create the initial admin user** (inside the Frontend container):
+
+   ```bash
+   siterm-usertool create <USERNAME>
+   # Enter a strong password when prompted (minimum 12 characters)
+   ```
+
+6. **Verify the deployment:** Access the Frontend Web UI at `https://<your-frontend-fqdn>`. The status panel (top right) should show all services as **Ready**. If not, refer to [SiteRM Operations](/operational/siterm-operations/) and [Common Issues](/operational/common-issues/).
+
+7. **Notify the SENSE team** once all services are ready so your site can be re-added to SENSE Orchestrators.
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+> **Note:** EL8 is no longer supported for the Frontend or Agent from 1.6.0 onwards.
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- 🔗 **Authentication Setup:** [Authentication Configuration](/customization/authentication/)
+- **Recommended Version:** Always use `latest`.
+- This particular release is `latest-<el9|el10|u22>` version (`1.6.1`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20260406-<el9|el10|u22>` *(or use `latest`)*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20260406-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20260406` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.6.1
+- **Debugger:** Chart version siterm/siterm-debugger 1.6.1
+- **Frontend:** Chart version siterm/siterm-fe 1.6.1
+
+---
+
 ## SiteRM 1.6.0 Production Release
 
 ⚠️ **Breaking Release — Authentication system fully replaced.**
