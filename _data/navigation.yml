@@ -7,7 +7,7 @@ main:
 docs:
   - title: ""
     children:
-      - title: "Stable Release: 1.6.0"
+      - title: "Stable Release: 1.6.1"
         url: /docs/stable-release/
     nav: sidebar-sample
   - title: Getting Started
@@ -64,6 +64,8 @@ docs:
         url: /optional-install/custom-snmp-exporter/
       - title: "DSCP Marking Tool"
         url: /optional-install/dscp-marking/
+      - title: "Node Exporter Security"
+        url: /optional-install/node-exporter-security/
 
   - title: Operational Guides
     children:

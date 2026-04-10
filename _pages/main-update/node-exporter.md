@@ -34,3 +34,14 @@ SiteRM does not "reinvent" the wheel and reuses tools already available for moni
 ## Configure Host Monitoring
 
 Update your agent configuration `main.yaml` file Remote Github repo and specify config parameter `node_exporter` in `general` section.
+
+## Security: Restrict Port 9100 and Enable Passthrough
+
+By default, `node_exporter` listens on port 9100 and is accessible to any host that can reach the DTN. Many security scanners flag this because `node_exporter` (like all Go binaries) exposes a `/debug/pprof` endpoint — this is not a real vulnerability, but it is commonly raised as a finding.
+
+The recommended approach is to:
+
+1. **Restrict port 9100** on the agent/DTN so that only the SiteRM Frontend IP is allowed to connect.
+2. **Enable the passthrough** (`node_exporter_passthrough: true` in `main.yaml`) so that external monitoring systems scrape metrics through the Frontend proxy instead of accessing the agent directly.
+
+See the full guide: [Node Exporter Security](/optional-install/node-exporter-security/)
