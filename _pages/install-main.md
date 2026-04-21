@@ -174,6 +174,8 @@ siterm_frontend:
   permissions: w
 ```
 
+`allowed_ips` can be added when access should be limited to specific client networks. If `allowed_ips` is not specified, the credential can authenticate from any client IP.
+
 - Push all configuration changes to Github repo. With this, we are ready to install SiteRM Frontend
 
 ### SiteRM Frontend Installation

@@ -39,6 +39,9 @@ Below you will find details for configuration parameters and available options.
 senseoprod: # This is username. Must be unique between auth.yaml and auth-re.yaml file
   full_dn: "/C=US/O=Internet2/CN=InCommon RSA Server CA 2/C=US/ST=California/O=Energy Sciences Network/CN=sense-o.es.net"
   permissions: w # Permissions - r is for read; w is for write. SENSE Requires full write permissions. Read permissions for users/operators, that do not require any modification capabilities.
+  allowed_ips: # Optional. If omitted, this credential is allowed from any client IP.
+    - 198.51.100.10/32
+    - 2001:db8:1234::/64
 senseodev:
   full_dn: "/C=US/O=Internet2/CN=InCommon RSA Server CA 2/C=US/ST=California/O=Energy Sciences Network/CN=sense-o-dev.es.net"
   permissions: w
@@ -61,6 +64,8 @@ unlallhosts:
 username:
   full_dn: "<X.509 Distinguished Name or regex>"
   permissions: r | w
+  allowed_ips:
+    - "<IPv4 or IPv6 CIDR>"
 ```
 
 ### Fields
@@ -69,6 +74,7 @@ username:
 |---|---|---|
 | `full_dn` | **Yes** | Full X.509 Distinguished Name. Regex allowed only in `auth-re.yaml`. |
 | `permissions` | **Yes** | `r` = read-only, `w` = read/write. SENSE requires write access. |
+| `allowed_ips` | No | Optional list of IPv4 or IPv6 CIDR ranges allowed to use this credential. If this field is not specified, requests for that credential are allowed from any client IP. If specified, it must be a non-empty list, for example `198.51.100.10/32` or `2001:db8:1234::/64`. |
 
 ## Frontend configuration (main.yaml)
 
