@@ -85,6 +85,31 @@ ERROR: Configuration file ../conf/etc/ansible-conf.yaml was not modified. SiteRM
 
 ---
 
+## Config Fetcher Missing Mapping File
+
+```text
+Config fetcher is still running. Check stdout/stderr.
+Got 10 consecutive failures. Will not try to fetch config anymore.
+Exception: Mapping file /tmp/git_config/<SITE_NAME>/mapping.yaml does not exist.
+```
+
+**Cause:** The SiteRM configuration for this site is missing from the Git configuration repository, or the configured site name does not match the directory in the repository. In Kubernetes, repeated failures usually force a container restart after the timeout. In Docker, this may require manual intervention.
+
+**Resolution**
+
+1. Check the Config Fetcher log:
+
+   ```bash
+   /var/log/supervisor/config_fetcher-daemon.log
+   ```
+
+2. Verify that the site directory exists in the configuration repository: [rm-configs](https://github.com/sdn-sense/rm-configs/)
+3. Verify that `<SITE_NAME>/mapping.yaml` exists and is committed.
+4. Verify that the configured site name matches the directory name in the repository.
+5. After fixing the repository/configuration, restart the SiteRM Frontend container if it does not restart automatically.
+
+---
+
 ## PluginException: Interface Not Found
 
 ```text
