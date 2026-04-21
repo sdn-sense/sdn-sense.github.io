@@ -71,6 +71,8 @@ docs:
     children:
       - title: "SiteRM Operations"
         url: /operational/siterm-operations/
+      - title: "How to Announce Downtime"
+        url: /operational/how-to-announce-downtime/
       - title: "Common Issues and Troubleshooting"
         url: /operational/common-issues/
       - title: "Quality of Service (QoS)"
