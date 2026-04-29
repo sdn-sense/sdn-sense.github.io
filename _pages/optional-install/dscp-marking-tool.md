@@ -10,201 +10,137 @@ sidebar:
 
 ## Overview
 
-**DSCP (Differentiated Services Code Point)** is a 6-bit field in the IP header that marks packets so that network equipment (routers, switches) can apply **per-hop quality-of-service** policies. When SENSE creates a path with QoS guarantees, DSCP marking ensures that every device along the network path treats the traffic according to its priority — not just the endpoints.
+**DSCP (Differentiated Services Code Point)** is a 6-bit field in the IP header that marks packets so that network equipment (routers, switches) can apply **per-hop quality-of-service** policies. When SENSE creates a path with QoS guarantees, DSCP marking ensures that every device along the network path treats the traffic according to its priority.
 
-SiteRM enforces QoS at the DTN host level using [FireHol FireQOS](/operational/quality-of-service/). DSCP marking is an **optional complementary step** that marks packets with appropriate DSCP values so that the broader network infrastructure (WAN routers, campus switches) can also enforce differentiated service.
-
-**When to configure DSCP marking:**
-- Your WAN or campus network honors DSCP markings for QoS enforcement
-- You need end-to-end QoS, not just host-level shaping
-- Your site policy requires DSCP-based traffic classification for research network paths
+SiteRM Agent **automatically applies DSCP marking** on DTN hosts for all active deltas that have a service class. No manual configuration is needed. The Agent's Ruler component converges DSCP rules on every execution cycle, adding rules for newly activated deltas and removing stale rules when deltas are decommissioned.
 
 ---
 
-## DSCP Values Used by SENSE
+## How It Works
 
-SENSE recommends the following DSCP mappings aligned with IETF and research network conventions:
+DSCP marking is driven by the **service class** (`hasService.type`) of each active delta. The SiteRM Agent uses two mechanisms depending on the path type:
 
-| SENSE Path Type | DSCP Value | DSCP Class | Description |
-|---|---|---|---|
-| HardQoS (guaranteed bandwidth) | 46 (`EF`) | Expedited Forwarding | Highest priority, minimum latency |
-| SoftQoS (burstable guaranteed) | 26 (`AF31`) | Assured Forwarding | Priority delivery, allows burst |
-| BestEffort | 0 (`BE`) | Default (Best Effort) | Standard traffic, no guarantees |
-| Science network (ESnet standard) | 8 (`CS1`) | Class Selector 1 | Some networks use for bulk science data |
+### L2 Paths (VLAN interfaces)
 
-**Reference:** [IETF RFC 2474](https://datatracker.ietf.org/doc/html/rfc2474) defines the DSCP field; [RFC 3246](https://datatracker.ietf.org/doc/html/rfc3246) defines EF behavior class.
+For L2 connections (`vsw` and `kube` delta types), the Agent uses Linux **`tc` (traffic control)** to rewrite the DSCP field on all egress traffic on the VLAN interface:
+
+1. A root `prio` qdisc is added to the VLAN interface (`vlan.<VLAN_ID>`)
+2. `u32` catch-all filters with `pedit` actions rewrite the TOS byte (IPv4) or Traffic Class field (IPv6)
+3. **All traffic** on the VLAN interface is marked with the DSCP value corresponding to the delta's service class
+
+Example commands the Agent applies automatically for a `guaranteedCapped` delta on `vlan.3600`:
+
+```bash
+# Root qdisc
+tc qdisc add dev vlan.3600 root handle 1: prio
+
+# IPv4: rewrite TOS byte to 0xb8 (DSCP 46 / EF)
+tc filter add dev vlan.3600 parent 1: protocol ip prio 1 \
+  u32 match u32 0 0 \
+  action pedit munge ip tos set 0xb8 action ok
+
+# IPv6: rewrite Traffic Class across bytes 0-1 of the IPv6 header
+tc filter add dev vlan.3600 parent 1: protocol ipv6 prio 11 \
+  u32 match u32 0 0 \
+  action pedit munge offset 0 u8 set 0x6b \
+  action pedit munge offset 1 u8 set 0x80 action ok
+```
+
+When a delta is decommissioned, the Agent removes the root qdisc (which removes all attached filters).
+
+### L3 Paths (Routed, IPv6 only)
+
+For L3 routing service (`rst`) deltas, the Agent uses **`ip6tables`** to mark traffic by destination IPv6 prefix:
+
+```bash
+# Mark traffic to a specific IPv6 prefix with DSCP 46 (EF)
+ip6tables -t mangle -A OUTPUT \
+  -d 2605:9a00:10:2010::/64 \
+  -m comment --comment "SENSE_guaranteedCapped_DSCP46_<uuid>" \
+  -j DSCP --set-dscp 46
+```
+
+Key details:
+- Rules go in the **mangle** table, **OUTPUT** chain (marks locally-originated traffic)
+- Each rule is tagged with a structured comment (`SENSE_<type>_DSCP<value>_<uuid>`) for identification
+- Rules are applied idempotently: the Agent checks if a rule already exists before adding
+- L3 DSCP marking is **IPv6 only**
+- If `ip6tables` is not installed on the host, L3 DSCP marking is skipped
+
+---
+
+## DSCP Values
+
+The following DSCP values are applied automatically based on the delta's service class:
+
+| Service Class | DSCP Value | DSCP Name | IPv4 TOS Byte | Description |
+|---|---|---|---|---|
+| `guaranteedCapped` | 46 | EF (Expedited Forwarding) | `0xB8` | Highest priority, minimum latency |
+| `softCapped` | 18 | AF21 (Assured Forwarding 21) | `0x48` | Priority delivery with burst allowance |
+| `bestEffort` | 0 | BE (Best Effort) | `0x00` | Default, no QoS guarantees |
+
+The TOS byte is the DSCP value left-shifted by 2 bits (DSCP occupies the upper 6 bits of the TOS/Traffic Class byte). For example, DSCP 46 = `0x2E`, shifted left by 2 = `0xB8`.
+
+If a delta does not specify a service class, it defaults to `bestEffort` (DSCP 0), which is functionally a no-op since DSCP 0 is the default for unmarked traffic.
+
+**Reference:** [IETF RFC 2474](https://datatracker.ietf.org/doc/html/rfc2474) defines the DSCP field; [RFC 3246](https://datatracker.ietf.org/doc/html/rfc3246) defines EF behavior.
 
 ---
 
 ## Prerequisites
 
-- Linux host running SiteRM Agent (DTN node)
-- Root access (required for `iptables`/`ip6tables` and `tc` commands)
-- `iptables` and `ip6tables` packages installed
-- The VLAN interfaces for SENSE-controlled paths must already exist (created by SiteRM Agent)
+DSCP marking runs automatically as part of the SiteRM Agent Ruler. The only prerequisites are:
 
----
+- **SiteRM Agent** installed and running on the DTN host
+- **Root access** (required for `tc` and `ip6tables` commands)
+- **`ip6tables`** installed if you need L3 (routed IPv6) DSCP marking; L2 marking works without it
 
-## Approach 1 — DSCP Marking with `iptables` / `ip6tables`
-
-This is the simplest approach. Use `iptables` to mark traffic on SENSE VLAN interfaces as it leaves the host.
-
-### Mark all traffic on a SENSE VLAN interface with EF (DSCP 46):
-
-```bash
-# IPv4 — mark outgoing traffic on VLAN interface as Expedited Forwarding (DSCP 46)
-iptables -t mangle -A OUTPUT -o vlan.3600 -j DSCP --set-dscp 46
-
-# IPv6 — same rule for IPv6 traffic
-ip6tables -t mangle -A OUTPUT -o vlan.3600 -j DSCP --set-dscp 46
-
-# IPv4 — mark incoming traffic (PREROUTING) — useful if you want to remark ingress
-iptables -t mangle -A PREROUTING -i vlan.3600 -j DSCP --set-dscp 46
-ip6tables -t mangle -A PREROUTING -i vlan.3600 -j DSCP --set-dscp 46
-```
-
-**Replace `vlan.3600`** with the actual VLAN interface name SiteRM creates on your system (e.g., `bond0.3600`, `enp1s0.3600`).
-
-### Mark traffic by destination IP range:
-
-```bash
-# Mark traffic destined for a specific SENSE-controlled subnet as AF31 (DSCP 26)
-ip6tables -t mangle -A OUTPUT \
-  -d 2001:48d0:3001:110::/64 \
-  -j DSCP --set-dscp 26
-
-# IPv4 equivalent
-iptables -t mangle -A OUTPUT \
-  -d 192.168.100.0/24 \
-  -j DSCP --set-dscp 26
-```
-
-### Make rules persistent across reboots:
-
-**EL8/EL9/EL10 (RHEL-based):**
-```bash
-dnf install -y iptables-services
-service iptables save
-service ip6tables save
-systemctl enable iptables ip6tables
-```
-
-**Ubuntu 22:**
-```bash
-apt-get install -y iptables-persistent
-netfilter-persistent save
-```
-
----
-
-## Approach 2 — DSCP Marking with Linux `tc` (Traffic Control)
-
-`tc` with the `dsfield` action allows DSCP marking to be done at the traffic-control layer, which is particularly useful when you also have FireQOS/HTB queuing in place.
-
-### Add DSCP remark rule to FireQOS HTB
-
-If SiteRM's QoS is already managing a VLAN interface with FireQOS, you can add DSCP marking inside the FireQOS configuration:
-
-```bash
-# Example FireQOS interface configuration
-# (/etc/firehol/fireqos.conf or inline in FireHol rules)
-
-interface4 vlan.3600 sense_vlan3600 rate 1Gbps max 10Gbps
-  class default rate 1Gbps max 1Gbps
-    match all dscp 46    # remark to EF
-```
-
-For `tc` directly (no FireQOS):
-
-```bash
-# Add a u32 filter to remark DSCP on egress
-tc qdisc add dev vlan.3600 root handle 1: htb default 10
-tc class add dev vlan.3600 parent 1: classid 1:10 htb rate 10gbit
-
-# Add DSCP remark action
-tc filter add dev vlan.3600 parent 1: \
-  protocol ip u32 match ip dst 0.0.0.0/0 \
-  action pedit ex munge ip dsfield set 0xb8 pipe \
-  action mirred egress redirect dev vlan.3600
-```
-
-**Note:** `0xb8` is the DSCP EF value (46) shifted left by 2 bits into the DS field byte position.
-
----
-
-## Approach 3 — Automated Marking via SiteRM Agent (Recommended)
-
-The cleanest integration is to configure DSCP marking rules that are automatically applied when SiteRM Agent activates a VLAN interface. You can achieve this by adding a post-up script to the interface configuration or by using a udev rule.
-
-### Using a systemd service that watches for VLAN interface creation:
-
-```bash
-# Create /usr/local/sbin/sense-dscp-mark.sh
-#!/bin/bash
-INTF=$1
-DSCP=$2
-
-# Apply DSCP marking on newly created SENSE VLAN interface
-ip6tables -t mangle -A OUTPUT -o "$INTF" -j DSCP --set-dscp "$DSCP"
-ip6tables -t mangle -A PREROUTING -i "$INTF" -j DSCP --set-dscp "$DSCP"
-iptables -t mangle -A OUTPUT -o "$INTF" -j DSCP --set-dscp "$DSCP"
-iptables -t mangle -A PREROUTING -i "$INTF" -j DSCP --set-dscp "$DSCP"
-
-echo "DSCP $DSCP marking applied to interface $INTF"
-```
-
-```bash
-chmod +x /usr/local/sbin/sense-dscp-mark.sh
-
-# Call it from a udev rule when a VLAN interface comes up
-# /etc/udev/rules.d/80-sense-dscp.rules
-ACTION=="add", SUBSYSTEM=="net", KERNEL=="*.3[0-9][0-9][0-9]", \
-  RUN+="/usr/local/sbin/sense-dscp-mark.sh %k 46"
-```
+There is no separate toggle to enable or disable DSCP marking. It runs whenever the Agent's rule enforcement is active (`norules` is not set to `True` in the agent configuration).
 
 ---
 
 ## Verifying DSCP Marking
 
-Use `tcpdump` to confirm DSCP bits are being set correctly:
+### Check active `tc` rules (L2)
 
 ```bash
-# Capture traffic on the VLAN interface and display ToS byte
-tcpdump -i vlan.3600 -v -c 20 | grep -i "tos"
+# Show qdisc on a VLAN interface
+tc qdisc show dev vlan.3600
 
-# Expected output for EF (DSCP 46):
-# IP ... tos 0xb8 (DSCP EF, ECN 0)
+# Show filters
+tc filter show dev vlan.3600 parent 1:
 ```
 
-Verify IPv6 traffic class:
+### Check active `ip6tables` rules (L3)
+
 ```bash
+# List all SENSE DSCP rules in the mangle table
+ip6tables -t mangle -L OUTPUT -n --line-numbers | grep SENSE
+```
+
+### Verify with `tcpdump`
+
+```bash
+# Capture traffic and display ToS byte (IPv4)
+tcpdump -i vlan.3600 -v -c 20 | grep -i "tos"
+# Expected for EF (DSCP 46): tos 0xb8
+
+# Capture IPv6 traffic and display Traffic Class
 tcpdump -i vlan.3600 -v ip6 -c 20 | grep "class"
-# class 0xb8 means DSCP EF on IPv6
+# Expected for EF (DSCP 46): class 0xb8
 ```
 
 ---
 
-## DSCP and Firewall Considerations
+## Firewall Considerations
 
 - Ensure your site firewall does **not** reclassify or zero out the DSCP field on packets leaving the site.
-- Most WAN/campus networks operate on a **trust boundary** policy — verify with your network team whether DSCP marks from DTN hosts are honored upstream.
+- Most WAN/campus networks operate on a **trust boundary** policy -- verify with your network team whether DSCP marks from DTN hosts are honored upstream.
 - ESnet and Internet2 typically accept and honor DSCP markings from participating sites for science traffic.
-
----
-
-## Summary
-
-| Approach | Best For | Pros | Cons |
-|---|---|---|---|
-| `iptables`/`ip6tables` | Simple per-interface marking | Easy, persistent | Must manage rules manually per VLAN |
-| `tc` with u32 filters | Integration with existing QoS | Precise per-flow control | More complex; requires tc expertise |
-| udev + script | Automated marking on VLAN creation | Automatic for all SENSE VLANs | Requires udev configuration |
-
-For most sites, **Approach 1** (iptables) applied to each SENSE VLAN interface provides a straightforward and maintainable solution.
 
 ---
 
 ## Related Topics
 
-- [Quality of Service (QoS)](/operational/quality-of-service/) — SiteRM host-level QoS using FireQOS
-- [Agent Configuration](/customization/configuration-agent/) — Interface and QoS configuration for the SiteRM Agent
+- [Quality of Service (QoS)](/operational/quality-of-service/) -- SiteRM host-level QoS
+- [Agent Configuration](/customization/configuration-agent/) -- Interface and QoS configuration for the SiteRM Agent
