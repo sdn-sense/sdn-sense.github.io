@@ -95,7 +95,22 @@ DSCP marking runs automatically as part of the SiteRM Agent Ruler. The only prer
 - **Root access** (required for `tc` and `ip6tables` commands)
 - **`ip6tables`** installed if you need L3 (routed IPv6) DSCP marking; L2 marking works without it
 
-There is no separate toggle to enable or disable DSCP marking. It runs whenever the Agent's rule enforcement is active (`norules` is not set to `True` in the agent configuration).
+---
+
+## Disabling DSCP Marking
+
+DSCP marking is enabled by default. To disable it, set `nodscp: true` in the agent's `main.yaml` configuration:
+
+```yaml
+agent:
+  hostname: dtn-host.example.net
+  interfaces: [bond0]
+  nodscp: true
+```
+
+This works the same way as the `noqos` toggle for QoS. When `nodscp` is `true`, the Agent skips all DSCP rule application (both L2 `tc` filters and L3 `ip6tables` rules) while still applying other rules (VInterfaces, Routing, QoS).
+
+Note that the `norules` toggle is an outer gate -- when `norules: true`, all rule enforcement is disabled, including DSCP, regardless of the `nodscp` setting.
 
 ---
 
