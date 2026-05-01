@@ -32,6 +32,8 @@ sidebar:
   type: Agent
 ```
 
+**Note on directory naming:** The `config` directory name can be anything — it is mapped to the host by its MD5 hash, not by the directory name. The preferred convention is to use the FQDN hostname as the directory name (e.g., `red-xfer1.example.edu/`). Many existing sites use a numbered convention like `Agent01/`, `Agent02/`, etc. Either approach works; pick whichever is most readable for your site. When adding multiple DTNs, each one gets its own directory and mapping entry.
+
 All sites should always have minimum one FE (Frontend). With information from notes and minimal `mapping.yaml` configuration, here is how directory structure will look like initially:
 
 ```bash
@@ -39,6 +41,35 @@ All sites should always have minimum one FE (Frontend). With information from no
     ├── Agent01 (directory)
     ├── FE (directory)
     └── mapping.yaml (file)
+```
+
+## Manual configuration files
+
+Git-backed configuration is the default mode. SiteRM can also read local configuration files directly when `MAIN_CONFIG_FILE` is specified in `/etc/siterm.yaml` or passed as an environment variable.
+
+In manual mode:
+
+* Frontend reads `main.yaml`, `auth.yaml`, and optionally `auth-re.yaml` directly from the paths configured by `MAIN_CONFIG_FILE`, `AUTH_CONFIG_FILE`, and `AUTH_RE_CONFIG_FILE`.
+* Agent and Debugger read `main.yaml` directly from `MAIN_CONFIG_FILE`.
+* `MAPPING_TYPE` must be `FE` for Frontend and `Agent` for Agent/Debugger when it cannot be inferred.
+* If `MAIN_CONFIG_FILE` is not specified, SiteRM keeps the existing Git clone/pull behavior.
+
+Example Frontend bootstrap:
+
+```yaml
+SITENAME: T3_US_SITENAME
+MAPPING_TYPE: FE
+MAIN_CONFIG_FILE: /etc/siterm-config/main.yaml
+AUTH_CONFIG_FILE: /etc/siterm-config/auth.yaml
+AUTH_RE_CONFIG_FILE: /etc/siterm-config/auth-re.yaml
+```
+
+Example Agent or Debugger bootstrap:
+
+```yaml
+SITENAME: T3_US_SITENAME
+MAPPING_TYPE: Agent
+MAIN_CONFIG_FILE: /etc/siterm-config/main.yaml
 ```
 
 ## Frontend configuration files

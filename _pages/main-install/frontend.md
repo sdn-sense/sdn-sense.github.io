@@ -22,7 +22,7 @@ Choose the installation type, based on your Site's functionalities. In case you 
 
 * Prerequisites:
   * **Make sure you have docker/podman installed and service is up and running.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash for Frontend Service). MD5 is optional - and if not specified, SiteRM will compute md5(hostname -f) by default**
+  * **Configuration files are present in the [SiteRM Configuration repo](https://github.com/sdn-sense/rm-configs) for your Site (Take a note of SiteName and MD5 Hash for Frontend Service). MD5 is optional - and if not specified, SiteRM will compute md5(hostname -f) by default. See [Configuration Layout](/customization/configuration-layout/) for details.**
   * **You have Certificate, Key ready.**
 
 * Clone the following repo on the machine, where Frontend will be installed: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
@@ -36,8 +36,8 @@ git clone https://github.com/sdn-sense/siterm-startup
 * Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`. This can be anything secure and should not change between redeployments.
 * Prepare ansible configuration file at `fe/conf/etc/ansible-conf.yaml`. For more details, see [Supported network devices](/getting-started/install-supported-network-devices/) page
 * Copy Certificates to correct location:
-  * Certificate - copy to `fe/conf/etc/httpd/certs/cert.pem` and `fe/conf/etc/grid-security/hostcert.pem`
-  * Key - copy to `fe/conf/etc/httpd/certs/privkey.pem` and `fe/conf/etc/grid-security/hostkey.pem`
+  * Certificate - copy to `fe/conf/etc/secret-mount/tls.crt`
+  * Key - copy to `fe/conf/etc/secret-mount/tls.key`
 * Start the service: `cd fe/docker/ && ./run.sh -i latest`
 * **NOTE** -i (image) is `latest` (most stable image).
 * **NOTE** If your network device use only IPv6 for access, add `-n host` parameter to Start the service command. Full command will be: `cd fe/docker/ && ./run.sh -i latest -n host`

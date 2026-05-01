@@ -26,6 +26,35 @@ File must exist in the Agent directory. Directory layout will be:
 
 Below you will find details for configuration parameters and available options.
 
+## Manual file mode
+
+Git-backed configuration is the default. To run an Agent or Debugger from a local `main.yaml` file instead, provide that file at startup.
+
+**Docker/Podman:**
+
+```bash
+./run.sh -i latest -m /path/to/main.yaml
+```
+
+The startup script mounts the file under `/etc/siterm-config/main.yaml`, sets `MAIN_CONFIG_FILE`, and SiteRM skips the Git configuration fetch. You can also configure the same behavior in `agent/conf/etc/siterm.yaml` or `debugger/conf/etc/siterm.yaml`:
+
+```yaml
+SITENAME: T3_US_SITENAME
+MAPPING_TYPE: Agent
+MAIN_CONFIG_FILE: /etc/siterm-config/main.yaml
+```
+
+**Kubernetes (Helm):**
+
+```yaml
+manualConfig:
+  enabled: true
+  main: |
+    MAIN:
+      general:
+        sitename: T3_US_SITENAME
+```
+
 ## Agent Configuration (`Agent01/main.yaml`)
 
 ### `MAIN.general`

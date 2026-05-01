@@ -183,6 +183,28 @@ SITENAME: T2_US_YOURSITE
 | `MD5` | No | MD5 hash from `mapping.yaml` identifying this Frontend. If omitted, computed as `md5(hostname -f)` |
 | `SITENAME` | Yes | Must match the `sitename` value in `FE/main.yaml` and `mapping.yaml` |
 
+### Manual file mode
+
+If you do not want SiteRM to clone/pull the Git configuration repository, provide the Frontend files directly.
+
+**Docker/Podman:**
+
+```bash
+./run.sh -i latest -m /path/to/main.yaml -a /path/to/auth.yaml -r /path/to/auth-re.yaml
+```
+
+`auth-re.yaml` is optional. When these flags are used, the startup script mounts the files under `/etc/siterm-config/` and SiteRM skips the Git configuration fetch.
+
+You can also set paths in `fe/conf/etc/siterm.yaml`:
+
+```yaml
+SITENAME: T2_US_YOURSITE
+MAPPING_TYPE: FE
+MAIN_CONFIG_FILE: /etc/siterm-config/main.yaml
+AUTH_CONFIG_FILE: /etc/siterm-config/auth.yaml
+AUTH_RE_CONFIG_FILE: /etc/siterm-config/auth-re.yaml
+```
+
 **Kubernetes (Helm):** These same parameters are specified directly in the Helm `values.yaml` under the `siterm` section:
 
 ```yaml
@@ -191,6 +213,23 @@ siterm:
   gitbranch: master
   md5: <md5-hash-from-mapping.yaml>
   sitename: T2_US_YOURSITE
+```
+
+For manual files in Helm, enable `manualConfig` and put the file contents in the values file. Helm creates a ConfigMap and mounts the files:
+
+```yaml
+manualConfig:
+  enabled: true
+  main: |
+    MAIN:
+      general:
+        sitename: T2_US_YOURSITE
+  auth: |
+    senseoprod:
+      full_dn: "/C=US/O=Example/CN=sense-o.example.net"
+      permissions: w
+  auth_re: |
+    {}
 ```
 
 The environment file (`fe/conf/environment` for Docker, or Helm `env` values for Kubernetes) must also contain the MariaDB password:

@@ -146,7 +146,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, ec
 
 # Load private key
-with open("/etc/grid-security/hostkey.pem", "rb") as f:
+with open("/etc/secret-mount/tls.key", "rb") as f:
     private_key = serialization.load_pem_private_key(f.read(), password=None)
 
 challenge_bytes = base64.b64decode(challenge)
@@ -315,9 +315,9 @@ Two new tables are created automatically by Alembic migration on Frontend startu
 
 Agents and Debuggers authenticate to the Frontend automatically using the M2M certificate challenge flow. The host certificate and private key are used to sign challenges — the same files that were used for direct certificate auth in previous releases.
 
-**No changes are needed to Agent/Debugger configuration.** The certificate paths remain the same:
-- Certificate: `agent/conf/etc/grid-security/hostcert.pem`
-- Private key: `agent/conf/etc/grid-security/hostkey.pem`
+**No changes are needed to Agent/Debugger configuration.** The certificate paths are:
+- Certificate: `agent/conf/etc/secret-mount/tls.crt`
+- Private key: `agent/conf/etc/secret-mount/tls.key`
 
 The Agent's `HTTPLibrary.py` handles the full flow:
 1. Checks if the current Bearer token is valid (expires within 2 minutes → refresh)
@@ -374,7 +374,7 @@ Tokens expire after 60 minutes. The Web UI will prompt you to log in again when 
 | `403 Forbidden` on M2M auth | Certificate CA not in trust store | Add CA to `allowed_truststore.yaml` and restart Frontend |
 | `429 Too Many Requests` on auth | Rate limit hit | Clients back off automatically; reduce request frequency |
 | `users` table not found | Alembic migration did not run | Check Frontend startup logs; ensure DB is accessible |
-| Agent fails with auth error | Certificate or key path wrong | Verify `hostcert.pem` and `hostkey.pem` are mounted and readable |
+| Agent fails with auth error | Certificate or key path wrong | Verify `tls.crt` and `tls.key` are mounted and readable under `secret-mount/` |
 | Web UI redirects to login repeatedly | Token lifetime too short | Increase `OIDC_TOKEN_LIFETIME_MINUTES` or check clock skew |
 | Key pair not generated | `RSA_DIR` not writable by Apache | Check directory permissions; must be owned by the Apache user |
 

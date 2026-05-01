@@ -23,15 +23,15 @@ sidebar:
 
 * Prerequisites:
   * **Make sure you have docker/podman installed and service is up and running.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash defined in mapping.yaml). MD5 is optional - and if not specified, SiteRM will compute md5(hostname) by default**
+  * **Configuration files are present in the [SiteRM Configuration repo](https://github.com/sdn-sense/rm-configs) for your Site (Take a note of SiteName and MD5 Hash defined in mapping.yaml). MD5 is optional - and if not specified, SiteRM will compute md5(hostname) by default. See [Configuration Layout](/customization/configuration-layout/) for details on directory structure.**
   * **You have Certificate, Key generated.**
 
 * Clone the following repo: [https://github.com/sdn-sense/siterm-startup](https://github.com/sdn-sense/siterm-startup)
 * **It is recomended to use stable tag version. master branch is used as a developement. Look at Readme file [here](https://github.com/sdn-sense/siterm/blob/master/README.MD) to identify stable version.** Use `git fetch --all --tags` and `git checkout <tag>`
 * Modify Agent Contig File in cloned repo, path:`agent/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Specific Agent/DTN.
 * Copy Certificates to config location:
-  * Certificate - copy to `agent/conf/etc/grid-security/hostcert.pem`
-  * Key - copy to `agent/conf/etc/grid-security/hostkey.pem`
+  * Certificate - copy to `agent/conf/etc/secret-mount/tls.crt`
+  * Key - copy to `agent/conf/etc/secret-mount/tls.key`
 * Start the service: `cd agent/docker/ && ./run.sh -i latest`
 
 ## SiteRM-Agent Upgrade (Docker/Podman)
@@ -45,7 +45,7 @@ sidebar:
 
 * Prerequisites:
   * **Make sure you have Kubernetes cluster up and running. You will need to have Kubernetes config and namespace you want to use.**
-  * **Configuration files are present in Git Repo for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will compute md5(hostname) by default**
+  * **Configuration files are present in the [SiteRM Configuration repo](https://github.com/sdn-sense/rm-configs) for your Site (Take a note of SiteName and MD5 Hash). MD5 is optional - and if not specified, SiteRM will compute md5(hostname) by default. See [Configuration Layout](/customization/configuration-layout/) for details.**
   * **You have Certificate, Key generated or if you have Issuer/ClusterIssuer on your Kubernetes cluster, youcre can use HELM to create new certificates automatically**
 
 * Download the following override values file: [values.yaml](https://raw.githubusercontent.com/sdn-sense/helm-siterm-agent/main/values.yaml)
