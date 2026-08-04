@@ -71,7 +71,7 @@ username:
 ### Fields
 
 | Field | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | `full_dn` | **Yes** | Full X.509 Distinguished Name. Regex allowed only in `auth-re.yaml`. |
 | `permissions` | **Yes** | `r` = read-only, `w` = read/write. SENSE requires write access. |
 | `allowed_ips` | No | Optional list of IPv4 or IPv6 CIDR ranges allowed to use this credential. If this field is not specified, requests for that credential are allowed from any client IP. If specified, it must be a non-empty list, for example `198.51.100.10/32` or `2001:db8:1234::/64`. |
@@ -81,7 +81,7 @@ username:
 ### `MAIN.general`
 
 | Key | Required | Default | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `logDir` | No | `/var/log/siterm-site-fe/` | Directory for Frontend logs. |
 | `logLevel` | No | `INFO` | Logging verbosity (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`). |
 | `privatedir` | No | `/opt/siterm/config/` | Base directory for runtime artifacts. |
@@ -105,7 +105,7 @@ Sitename listed at `MAIN.general.sitename` must have a corresponding section for
 ### Site section
 
 | Key | Required | Default | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `domain` | **Yes** | — | DNS domain of the site. |
 | `latitude` | **Yes** | — | Geographic latitude of the site. |
 | `longitude` | **Yes** | — | Geographic longitude of the site. |
@@ -128,7 +128,7 @@ Each switch, defined under `MAIN.<SITENAME>.switch` must have switch sections un
 ### Switch defaults (auto-injected)
 
 | Key | Required | Default | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `rsts_enabled` | No | — | Enable BGP Control. Supports text as: `ipv4` or `ipv4,ipv6` or `ipv6`. Requires to have `ipv<N>-subnet-pool` defined under site configuration and `private_asn` under switch. |
 | `rate_limit`| No | `False` | Enable QoS enforcement on the network device |
 | `bgpmp`| No | `True` | Enable BGP multipath support. Please see [Supported Network Devices](/getting-started/install-supported-network-devices/) page for device support. |
@@ -146,7 +146,7 @@ Each switch, defined under `MAIN.<SITENAME>.switch` must have switch sections un
 Each port may define:
 
 | Key | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | `vlan_range` | No | Overrides switch-wide VLAN range. |
 | `capacity` | Conditional | Required for `raw`, optional for `ansible`. If specified for `ansible` - it will override max available capacity for port. |
 | `isAlias` | No | Alias to remote port. Needed for: when LLDP is unavailable, Interface is a PortChannel; Points to a remote Site or Network |
@@ -177,7 +177,7 @@ SITENAME: T2_US_YOURSITE
 ```
 
 | Parameter | Required | Description |
-|---|---|---|
+| --- | --- | --- |
 | `GIT_REPO` | Yes | URL to the Git repository containing site configuration files |
 | `BRANCH` | Yes | Branch of the Git repository to pull configuration from |
 | `MD5` | No | MD5 hash from `mapping.yaml` identifying this Frontend. If omitted, computed as `md5(hostname -f)` |

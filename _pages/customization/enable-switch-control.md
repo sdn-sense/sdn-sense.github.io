@@ -84,7 +84,7 @@ inventory:
 SSH keys are placed on the **host** in the `siterm-startup` directory tree, and `siterm-startup` mounts that directory into the container. The key path you put in `ansible-conf.yaml` must be the **container-internal path**, not the host path:
 
 | Location | Path example |
-|---|---|
+| --- | --- |
 | **Host filesystem** (where you place the file) | `fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense` |
 | **Inside container** (use this path in `ansible-conf.yaml`) | `/opt/siterm/config/ssh-keys/id-rsa-sense` |
 

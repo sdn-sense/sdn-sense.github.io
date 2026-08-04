@@ -49,7 +49,7 @@ git clone https://github.com/sdn-sense/siterm-startup
   The certificate files will be placed under `/etc/letsencrypt/live/<your-frontend-fqdn>/`:
 
   | File | Use for SiteRM |
-  |---|---|
+  | --- | --- |
   | `fullchain.pem` | Use as `tls.crt` — **always use this, not `cert.pem`** |
   | `privkey.pem` | Use as `tls.key` |
 

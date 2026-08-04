@@ -13,7 +13,7 @@ sidebar:
 SiteRM 1.6.0 introduces a fully replaced authentication system. All API calls — from human users via the Web UI, from Agents and Debuggers, and from external tools — use **JWT Bearer tokens** obtained through one of three authentication flows:
 
 | Method | Who uses it | Endpoint |
-|---|---|---|
+| --- | --- | --- |
 | Username/password | Human users, Web UI | `POST /auth/login` |
 | X.509 certificate M2M | Agents, Debuggers, automated services | `POST /m2m/token` → `POST /m2m/token/{id}` |
 | Token refresh | Any authenticated session | `POST /m2m/token/refresh` |
@@ -28,7 +28,7 @@ Tokens are signed with **RS256** (RSA 3072-bit, SHA-256). The signing key pair i
 ## Token Lifetime
 
 | Token | Default lifetime | Configurable via |
-|---|---|---|
+| --- | --- | --- |
 | Access token (Bearer) | 60 minutes | `OIDC_TOKEN_LIFETIME_MINUTES` |
 | Refresh token | 12 hours | `REFRESH_TOKEN_TTL_HOURS` |
 
@@ -58,7 +58,7 @@ kubectl exec -n sense <siterm-fe-pod> -- siterm-usertool create admin --permissi
 Pass one of these values to `--permission` (default is `read` when omitted):
 
 | Level | Accepted `--permission` values | Access |
-|---|---|---|
+| --- | --- | --- |
 | `read` | `r`, `read` | Read-only API access |
 | `write` | `w`, `write` | Write API access |
 | `readwrite` | `rw`, `readwrite`, `read-write` | Full read/write API access |
@@ -238,7 +238,7 @@ To force key regeneration, delete the key files and restart the Frontend.
 ### Configuring key size and location
 
 | Environment variable | Default | Description |
-|---|---|---|
+| --- | --- | --- |
 | `RSA_DIR` | `/opt/siterm/jwt_secrets` | Directory for JWT key files |
 | `RSA_KEY_SIZE` | `3072` | RSA key size in bits |
 | `RSA_PUBLIC_EXPONENT` | `65537` | RSA public exponent |
@@ -250,7 +250,7 @@ To force key regeneration, delete the key files and restart the Frontend.
 These environment variables control token behavior. Set them in your Docker `run.sh` or Helm `values.yaml`:
 
 | Variable | Default | Description |
-|---|---|---|
+| --- | --- | --- |
 | `OIDC_TOKEN_LIFETIME_MINUTES` | `60` | Access token lifetime in minutes |
 | `REFRESH_TOKEN_TTL_HOURS` | `12` | Refresh token lifetime in hours |
 | `OIDC_LEEWAY` | `60` | Clock skew tolerance in seconds |
@@ -261,7 +261,7 @@ These environment variables control token behavior. Set them in your Docker `run
 ### Argon2 password hashing parameters
 
 | Variable | Default | Description |
-|---|---|---|
+| --- | --- | --- |
 | `ARGON2_TIME_COST` | `3` | Number of iterations |
 | `ARGON2_MEMORY_COST` | `65536` | Memory in KiB (64 MB) |
 | `ARGON2_PARALLELISM` | `4` | Parallel threads |
@@ -286,7 +286,7 @@ Two new tables are created automatically by Alembic migration on Frontend startu
 **`users`** — local user accounts:
 
 | Column | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `id` | UUID | Primary key |
 | `username` | String(128) | Unique login name |
 | `password_hash` | Text | Argon2id hash |
@@ -300,7 +300,7 @@ Two new tables are created automatically by Alembic migration on Frontend startu
 **`refresh_tokens`** — active refresh token sessions:
 
 | Column | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `id` | Integer | Auto-increment primary key |
 | `username` | String | Owning user |
 | `client_ip` | String(64) | IP address that obtained the token |
@@ -371,7 +371,7 @@ Tokens expire after 60 minutes. The Web UI will prompt you to log in again when 
 ## Troubleshooting
 
 | Symptom | Likely cause | Resolution |
-|---|---|---|
+| --- | --- | --- |
 | `401 Unauthorized` on all API calls | Token missing or expired | Log in again with `siterm-usertool` or re-issue credentials |
 | `403 Forbidden` on M2M auth | Certificate CA not in trust store | Add CA to `allowed_truststore.yaml` and restart Frontend |
 | `429 Too Many Requests` on auth | Rate limit hit | Clients back off automatically; reduce request frequency |
