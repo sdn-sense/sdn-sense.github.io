@@ -44,41 +44,43 @@ Human users and Web UI logins require a local account in the Frontend database. 
 
 ```bash
 docker exec -it siterm-fe bash
-siterm-usertool --action create --username admin --permissions admin
+siterm-usertool create admin --permission admin
 # Enter password when prompted (minimum 12 characters)
 ```
 
 For Kubernetes:
 ```bash
-kubectl exec -n sense <siterm-fe-pod> -- siterm-usertool --action create --username admin --permissions admin
+kubectl exec -n sense <siterm-fe-pod> -- siterm-usertool create admin --permission admin
 ```
 
 ### Permission levels
 
-| Level | Value | Access |
+Pass one of these values to `--permission` (default is `read` when omitted):
+
+| Level | Accepted `--permission` values | Access |
 |---|---|---|
-| `read` | 1 | Read-only API access |
-| `write` | 2 | Write-only API access |
-| `readwrite` | 3 | Full read/write API access |
-| `admin` | 4 | Full access including user management |
+| `read` | `r`, `read` | Read-only API access |
+| `write` | `w`, `write` | Write API access |
+| `readwrite` | `rw`, `readwrite`, `read-write` | Full read/write API access |
+| `admin` | `a`, `admin` | Full access including user management |
 
 ### Other user management commands
 
 ```bash
-# List all users
-siterm-usertool --action list
+# List all users (add --show-disabled to include disabled accounts)
+siterm-usertool list
 
 # Disable a user (blocks login, does not delete)
-siterm-usertool --action disable --username someuser
+siterm-usertool disable someuser
 
 # Re-enable a disabled user
-siterm-usertool --action enable --username someuser
+siterm-usertool enable someuser
 
 # Change a user's password
-siterm-usertool --action setpassword --username someuser
+siterm-usertool set-password someuser
 
-# Delete a user permanently
-siterm-usertool --action delete --username someuser
+# Delete a user permanently (--yes is required as a safety confirmation)
+siterm-usertool delete someuser --yes
 ```
 
 ### Password policy
@@ -347,7 +349,7 @@ Tokens expire after 60 minutes. The Web UI will prompt you to log in again when 
 
 1. **Create at least one admin user before restarting the Frontend.** Pull the new image, enter the container interactively (do not start services yet), and run:
    ```bash
-   siterm-usertool --action create --username admin --permissions admin
+   siterm-usertool create admin --permission admin
    ```
 
 2. **Start the new Frontend.** Alembic migrations run automatically and create the `users` and `refresh_tokens` tables.

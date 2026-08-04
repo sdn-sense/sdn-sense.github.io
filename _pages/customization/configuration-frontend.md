@@ -135,7 +135,7 @@ Each switch, defined under `MAIN.<SITENAME>.switch` must have switch sections un
 | `private_asn` | No | — | Private ASN Number. Please consult SENSE team for next available private ASN Number |
 | `vrf` | No | — | VRF Name. |
 | `vlan_mtu`| No | `9000` | Default VLAN MTU. |
-| `allports`| No | `True` | Automatically include all ports identified on the device by Ansible. |
+| `allports`| No | `True` | Automatically include all ports identified on the device by Ansible. ⚠️ Defaults to `true`, which exposes **all** device ports. Set to `false` in production to restrict SENSE control to explicitly listed ports. See [Enable Switch Control](/customization/enable-switch-control/) for details. |
 | `allvlans`| No | `False` | Automatically include all VLANs. |
 | `vlan_range` | **Yes** | — | Global VLAN range per device for SENSE Control. This tells which VLANs are allowed to be created on the device by SENSE between one or more ports. Supports comma and dash syntax (`100-200,300`). |
 

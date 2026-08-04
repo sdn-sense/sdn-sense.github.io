@@ -35,9 +35,43 @@ git clone https://github.com/sdn-sense/siterm-startup
 * Modify FE Contig File in cloned repo, path:`fe/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Frontend (based on your `mapping.yaml` file).
 * Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`. This can be anything secure and should not change between redeployments.
 * Prepare ansible configuration file at `fe/conf/etc/ansible-conf.yaml`. For more details, see [Supported network devices](/getting-started/install-supported-network-devices/) page
+* **Obtain TLS certificates.** SiteRM requires a valid TLS certificate and private key. If you do not already have them, use Let's Encrypt:
+
+  ```bash
+  # Install certbot if not already present
+  sudo apt install certbot   # Debian/Ubuntu
+  # or: sudo yum install certbot
+
+  # Obtain a certificate (port 443 must be free; stop any existing webserver first)
+  sudo certbot certonly --standalone -d <your-frontend-fqdn>
+  ```
+
+  The certificate files will be placed under `/etc/letsencrypt/live/<your-frontend-fqdn>/`:
+
+  | File | Use for SiteRM |
+  |---|---|
+  | `fullchain.pem` | Use as `tls.crt` — **always use this, not `cert.pem`** |
+  | `privkey.pem` | Use as `tls.key` |
+
+  > ⚠️ **Do not use `cert.pem`** as your `tls.crt`. It contains only the server certificate and omits the intermediate CA chain, which causes "unable to get local issuer certificate" validation errors. `fullchain.pem` includes both the server certificate and the full chain.
+
+  Let's Encrypt now issues **ECDSA P-256** certificates by default. This is fully supported by SiteRM; you do not need to request an RSA certificate.
+
+  **Verify the certificate and key match before copying:**
+  ```bash
+  # Both commands must produce the same SHA-256 hash
+  openssl x509 -in /etc/letsencrypt/live/<fqdn>/fullchain.pem -noout -pubkey | openssl sha256
+  openssl pkey -in /etc/letsencrypt/live/<fqdn>/privkey.pem -pubout | openssl sha256
+  ```
+
 * Copy Certificates to correct location:
-  * Certificate - copy to `fe/conf/etc/secret-mount/tls.crt`
-  * Key - copy to `fe/conf/etc/secret-mount/tls.key`
+  * Certificate - copy `fullchain.pem` to `fe/conf/etc/secret-mount/tls.crt`
+  * Key - copy `privkey.pem` to `fe/conf/etc/secret-mount/tls.key`
+
+  ```bash
+  cp /etc/letsencrypt/live/<your-frontend-fqdn>/fullchain.pem fe/conf/etc/secret-mount/tls.crt
+  cp /etc/letsencrypt/live/<your-frontend-fqdn>/privkey.pem fe/conf/etc/secret-mount/tls.key
+  ```
 * Start the service: `cd fe/docker/ && ./run.sh -i latest`
 * **NOTE** -i (image) is `latest` (most stable image).
 * **NOTE** If your network device use only IPv6 for access, add `-n host` parameter to Start the service command. Full command will be: `cd fe/docker/ && ./run.sh -i latest -n host`

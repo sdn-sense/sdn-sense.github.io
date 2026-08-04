@@ -17,6 +17,8 @@ Each switch for SENSE to control, must be added to Sites configuration Frontend 
    **NOTE: isAlias is needed for PortChannels and LAGs.**
 * if allports flag set to True - it will include all switch ports, except the ones listed inside the `ports_ignore` list under Frontend `main.yaml` file.
 * if allports flag set to False - it will only include ports listed inside `ports` list under Frontend `main.yaml` file.
+
+> ⚠️ **`allports` defaults to `true`** — when enabled, SiteRM exposes and allows SENSE provisioning on **every port** the switch reports, including ports that are not defined in `main.yaml`. For production deployments, set `allports: false` in `main.yaml` under your switch section to restrict SENSE control to only the ports you have explicitly configured. See [Frontend Configuration](/customization/configuration-frontend/) for the switch defaults table.
 * Each port can override any additional parameters via configuration file `main.yaml`. For example, to override allowed `vlan_range` per port:
 
 ```yaml
@@ -79,9 +81,24 @@ inventory:
 
 ### How to use SSH Keys (Docker SiteRM Frontend Installation)
 
-To configure Site-RM to use ssh keys to access device, you need put ssh keys in this directory `fe/conf/opt/siterm/config/ssh-keys/`. (if you use `siterm-startup` scripts for docker/podman instalation).
-For example, if you put a key with name `fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense`, then in siterm to use that key, modify `fe/conf/etc/ansible-conf.yaml` and set `sshkey` parameter to: `/opt/siterm/config/ssh-keys/id-rsa-sense`.
-Be aware that key is put in path: `fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense`, but for `siterm-startup` mounts this directory `fe/conf/opt/` under `/opt` inside container.
+SSH keys are placed on the **host** in the `siterm-startup` directory tree, and `siterm-startup` mounts that directory into the container. The key path you put in `ansible-conf.yaml` must be the **container-internal path**, not the host path:
+
+| Location | Path example |
+|---|---|
+| **Host filesystem** (where you place the file) | `fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense` |
+| **Inside container** (use this path in `ansible-conf.yaml`) | `/opt/siterm/config/ssh-keys/id-rsa-sense` |
+
+The `siterm-startup` run script mounts `fe/conf/opt/` as `/opt/` inside the container, so the two paths are equivalent from different perspectives.
+
+**File permissions:** The SSH private key file must be readable only by its owner, otherwise SSH will refuse to use it:
+```bash
+chmod 600 fe/conf/opt/siterm/config/ssh-keys/id-rsa-sense
+```
+
+After placing the key, set the `sshkey` parameter in `fe/conf/etc/ansible-conf.yaml` to the container-internal path:
+```yaml
+sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+```
 
 ### How to use SSH Keys (Kubernetes SiteRM Frontend Installation)
 
