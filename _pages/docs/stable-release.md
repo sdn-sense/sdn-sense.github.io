@@ -1,5 +1,5 @@
 ---
-title: "Stable Release: 1.6.1"
+title: "Stable Release: 1.6.2"
 layout: single
 classes: wide
 permalink: "/docs/stable-release/"
@@ -9,6 +9,6 @@ sidebar:
 redirect_to: "/docs/release-notes/"
 ---
 
-The current stable release is **SiteRM 1.6.1**.
+The current stable release is **SiteRM 1.6.2**.
 
 See the full [Release Notes](/docs/release-notes/) for details, upgrade instructions, and Docker/Helm version information.

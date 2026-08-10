@@ -8,6 +8,126 @@ sidebar:
   nav: "docs"
 ---
 
+## SiteRM 1.6.2 Feature Release
+
+### 🚀 New Features
+
+**Juniper MX / PTX support**
+- SiteRM can now provision VLANs on Juniper MX and PTX routers through a `virtual-switch` routing-instance, in addition to the existing EX/QFX standard mode. Select it per-device with `ansparams.vlanmode: mx` or `ptx`. See [Juniper Junos — MX / PTX Virtual-Switch Mode](/devices/juniper-junos/#mx--ptx-virtual-switch-mode) for configuration, rendering details, and current limitations (no L3/IRB termination, no QoS in this mode).
+
+**Disable DSCP marking per agent**
+- A new `nodscp: true` flag can be set under `agent:` in `main.yaml` to skip DSCP rule application on a host, mirroring the existing `noqos` toggle. See [DSCP Marking](/optional-install/dscp-marking-tool/#disabling-dscp-marking).
+
+**Manual (non-Git) configuration files**
+- Frontend, Agent, and Debugger can now read their configuration directly from local YAML files instead of a Git-backed repository, via `MAIN_CONFIG_FILE`, `AUTH_CONFIG_FILE`, `AUTH_RE_CONFIG_FILE`, and `MAPPING_TYPE`. This is useful for sites that manage configuration through their own automation instead of the [rm-configs](https://github.com/sdn-sense/rm-configs) Git repository. See [Configuration Layout — Manual configuration files](/customization/configuration-layout/#manual-configuration-files).
+
+**Per-credential allowed IP restrictions**
+- X.509 M2M credentials in `auth.yaml`/`auth-re.yaml` can now be restricted to specific client networks with an optional `allowed_ips` list (IPv4/IPv6 CIDR). Enforced on token challenge, verification, and refresh; unrestricted if omitted. See [Frontend Configuration — allowed_ips](/customization/configuration-frontend/).
+
+**Delta requestor information in the Web UI**
+- The delta detail view now shows who submitted a request (name, email, organization, originating host), sourced from a new `GET /api/{sitename}/deltas/{delta_id}/requestinfo` endpoint.
+
+**Portability improvements**
+- Agent falls back to a `psutil`-based network interface listing when the `ip` binary isn't available.
+- Frontend static asset directory, SiteRM config file path, and config-fetcher state path are now overridable via `SITERM_STATIC_DIR`, `SITERM_CONFIG_FILE`, and `CONFIG_FETCHER_COUNTER` env vars.
+- New `agent.disabled_plugins` config option to skip individual recurring-action plugins (`CertInfo`, `KubeInfo`, `NetInfo`, `ArpInfo`).
+
+**Documentation**
+- Added [Node Exporter](/main-install/node-exporter/) install and [security hardening](/optional-install/node-exporter-security/) guides, covering the passthrough-via-Frontend pattern that avoids exposing `/debug/pprof` on agents.
+
+### 🐛 Bug Fixes
+
+**Certificate chain verification**
+- Host and M2M certificate verification now validates the full chain (leaf + embedded intermediates), not the leaf certificate alone. Previously, certificates issued through an intermediate CA could fail validation even though the chain was valid.
+
+**Token refresh reliability**
+- Fixed a bug where a successful token refresh could still be reported as a failure due to a missing early return in the HTTP client.
+
+**Stale device state detection**
+- Fixed an inverted time comparison that prevented SiteRM from ever refreshing device state after a stale-warning condition persisted for over an hour.
+
+**API readiness check**
+- `checkReadyState` now correctly requires **both** LookUpService and ProvisioningService to complete their first run before reporting the API ready (previously either one was enough).
+
+**Configuration defaults**
+- Fixed a bug where falsy config defaults (`False`, `[]`, `0`) were treated as "no default provided," causing incorrect errors instead of returning the intended default.
+
+**Delta tracking and state**
+- The delta `submit` action is now recorded before processing instead of after, preserving the audit trail even if processing later fails.
+- Default delta global state corrected from `activated` to `deactivated` when no sub-delta states are present.
+
+**Database connection string**
+- Database URLs are now built with SQLAlchemy's URL builder so usernames/passwords containing special characters are escaped correctly.
+
+**Host stats collection**
+- Hardened disk/process stats collection against malformed rows, missing filesystem values, and `psutil.AccessDenied` errors.
+
+### 🔧 Supported OS Releases
+
+- **Frontend (x86_64)**
+  - EL9
+- **Agent (x86_64)**
+  - EL9
+  - EL10 **Default for release**
+  - U22
+- **Debugger (x86_64)**
+  - EL10
+
+> **Note:** EL8 is no longer supported for the Frontend or Agent from 1.6.0 onwards.
+
+### 🔌 Supported Network Devices
+
+No new device types were added in this release. Juniper Junos gains an additional VLAN rendering mode for MX/PTX routers — see [Supported Network Devices](/getting-started/install-supported-network-devices/) and [Juniper Junos](/devices/juniper-junos/) for the full device matrix and MX/PTX details.
+
+### 🚨 Upgrade Instructions
+
+No configuration changes are required to upgrade from 1.6.1. Simply pull the new image:
+
+**Docker/Podman (siterm-startup):**
+
+```bash
+# Frontend
+cd fe/docker/ && ./restart-new-image.sh -i latest
+
+# Agent
+cd agent/docker/ && ./restart-new-image.sh -i latest
+
+# Debugger
+cd debugger/docker/ && ./restart-new-image.sh -i latest
+```
+
+**Kubernetes (Helm):**
+
+```bash
+helm repo update
+helm upgrade siterm siterm/siterm-fe -f values.yaml
+helm upgrade siterm siterm/siterm-agent -f values.yaml
+helm upgrade siterm siterm/siterm-debugger -f values.yaml
+```
+
+New optional features (`nodscp`, `allowed_ips`, manual configuration files) are opt-in and do not require any changes to existing site configuration.
+
+### 📥 Installation Details
+
+- 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
+- 🔗 **Authentication Setup:** [Authentication Configuration](/customization/authentication/)
+- **Recommended Version:** Always use `latest`.
+- This particular release is `latest-<el9|el10|u22>` version (`1.6.2`).
+
+### Docker Versions
+
+- **Agent:** `sdnsense/siterm-agent:latest-20260810-<el9|el10|u22>` *(or use `latest`)*
+- **Debugger:** `sdnsense/siterm-debugger:latest-20260810-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:latest-20260810` *(or use `latest`)*
+
+### Helm versions
+
+- **Agent:** Chart version siterm/siterm-agent 1.6.2
+- **Debugger:** Chart version siterm/siterm-debugger 1.6.2
+- **Frontend:** Chart version siterm/siterm-fe 1.6.2
+
+---
+
 ## SiteRM 1.6.1 Bug Fix Release
 
 ### Bug Fixes
