@@ -170,18 +170,22 @@ The startup configuration file tells SiteRM which site configuration to pull fro
 **Docker/Podman:** Edit `fe/conf/etc/siterm.yaml` in the cloned `siterm-startup` repository:
 
 ```yaml
-GIT_REPO: https://github.com/<your-org>/rm-configs
-BRANCH: master
+GIT_URL: https://github.com/
+GIT_REPO: <your-org>/rm-configs
+GIT_BRANCH: master
 MD5: <md5-hash-from-mapping.yaml>    # Leave empty to auto-compute md5(hostname -f)
 SITENAME: T2_US_YOURSITE
 ```
 
-| Parameter | Required | Description |
-| --- | --- | --- |
-| `GIT_REPO` | Yes | URL to the Git repository containing site configuration files |
-| `BRANCH` | Yes | Branch of the Git repository to pull configuration from |
-| `MD5` | No | MD5 hash from `mapping.yaml` identifying this Frontend. If omitted, computed as `md5(hostname -f)` |
-| `SITENAME` | Yes | Must match the `sitename` value in `FE/main.yaml` and `mapping.yaml` |
+| Parameter | Required | Default | Description |
+|---|---|---|---|
+| `GIT_URL` | No | `https://github.com/` | Base URL of the Git host. Prepended to `GIT_REPO` to build the clone URL. |
+| `GIT_REPO` | No | `sdn-sense/rm-configs` | Path (`<org>/<repo>`) of the Git repository containing site configuration files. Do **not** include the `https://` host prefix here — that belongs in `GIT_URL`. |
+| `GIT_BRANCH` | No | `master` | Branch of the Git repository to pull configuration from. |
+| `MD5` | No | `md5(hostname -f)` | MD5 hash from `mapping.yaml` identifying this Frontend. If omitted, computed as `md5(hostname -f)`. |
+| `SITENAME` | **Yes** | — | Must match the `sitename` value in `FE/main.yaml` and `mapping.yaml`. |
+
+**Note:** The key is `GIT_BRANCH`, not `BRANCH` — the shipped `fe/conf/etc/siterm.yaml`/`agent/conf/etc/siterm.yaml`/`debugger/conf/etc/siterm.yaml` templates in `siterm-startup` currently ship a `BRANCH:` key, which SiteRM does not read; it is silently ignored in favor of the `GIT_BRANCH` default (`master`). If you need a non-default branch, set `GIT_BRANCH` explicitly.
 
 ### Manual file mode
 
@@ -205,15 +209,26 @@ AUTH_CONFIG_FILE: /etc/siterm-config/auth.yaml
 AUTH_RE_CONFIG_FILE: /etc/siterm-config/auth-re.yaml
 ```
 
-**Kubernetes (Helm):** These same parameters are specified directly in the Helm `values.yaml` under the `siterm` section:
+**Kubernetes (Helm):** These same parameters are specified as top-level keys directly in the Helm `values.yaml` (not nested under a `siterm:` section):
 
 ```yaml
-siterm:
-  gitrepo: https://github.com/<your-org>/rm-configs
-  gitbranch: master
-  md5: <md5-hash-from-mapping.yaml>
-  sitename: T2_US_YOURSITE
+sitename: T2_US_YOURSITE
+md5: <md5-hash-from-mapping.yaml>
+# Usually you do not need to set these, as the defaults are correct.
+#gitrepo: <your-org>/rm-configs
+#gitbranch: master
+#giturl: https://github.com/
 ```
+
+| Parameter | Required | Default | Description |
+|---|---|---|---|
+| `sitename` | **Yes** | — | Must match the `sitename` value in `FE/main.yaml` and `mapping.yaml`. |
+| `md5` | No | `md5(hostname -f)` | MD5 hash from `mapping.yaml` identifying this Frontend. |
+| `gitrepo` | No | `sdn-sense/rm-configs` | Path (`<org>/<repo>`) of the Git repository, without the `https://` host prefix. Maps to `GIT_REPO`. |
+| `gitbranch` | No | `master` | Branch of the Git repository to pull configuration from. Maps to `GIT_BRANCH`. |
+| `giturl` | No | `https://github.com/` | Base URL of the Git host, prepended to `gitrepo`. Maps to `GIT_URL`. |
+
+The same `sitename`/`md5`/`gitrepo`/`gitbranch`/`giturl` values are also available in the `siterm-agent` and `siterm-debugger` Helm charts.
 
 For manual files in Helm, enable `manualConfig` and put the file contents in the values file. Helm creates a ConfigMap and mounts the files:
 
