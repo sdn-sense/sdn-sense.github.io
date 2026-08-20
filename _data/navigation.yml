@@ -77,6 +77,8 @@ docs:
         url: /operational/common-issues/
       - title: "Quality of Service (QoS)"
         url: /operational/quality-of-service/
+      - title: "Manual Testing: Network Control (VLAN)"
+        url: /operational/manual-testing-network-control/
 
   - title: "Network Devices"
     children:
