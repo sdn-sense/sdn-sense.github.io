@@ -14,6 +14,7 @@ sidebar:
 
 **Juniper MX / PTX support**
 - SiteRM can now provision VLANs on Juniper MX and PTX routers through a `virtual-switch` routing-instance, in addition to the existing EX/QFX standard mode. Select it per-device with `ansparams.vlanmode: mx` or `ptx`. See [Juniper Junos — MX / PTX Virtual-Switch Mode](/devices/juniper-junos/#mx--ptx-virtual-switch-mode) for configuration, rendering details, and current limitations (no L3/IRB termination, no QoS in this mode).
+- Optional per-VLAN Juniper VSTP (spanning tree) on MX/PTX, for loop protection on virtual-switch members. Opt-in via `ansparams.stp_enabled: true` (defaults to `false`; existing sites are unaffected). See [Spanning Tree (VSTP) per VLAN](/devices/juniper-junos/#spanning-tree-vstp-per-vlan-mxptx-only).
 
 **Disable DSCP marking per agent**
 - A new `nodscp: true` flag can be set under `agent:` in `main.yaml` to skip DSCP rule application on a host, mirroring the existing `noqos` toggle. See [DSCP Marking](/optional-install/dscp-marking-tool/#disabling-dscp-marking).
@@ -61,6 +62,9 @@ sidebar:
 
 **Host stats collection**
 - Hardened disk/process stats collection against malformed rows, missing filesystem values, and `psutil.AccessDenied` errors.
+
+**Juniper MX/PTX switchport detection**
+- Fixed MX/PTX ports being dropped from the topology model. Facts collection only recognized a port as a switchport via the `ethernet-switching` family, which MX/PTX never configures (they use `virtual-switch` bridging instead) — every MX/PTX VLAN member was being excluded with an "Its status not switchport" warning. Detection now also recognizes `Link-level type: Flexible-Ethernet`, which is what MX/PTX actually reports on ports safe for L2 use. See [Juniper Junos — Switchport Detection](/devices/juniper-junos/#switchport-detection).
 
 ### 🔧 Supported OS Releases
 

@@ -43,13 +43,14 @@ inventory:
         version: 2
 ```
 
-**Additional Junos parameters (`ansparams`):** Junos behavior is tuned per-device through three optional `ansparams` fields, sourced from the site `ansible_params:` configuration:
+**Additional Junos parameters (`ansparams`):** Junos behavior is tuned per-device through four optional `ansparams` fields, sourced from the site `ansible_params:` configuration:
 
 | Field | Values | Default | Purpose |
 |---|---|---|---|
 | `vlanip` | `vlan` or `irb` | `vlan` | Standard mode only. Selects whether the L3 VLAN interface is a `vlan` unit or an `irb` unit (platform-dependent). |
 | `vlanmode` | `standard`, `mx`, `ptx` | `standard` | Selects the rendering path. `mx` and `ptx` use a routing-instance `virtual-switch` (see [MX / PTX Virtual-Switch Mode](#mx--ptx-virtual-switch-mode)). |
 | `routing_instance` | any name | `SENSE-Vlans` | **Optional.** Name of the `virtual-switch` routing-instance. Only consulted when `vlanmode` is `mx` or `ptx`. If omitted, defaults to `SENSE-Vlans`. |
+| `stp_enabled` | `true` or `false` | `false` | MX/PTX mode only. When `true`, emits Juniper VSTP (`protocols vstp`) interface commands per VLAN member (see [Spanning Tree (VSTP)](#spanning-tree-vstp-per-vlan-mxptx-only)). **Opt-in** — existing sites are unaffected unless explicitly enabled. |
 
 ```yaml
 # In site main.yaml switch config:
@@ -58,6 +59,7 @@ junos_s0:
     vlanip: vlan            # standard mode: 'vlan' or 'irb' depending on platform
     vlanmode: standard      # 'standard' (default), 'mx', or 'ptx'
     # routing_instance: SENSE-Vlans   # optional; mx/ptx only, defaults to SENSE-Vlans
+    # stp_enabled: false     # optional; mx/ptx only, defaults to false
 ```
 
 ---
@@ -98,6 +100,18 @@ All other facts commands (version, ethernet-switching table, interfaces, LLDP, A
 - Aggregated Ethernet (AE/LAG) interface details
 - LLDP neighbors: remote hostname, port, chassis ID — used for topology stitching
 - Full routing table (all VRFs)
+
+### Switchport Detection
+
+SiteRM only includes a port in the topology model if the facts collection recognizes it as a switchport; otherwise the port is dropped with a warning ("Its status not switchport") unless the device has `allports: true` set. Junos detection differs by platform:
+
+- **Standard mode (EX/QFX)**: a port is a switchport when its `show interfaces` output has a logical unit with address family `ethernet-switching` configured.
+- **MX / PTX**: these platforms never configure `ethernet-switching` on ports destined for a VLAN service — they use `encapsulation vlan-bridge` inside a `virtual-switch` routing-instance instead (see [MX / PTX Virtual-Switch Mode](#mx--ptx-virtual-switch-mode)). SiteRM instead treats a port as switchport-capable when its `Link-level type` is `Flexible-Ethernet`, e.g.:
+  ```
+  show interfaces ae14 | match "Link-level"
+    Link-level type: Flexible-Ethernet, MTU: 9192, Speed: 400Gbps, ...
+  ```
+  This applies to both physical ports and AE (LAG) bundles.
 
 ---
 
@@ -246,6 +260,34 @@ set interfaces ae0 unit 100 encapsulation vlan-bridge
 set interfaces ae0 unit 100 vlan-id 100
 ```
 
+### Spanning Tree (VSTP) per VLAN (MX/PTX only)
+
+MX/PTX virtual-switch mode can optionally enable Juniper VSTP (VLAN Spanning Tree Protocol) on each VLAN's member interfaces, for loop protection within the routing-instance. This is controlled with `ansparams.stp_enabled` and is **opt-in** — disabled by default, so existing sites are unaffected unless a site explicitly sets it to `true`.
+
+```yaml
+junos_s0:
+  ansparams:
+    vlanmode: mx           # or 'ptx'
+    stp_enabled: true      # optional; mx/ptx only, defaults to false
+```
+
+When enabled, one `vstp vlan <id> interface <member>` command is emitted per tagged member, **in addition to** the existing VLAN-creation commands — using the bare interface name, not the `<port>.<vlanid>` sub-unit:
+
+```bash
+set routing-instances SENSE-Vlans protocols vstp vlan 1323 interface ae14
+set routing-instances SENSE-Vlans protocols vstp vlan 1323 interface ae4
+```
+
+On removal, the per-member interface commands are deleted along with the VLAN's `vstp vlan <id>` container itself:
+
+```bash
+delete routing-instances SENSE-Vlans protocols vstp vlan 1323 interface ae14
+delete routing-instances SENSE-Vlans protocols vstp vlan 1323 interface ae4
+delete routing-instances SENSE-Vlans protocols vstp vlan 1323
+```
+
+`stp_enabled` has no effect in `standard` mode — standard mode doesn't use a `virtual-switch` routing-instance, so there is no `protocols vstp vlan <id>` to configure it under.
+
 ### Limitations in MX/PTX Mode
 
 - **No L3 / IRB termination**: MX/PTX mode renders L2 bridging only. The `vlan`/`irb` L3 interface logic (and `ansparams.vlanip`) applies to standard mode only.
@@ -337,6 +379,7 @@ junos_s0:
     vlanip: vlan              # standard mode: 'vlan' for EX series, 'irb' for QFX series
     vlanmode: standard        # 'standard' (default), 'mx', or 'ptx'
     # routing_instance: SENSE-Vlans   # optional; mx/ptx only, defaults to SENSE-Vlans
+    # stp_enabled: false      # optional; mx/ptx only, defaults to false
   vlan_range:
     - 3600-3699
   allports: false
@@ -355,6 +398,8 @@ junos_s0:
 
 - **`vlan` vs `irb` mode**: The L3 interface type must match the platform. EX series uses `vlan` units; QFX series uses `irb` units. Misconfiguration will result in the interface being created without L3 connectivity. Configure `ansparams.vlanip` in `main.yaml` accordingly.
 - **`vlanmode` (standard vs mx/ptx)**: Defaults to `standard`. Set `mx` or `ptx` for MX/PTX routers that drive VLANs through a `virtual-switch` routing-instance — see [MX / PTX Virtual-Switch Mode](#mx--ptx-virtual-switch-mode). The `routing_instance` name is optional and defaults to `SENSE-Vlans`.
+- **Switchport detection differs by mode**: standard mode requires an `ethernet-switching` family; MX/PTX instead relies on `Link-level type: Flexible-Ethernet` — see [Switchport Detection](#switchport-detection). A port that doesn't match either is excluded from the topology model unless `allports: true`.
+- **`stp_enabled` (mx/ptx only)**: Defaults to `false` (opt-in). Set `true` to have SiteRM configure Juniper VSTP per VLAN member for loop protection — see [Spanning Tree (VSTP) per VLAN](#spanning-tree-vstp-per-vlan-mxptx-only).
 - **BGP group name**: All SENSE BGP peers on a device share the same BGP group (`SENSE-BGP-DEFAULT` by default). The group name can be customized via the `groupName` parameter if needed.
 - **No QoS**: Juniper Junos does not support SENSE QoS rate limiting. Traffic shaping must be configured independently. In `mx`/`ptx` mode the QoS block is skipped entirely.
 - **Commit required**: Junos uses a commit-based configuration model. The Ansible collection handles the commit automatically after applying configuration.
