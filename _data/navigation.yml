@@ -79,6 +79,8 @@ docs:
         url: /operational/quality-of-service/
       - title: "Manual Testing: Network Control (VLAN)"
         url: /operational/manual-testing-network-control/
+      - title: "Service Error Codes"
+        url: /operational/error-codes/
 
   - title: "Network Devices"
     children:
