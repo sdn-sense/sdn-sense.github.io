@@ -75,6 +75,8 @@ docs:
         url: /operational/how-to-announce-downtime/
       - title: "Common Issues and Troubleshooting"
         url: /operational/common-issues/
+      - title: "Error Code Reference (exccode)"
+        url: /operational/error-codes/
       - title: "Quality of Service (QoS)"
         url: /operational/quality-of-service/
       - title: "Manual Testing: Network Control (VLAN)"
