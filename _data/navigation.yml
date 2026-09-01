@@ -27,6 +27,8 @@ docs:
         url: "/customization/configuration-agent/"
       - title: "Debugger"
         url: "/customization/configuration-debugger/"
+      - title: "Advanced Options"
+        url: "/customization/configuration-advanced/"
       - title: "Authentication"
         url: "/customization/authentication/"
       - title: "Enable Switch Control"

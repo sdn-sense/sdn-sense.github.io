@@ -30,6 +30,8 @@ All 3 files must exist in FE type directory. Directory layout will be:
 
 Below you will find details for configuration parameters and available options.
 
+This page covers the parameters most sites need. For the advanced `main.yaml` sections (`ansible`, `daemoncontrols`, `debuggers`, `prefixes`, `servicedefinitions`, `snmp`), see [Advanced Frontend Configuration](/customization/configuration-advanced/).
+
 ## Frontend configuration (auth.yaml and auth-re.yaml)
 
 
