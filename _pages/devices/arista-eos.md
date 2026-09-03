@@ -72,6 +72,21 @@ show ipv6 route vrf all | json
 - LLDP neighbors: remote hostname, port, chassis ID — used for topology stitching
 - Running configuration: VRF definitions, port-channel configuration
 
+### Facts Subset Control (`ansparams.subset_config`)
+
+Facts are gathered in subsets that always run in a fixed, deterministic order: **`default` &rarr; `routing`**. Either can be turned off per host from `/etc/ansible-conf.yaml`, under `inventory.<host>.ansparams.subset_config` — a dict of subset name &rarr; `true`/`false`; omitted subsets stay enabled:
+
+```yaml
+inventory:
+  arista_s0:
+    # ... connection settings ...
+    ansparams:
+      subset_config:
+        routing: false      # skip `show ip route vrf all` / `show ipv6 route vrf all`
+```
+
+`ansparams` is read **only** from `/etc/ansible-conf.yaml` (`ansible-prepare.py` copies it into the generated host_vars); it is **not** read from the SiteRM Git (`main.yaml`) switch config.
+
 ---
 
 ## VLAN Creation and Deletion

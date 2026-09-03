@@ -62,6 +62,21 @@ show system
 - LLDP neighbors: remote hostname, port, chassis ID — used for topology stitching
 - Running configuration: VLAN definitions, switchport trunk memberships, port-channel members
 
+### Facts Subset Control (`ansparams.subset_config`)
+
+Facts are gathered in subsets that always run in a fixed, deterministic order: **`default` &rarr; `lldp` &rarr; `routing`**. Any subset can be turned off per host from `/etc/ansible-conf.yaml`, under `inventory.<host>.ansparams.subset_config` — a dict of subset name &rarr; `true`/`false`; omitted subsets stay enabled:
+
+```yaml
+inventory:
+  dellos9_s0:
+    # ... connection settings ...
+    ansparams:
+      subset_config:
+        routing: false      # skip the routing subset on this host
+```
+
+`ansparams` is read **only** from `/etc/ansible-conf.yaml` (`ansible-prepare.py` copies it into the generated host_vars); it is **not** read from the SiteRM Git (`main.yaml`) switch config.
+
 ---
 
 ## VLAN Creation and Deletion

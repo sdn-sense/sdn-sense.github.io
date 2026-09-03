@@ -185,6 +185,8 @@ snmpParams:
 
 Below are complete `ansible-conf.yaml` examples for each supported network OS.
 
+> **Optional per-host tuning (`ansparams`):** any host entry may carry an `ansparams:` block for device-specific options — e.g. Junos `vlanmode` / `vlanip`, or `subset_config` to disable a facts subset (`{routing: false}`) on any Junos/Dell/Arista/Cisco device. `ansparams` is read **only** from this file (`ansible-prepare.py` copies it into the generated host_vars), never from the SiteRM Git switch config. See the per-device pages under [Supported Network Devices](/getting-started/install-supported-network-devices/) for the fields each OS accepts.
+
 **Dell OS 9 (SNMPv2c + SSH password):**
 
 ```yaml
@@ -273,6 +275,10 @@ inventory:
     sshkey: /opt/siterm/config/ssh-keys/id-rsa-junos
     become: false
     ssh_common_args: "-o StrictHostKeyChecking=no"
+    # ansparams: Junos-specific tuning (vlanip / vlanmode / routing_instance /
+    # stp_enabled / subset_config). Optional; see the Juniper Junos device page.
+    # ansparams:
+    #   vlanmode: mx
     snmp_params:
       session_vars:
         version: 3

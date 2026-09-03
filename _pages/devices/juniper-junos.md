@@ -43,7 +43,7 @@ inventory:
         version: 2
 ```
 
-**Additional Junos parameters (`ansparams`):** Junos behavior is tuned per-device through four optional `ansparams` fields, sourced from the site `ansible_params:` configuration:
+**Additional Junos parameters (`ansparams`):** Junos behavior is tuned per-device through optional `ansparams` fields. These live **only** in `/etc/ansible-conf.yaml`, nested under the host in the `inventory:` block shown above — `ansible-prepare.py` copies them verbatim into the generated host_vars, and both the config-apply and facts (`getfacts`) paths read them from there. They are **not** read from the SiteRM Git (`main.yaml`) switch config.
 
 | Field | Values | Default | Purpose |
 |---|---|---|---|
@@ -51,15 +51,23 @@ inventory:
 | `vlanmode` | `standard`, `mx`, `ptx` | `standard` | Selects the rendering path. `mx` and `ptx` use a routing-instance `virtual-switch` (see [MX / PTX Virtual-Switch Mode](#mx--ptx-virtual-switch-mode)). |
 | `routing_instance` | any name | `SENSE-Vlans` | **Optional.** Name of the `virtual-switch` routing-instance. Only consulted when `vlanmode` is `mx` or `ptx`. If omitted, defaults to `SENSE-Vlans`. |
 | `stp_enabled` | `true` or `false` | `false` | MX/PTX mode only. When `true`, emits Juniper VSTP (`protocols vstp`) interface commands per VLAN member (see [Spanning Tree (VSTP)](#spanning-tree-vstp-per-vlan-mxptx-only)). **Opt-in** — existing sites are unaffected unless explicitly enabled. |
+| `subset_config` | dict of `default` / `interfaces` / `routing` &rarr; `true`/`false` | `{}` (all enabled) | **Optional.** Per-subset on/off switch for facts collection. Omitted subsets stay enabled. Set `{routing: false}` on routers where `show route all | display xml` is slow enough to hit the persistent-CLI timeout and disrupt the other subsets. See [Facts Collection](#facts-collection). |
 
 ```yaml
-# In site main.yaml switch config:
-junos_s0:
-  ansparams:
-    vlanip: vlan            # standard mode: 'vlan' or 'irb' depending on platform
-    vlanmode: standard      # 'standard' (default), 'mx', or 'ptx'
-    # routing_instance: SENSE-Vlans   # optional; mx/ptx only, defaults to SENSE-Vlans
-    # stp_enabled: false     # optional; mx/ptx only, defaults to false
+# In /etc/ansible-conf.yaml, under inventory.<host>:
+inventory:
+  junos_s0:
+    network_os: sense.junos.junos
+    host: 192.168.1.10
+    user: admin
+    sshkey: /opt/siterm/config/ssh-keys/id-rsa-sense
+    become: false
+    ansparams:
+      vlanip: vlan            # standard mode: 'vlan' or 'irb' depending on platform
+      vlanmode: standard      # 'standard' (default), 'mx', or 'ptx'
+      # routing_instance: SENSE-Vlans   # optional; mx/ptx only, defaults to SENSE-Vlans
+      # stp_enabled: false     # optional; mx/ptx only, defaults to false
+      # subset_config: {routing: false}   # optional; skip the routing facts subset on this host
 ```
 
 ---
@@ -81,6 +89,14 @@ For routing facts:
 
 ```bash
 show route all | display xml
+```
+
+**Subsets can be disabled per host** via `ansparams.subset_config` (a dict of `default` / `interfaces` / `routing` &rarr; `true`/`false`; omitted subsets stay enabled). The subsets always run in a fixed order — `default`, then `interfaces`, then `routing` — so a slow `routing` collection cannot delay or disrupt the interface facts. On a full-table router `show route all | display xml` can exceed the persistent-connection command timeout; when that happens it also poisons the shared CLI session for whatever runs next, so on such devices set:
+
+```yaml
+ansparams:
+  subset_config:
+    routing: false
 ```
 
 **VLAN listing depends on `vlanmode`:** the `show vlans detail` command above is used in `standard` mode. In `mx`/`ptx` mode the VLAN-listing command is scoped to the routing-instance (`routing_instance`, default `SENSE-Vlans`):
@@ -127,7 +143,7 @@ Juniper devices use either a `vlan` logical unit or an `irb` (Integrated Routing
 - **EX series switches**: Typically use `vlan` units
 - **QFX series switches**: Typically use `irb` units
 
-The mode is configured in `main.yaml` under `ansparams.vlanip`.
+The mode is configured under `ansparams.vlanip` in `/etc/ansible-conf.yaml`.
 
 ### Create VLAN (example: VLAN 3607, VRF `lhcone`, port `et-0/0/11`)
 
@@ -375,11 +391,6 @@ junos_s0:
   private_asn: 64513          # Private ASN assigned by SENSE team
   vrf: lhcone                 # VRF name for SENSE traffic
   vlan_mtu: 9000
-  ansparams:
-    vlanip: vlan              # standard mode: 'vlan' for EX series, 'irb' for QFX series
-    vlanmode: standard        # 'standard' (default), 'mx', or 'ptx'
-    # routing_instance: SENSE-Vlans   # optional; mx/ptx only, defaults to SENSE-Vlans
-    # stp_enabled: false      # optional; mx/ptx only, defaults to false
   vlan_range:
     - 3600-3699
   allports: false
@@ -392,11 +403,13 @@ junos_s0:
       wanlink: true
 ```
 
+> **`ansparams` does not go in `main.yaml`.** `vlanip`, `vlanmode`, `routing_instance`, `stp_enabled`, and `subset_config` are set only in `/etc/ansible-conf.yaml` under `inventory.<host>.ansparams` (see [Ansible Inventory Configuration](#ansible-inventory-configuration)). An `ansible_params:` block left in `main.yaml` is ignored.
+
 ---
 
 ## Known Limitations and Notes
 
-- **`vlan` vs `irb` mode**: The L3 interface type must match the platform. EX series uses `vlan` units; QFX series uses `irb` units. Misconfiguration will result in the interface being created without L3 connectivity. Configure `ansparams.vlanip` in `main.yaml` accordingly.
+- **`vlan` vs `irb` mode**: The L3 interface type must match the platform. EX series uses `vlan` units; QFX series uses `irb` units. Misconfiguration will result in the interface being created without L3 connectivity. Configure `ansparams.vlanip` in `/etc/ansible-conf.yaml` accordingly.
 - **`vlanmode` (standard vs mx/ptx)**: Defaults to `standard`. Set `mx` or `ptx` for MX/PTX routers that drive VLANs through a `virtual-switch` routing-instance — see [MX / PTX Virtual-Switch Mode](#mx--ptx-virtual-switch-mode). The `routing_instance` name is optional and defaults to `SENSE-Vlans`.
 - **Switchport detection differs by mode**: standard mode requires an `ethernet-switching` family; MX/PTX instead relies on `Link-level type: Flexible-Ethernet` — see [Switchport Detection](#switchport-detection). A port that doesn't match either is excluded from the topology model unless `allports: true`.
 - **`stp_enabled` (mx/ptx only)**: Defaults to `false` (opt-in). Set `true` to have SiteRM configure Juniper VSTP per VLAN member for loop protection — see [Spanning Tree (VSTP) per VLAN](#spanning-tree-vstp-per-vlan-mxptx-only).
