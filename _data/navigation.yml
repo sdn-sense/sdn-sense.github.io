@@ -7,8 +7,10 @@ main:
 docs:
   - title: ""
     children:
-      - title: "Stable Release: 1.6.1"
+      - title: "Stable Release: 1.6.2"
         url: /docs/stable-release/
+      - title: "Pre-Release: 1.6.3-pre"
+        url: /docs/release-notes/
     nav: sidebar-sample
   - title: Getting Started
     children:

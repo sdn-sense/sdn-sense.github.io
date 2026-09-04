@@ -48,7 +48,7 @@ Access requires SENSE-O account, create one if needed.
 
 Some errors are described below, but not all. This documentation is continuously improved.
 
-Since SiteRM 1.6.2, most service states reported here also carry a stable numeric `exccode` — see the [Error Code Reference](/operational/error-codes/) for the full list and what each one means.
+Since SiteRM 1.6.3-pre, most service states reported here also carry a stable numeric `exccode` — see the [Error Code Reference](/operational/error-codes/) for the full list and what each one means. (Not yet in the `1.6.2` production release; see [Release Notes](/docs/release-notes/).)
 
 ---
 
