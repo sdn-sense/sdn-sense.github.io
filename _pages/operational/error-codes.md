@@ -232,6 +232,20 @@ Message combines whatever host-update/insert publish errors occurred, e.g.:
 
 ---
 
+### -119 — SWITCH_PORT_OPER_DOWN
+
+```text
+Port {switch}{port} is enabled in SiteRM config but operstatus is '{operstatus}' (lineprotocol '{lineprotocol}'); excluded from the model. Expected connected/up.
+```
+
+**Cause:** A port (or port channel) explicitly listed under that switch's `ports` config is a valid switchport but is not operationally up — its `operstatus` is something other than `up`/`connected` (e.g. `notconnect`, `errdisabled`, `disabled`, `down`, `lowerLayerDown`), or its `lineprotocol` is down. Unlike -116, this fires for the port itself, not just port-channel members, and covers a standalone access/trunk port or a whole port channel going down.
+
+**What SiteRM does:** the port is **left out of the published model** for as long as it stays down, and this warning is raised so site admins still see it. Ports pulled in only via `allports` are dropped the same way but silently, without the warning. The check is vendor-agnostic (AristaEOS, Dell, Cisco NX, Junos, SONiC, Nokia SROS, FRR, FreeRTR all report a normalized `operstatus`); a device that does not report `operstatus` at all is not flagged or excluded.
+
+**Resolution:** Investigate the port on the device — cable/optic, the far-end host or switch, or an `errdisable` condition (e.g. a config change or a loop that shut the port). The port returns to the model automatically on the next SiteRM refresh once `operstatus` is back to `up`/`connected`. If the port is intentionally down long-term, move it under `ports_ignore` (or remove it from `ports`) so the warning stops.
+
+---
+
 ## Exception codes
 
 These come from a specific Python exception class being caught somewhere in the Frontend or Agent (`policyService.getError()`, `Daemonizer.reporter(..., excType=...)`). They're lower-level than the warning codes above and generally indicate a request/processing failure rather than an operational/infrastructure condition.
