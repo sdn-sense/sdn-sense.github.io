@@ -18,10 +18,10 @@ If you encounter failures or issues with SiteRM, this guide provides debugging s
 
 SiteRM provides several ways to monitor your endpoints. Each SiteRM Frontend runs a Frontend Web UI. You can identify the Web UI URL from the Git configuration; for example, for Caltech see: [FE-Config.yaml](https://github.com/sdn-sense/rm-configs/blob/master/T2_US_Caltech/FE/main.yaml#L5).
 
-To access the SiteRM Frontend, you must have your Certificate DN whitelisted or valid OIDC authentication credentials.
+The SiteRM Frontend issues a JWT and every API call carries it. You obtain a token in one of two ways, and your identity must be authorized before it is accepted:
 
-- **Certificate authentication (default):** Access permissions are controlled in the GitHub repository for the FE: [FE-Auth.yaml](https://github.com/sdn-sense/rm-configs/blob/master/T2_US_Caltech/FE/auth.yaml)
-- **OIDC authentication:** Contact your OIDC issuer or administrator to create an account or grant the required permissions.
+- **Machine-to-machine (X.509 cert-challenge):** Agents, debuggers, and automated services sign a challenge with their host key and receive a token. The certificate DN must be whitelisted in the FE auth config in GitHub: [FE-Auth.yaml](https://github.com/sdn-sense/rm-configs/blob/master/T2_US_Caltech/FE/auth.yaml)
+- **User / password:** Human users log in and receive a token. Contact the Frontend administrator to create an account or grant the required permissions.
 
 SiteRM Frontend Web UI provides real-time monitoring of the site, including status, connectivity, and overall system health. Key features include:
 
