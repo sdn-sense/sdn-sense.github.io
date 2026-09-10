@@ -8,9 +8,9 @@ sidebar:
   nav: "docs"
 ---
 
-## SiteRM 1.6.3-pre Pre-Production Release
+## SiteRM 1.6.3 Feature Release
 
-> **Status:** Pre-production (`pre` tag), published Friday, September 4, 2026. **SiteRM 1.6.2 remains the official/stable production release** — sites should stay on `1.6.2` (`latest` tag) for production use. Barring issues found during validation, `1.6.3-pre` is planned to be promoted to production (`latest` tag) around **Friday, September 11, 2026**.
+> **Status:** Production/stable release (`latest` tag), promoted **Thursday, September 10, 2026** from the `1.6.3-pre` pre-production build (published September 4, 2026). **SiteRM 1.6.3 is now the official production release** — sites should upgrade from `1.6.2`.
 
 Changes since `1.6.2` (2026-08-10 → 2026-09-04), across `siterm` and related repositories.
 
@@ -115,20 +115,20 @@ Changes since `1.6.2` (2026-08-10 → 2026-09-04), across `siterm` and related r
 
 - 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
 - 🔗 **Authentication Setup:** [Authentication Configuration](/customization/authentication/)
-- **Recommended Version:** Production sites should stay on `latest` (`1.6.2`) until `1.6.3-pre` is promoted.
-- This particular release is `pre-<el9|el10|u22>` version (`1.6.3-pre`).
+- **Recommended Version:** Always use `latest`.
+- This particular release is `1.6.3-<el9|el10|u22>` version (`1.6.3`).
 
 ### Docker Versions
 
-- **Agent:** `sdnsense/siterm-agent:pre-20260904-<el9|el10|u22>` *(pre-production; do not use `latest` to get this)*
-- **Debugger:** `sdnsense/siterm-debugger:pre-20260904-el10`
-- **Frontend:** `sdnsense/siterm-fe:pre-20260904`
+- **Agent:** `sdnsense/siterm-agent:1.6.3-<el9|el10|u22>` *(or use `latest`)*
+- **Debugger:** `sdnsense/siterm-debugger:1.6.3-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:1.6.3` *(or use `latest`)*
 
 ### Helm versions
 
-- **Agent:** Chart version siterm/siterm-agent 1.6.3-pre
-- **Debugger:** Chart version siterm/siterm-debugger 1.6.3-pre
-- **Frontend:** Chart version siterm/siterm-fe 1.6.3-pre
+- **Agent:** Chart version siterm/siterm-agent 1.6.3
+- **Debugger:** Chart version siterm/siterm-debugger 1.6.3
+- **Frontend:** Chart version siterm/siterm-fe 1.6.3
 
 ---
 
