@@ -69,6 +69,7 @@ The Frontend must have outbound connectivity to the following services. Access m
   - `sense-o.es.net` (ports 8080, 8443)
 - **Development Orchestrator**
   - `sense-o-dev.es.net` (ports 8080, 8443)
+  - `sense-o-pilot.es.net` (ports 8080, 8443)
 - **SENSE Monitoring and Alarming**
   - `k8s-igrok-0[1–6].calit2.optiputer.net`
   - IP range: `67.58.51.132–67.58.51.137`
