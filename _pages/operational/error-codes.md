@@ -246,6 +246,54 @@ Port {switch}{port} is enabled in SiteRM config but operstatus is '{operstatus}'
 
 ---
 
+### -120 — VALIDATOR_BGP_NO_DATA
+
+```text
+No BGP monitoring data recorded yet for {host}, which has an active BGP delta.
+```
+
+**Cause:** The host has an active BGP delta, but `BGPMonitoring` hasn't written a `bgpmon` row for it yet (e.g. right after Frontend startup, or the very first cycle after the delta activated).
+
+**Resolution:** Transient — resolves once `BGPMonitoring` completes its next cycle. Persistent absence points to `BGPMonitoring` itself failing for that host; check its logs.
+
+---
+
+### -121 — VALIDATOR_BGP_SESSION_DOWN
+
+```text
+BGP session not active for {host} peer {peer} ({iptype}): state={state}.
+```
+
+**Cause:** A SENSE-managed BGP peering (`sense: true` in the `bgpmon` data) is not in the `established` state.
+
+**Resolution:** Check the peer's BGP configuration and reachability on both ends; see the relevant [Network Device](/getting-started/install-supported-network-devices/) page for vendor-specific BGP troubleshooting.
+
+---
+
+### -122 — VALIDATOR_BGP_ZERO_PREFIXES_RECEIVED
+
+```text
+BGP peer {host} peer {peer} ({iptype}) is established but receiving 0 prefixes.
+```
+
+**Cause:** The session is up, but the peer isn't advertising any routes to us.
+
+**Resolution:** Check the peer's outbound route-map/prefix-list and that it actually has routes to advertise.
+
+---
+
+### -123 — VALIDATOR_BGP_ZERO_PREFIXES_ADVERTISED
+
+```text
+BGP peer {host} peer {peer} ({iptype}) is established but advertising 0 prefixes.
+```
+
+**Cause:** The session is up, but SiteRM isn't advertising any prefixes to this peer (only checked when the platform reports an advertised count at all — see [Network Devices](/getting-started/install-supported-network-devices/) for which vendors do).
+
+**Resolution:** Check the relevant delta's `routeFrom`/prefix-list configuration and the device's outbound route-map.
+
+---
+
 ## Exception codes
 
 These come from a specific Python exception class being caught somewhere in the Frontend or Agent (`policyService.getError()`, `Daemonizer.reporter(..., excType=...)`). They're lower-level than the warning codes above and generally indicate a request/processing failure rather than an operational/infrastructure condition.

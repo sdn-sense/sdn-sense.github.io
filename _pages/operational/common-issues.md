@@ -202,3 +202,15 @@ Check logs why deletion failed:
 - Switch: `/var/log/siterm-site-fe/{LookUpService,ProvisioningService}/api.log`
 
 ---
+
+## BGP Monitoring Data Stale
+
+```text
+BGP monitoring for {host} did not update in the last {N} minutes. Skipping.
+```
+
+**Cause:** The Prometheus exporter (`SNMPMonitoring`) only trusts a `bgpmon` row for up to `BGP_MONITORING_DOWN_TIMEOUT` (70 minutes). `BGPMonitoring` itself runs on an hourly cycle (or sooner, on an active BGP delta change), so seeing this once in a while as the two cycles drift apart is normal, not an error.
+
+**Resolution:** If this persists well past 70 minutes for a host with an active BGP delta, check the `BGPMonitoring` service logs for that site — it likely stopped updating that host's `bgpmon` row (an Ansible failure, or the host dropping out of scope).
+
+---
