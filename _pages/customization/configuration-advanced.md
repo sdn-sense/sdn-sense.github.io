@@ -88,7 +88,7 @@ MAIN:
 
 ## `MAIN.daemoncontrols`
 
-Per-daemon behaviour tuning. Currently only the **ProvisioningService** is configurable — it controls whether a delta whose device apply failed is retried automatically.
+Per-daemon behaviour tuning for the **ProvisioningService** (automatic retry of failed device applies) and the **SwitchWorker** (how often each device is re-polled).
 
 ### `MAIN.daemoncontrols.ProvisioningService`
 
@@ -108,6 +108,12 @@ MAIN:
       failedretrycount: 5
       failedretrytimeout: 120
 ```
+
+### `MAIN.daemoncontrols.SwitchWorker`
+
+| Key | Default | Description |
+| --- | --- | --- |
+| `renewinterval` | `600` | Maximum age in seconds of the last successful device fact collection. Once exceeded, the device's SwitchWorker re-polls it even if no other service requested an update. If the device cannot be reached, the SwitchWorker reports `FAILED` (failing Frontend readiness) and keeps retrying until the device answers. |
 
 ---
 

@@ -8,9 +8,9 @@ sidebar:
   nav: "docs"
 ---
 
-## SiteRM 1.6.4-pre Pre-Production Release
+## SiteRM 1.6.4 Feature Release
 
-> **Status:** Pre-production (`pre` tag), published Monday, September 21, 2026. **SiteRM 1.6.3 remains the official/stable production release** — sites should stay on `1.6.3` (`latest` tag) for production use. Barring issues found during validation, `1.6.4-pre` is planned to be promoted to production (`latest` tag) around **Monday, September 28, 2026**.
+> **Status:** Production/stable release (`latest` tag), promoted **Monday, October 5, 2026** from the `1.6.4-pre` pre-production build (published September 21, 2026). **SiteRM 1.6.4 is now the official production release** — sites should upgrade from `1.6.3`.
 
 Changes since `1.6.3` (2026-09-10 → 2026-09-21), across `siterm` and related repositories.
 
@@ -82,20 +82,20 @@ Changes since `1.6.3` (2026-09-10 → 2026-09-21), across `siterm` and related r
 
 - 🔗 **Installation Guide:** [Installation Instructions](https://sdn-sense.github.io/Installation.html)
 - 🔗 **Authentication Setup:** [Authentication Configuration](/customization/authentication/)
-- **Recommended Version:** Production sites should stay on `latest` (`1.6.3`) until `1.6.4-pre` is promoted.
-- This particular release is `pre-<el9|el10|u22>` version (`1.6.4-pre`).
+- **Recommended Version:** Always use `latest`.
+- This particular release is `1.6.4-<el9|el10|u22>` version (`1.6.4`).
 
 ### Docker Versions
 
-- **Agent:** `sdnsense/siterm-agent:pre-20260921-<el9|el10|u22>` *(pre-production; do not use `latest` to get this)*
-- **Debugger:** `sdnsense/siterm-debugger:pre-20260921-el10`
-- **Frontend:** `sdnsense/siterm-fe:pre-20260921`
+- **Agent:** `sdnsense/siterm-agent:1.6.4-<el9|el10|u22>` *(or use `latest`)*
+- **Debugger:** `sdnsense/siterm-debugger:1.6.4-el10` *(or use `latest`)*
+- **Frontend:** `sdnsense/siterm-fe:1.6.4` *(or use `latest`)*
 
 ### Helm versions
 
-- **Agent:** Chart version siterm/siterm-agent 1.6.4-pre
-- **Debugger:** Chart version siterm/siterm-debugger 1.6.4-pre
-- **Frontend:** Chart version siterm/siterm-fe 1.6.4-pre
+- **Agent:** Chart version siterm/siterm-agent 1.6.4
+- **Debugger:** Chart version siterm/siterm-debugger 1.6.4
+- **Frontend:** Chart version siterm/siterm-fe 1.6.4
 
 ---
 
