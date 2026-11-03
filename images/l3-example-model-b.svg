@@ -15,10 +15,10 @@
 <text xml:space="preserve" style="white-space:pre" x="56" y="284" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#52606d">PTP 2001:db8:7a00:ff00::/126</text>
 <rect x="330" y="300" width="400" height="145" rx="10" fill="#e6f6f4" stroke="#2c8c84" stroke-width="2"/>
 <text xml:space="preserve" style="white-space:pre" x="530" y="323" font-family="Helvetica, Arial, sans-serif" font-size="13.5" text-anchor="middle" font-weight="bold" fill="#1f2933">SENSE router · cisconx_s0 · private AS 65010</text>
-<text xml:space="preserve" style="white-space:pre" x="346" y="347" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Eth1/48  PTP ff00::2/126</text>
-<text xml:space="preserve" style="white-space:pre" x="346" y="366" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">         ::/0 via ff00::1 (border)</text>
-<text xml:space="preserve" style="white-space:pre" x="346" y="385" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Vlan1010 gw 100::1 2841::1</text>
-<text xml:space="preserve" style="white-space:pre" x="346" y="404" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">             3922::1 4a13::1</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="347" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Eth1/48  PTP ff00::2/126, ::/0 via ff00::1</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="366" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Vlan1010 gw 100::1/64  2841::1/64</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="385" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">             3922::1/64  4a13::1/64</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="404" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Eth1/1-9 DTN ports, native VLAN 1010</text>
 <text xml:space="preserve" style="white-space:pre" x="346" y="423" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">router bgp 65010 (peers: SiteRM)</text>
 <line x1="680" y1="300" x2="760" y2="102" stroke="#1e6fb8" stroke-width="3.5"/>
 <text xml:space="preserve" style="white-space:pre" x="732" y="205" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1e6fb8" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">Eth1/36 trunk</text>
@@ -86,7 +86,7 @@
 <text xml:space="preserve" style="white-space:pre" x="916" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::900</text>
 <text xml:space="preserve" style="white-space:pre" x="916" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">HAProxy</text>
 <text xml:space="preserve" style="white-space:pre" x="916" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/9</text>
-<text xml:space="preserve" style="white-space:pre" x="500" y="606" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#52606d">Each host: NIC = 2001:db8:7a00:100::&lt;id&gt;  ·  macvlans sense-2841, sense-3922, sense-4a13 = &lt;subnet&gt;::&lt;id&gt;</text>
+<text xml:space="preserve" style="white-space:pre" x="500" y="606" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#52606d">Each host, one NIC: 100::&lt;id&gt;, 2841::&lt;id&gt;, 3922::&lt;id&gt;, 4a13::&lt;id&gt;  ·  one routing table per SENSE /64</text>
 <line x1="40" y1="630" x2="80" y2="630" stroke="#9aa5b1" stroke-width="3"/>
 <text xml:space="preserve" style="white-space:pre" x="88" y="634" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">routed path (default)</text>
 <line x1="270" y1="630" x2="310" y2="630" stroke="#1e6fb8" stroke-width="3.5"/>

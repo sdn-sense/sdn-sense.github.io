@@ -16,8 +16,8 @@ This page walks through a complete SiteRM deployment for a storage site with **8
 
 There are two ways to provide the address space:
 
-- **Model A (recommended): one /60** routed to the SENSE router and split into 16 /64s. Most of this page uses Model A.
-- **Model B: individual /64s**, each configured by hand on the network devices. See [Model B](#model-b-individual-64s) for what changes.
+- **Model A (recommended): one /60** routed to the SENSE router. The router has one gateway address for the whole /60, the hosts have one address in each of its 16 /64s, and SENSE uses each /64 as a separate path. Most of this page uses Model A.
+- **Model B: individual /64s**, each with its own gateway and configured by hand on the network devices. See [Model B](#model-b-individual-64s) for what changes.
 
 > All addresses, names and AS numbers on this page are documentation values: `2001:db8::/32` (RFC 3849), `example.org`, `192.0.2.0/24` and AS 64496 (RFC 5398). Replace them with your own. Contact the SENSE team (**sense-info@es.net**) before you start: they assign the private ASN and the VLAN range, and provide the ESnet port details.
 
@@ -53,7 +53,8 @@ The router commands on this page are for Cisco NX-OS. The base configuration is 
 | What you request | One /60 on a /60 boundary | One default /64 plus at least three SENSE /64s |
 | Concurrent priority paths | 15 | One per SENSE /64 (3 in the example) |
 | Border router | One static route | One static route per /64 |
-| SENSE router gateway | One VLAN interface with 16 addresses | One VLAN interface, one address per /64 |
+| SENSE router gateway | One /60 address, plus one static route per SENSE /64 | One address per /64 |
+| Host routing | All addresses on the data NIC, one default route | All addresses on the data NIC, one routing table and source rule per SENSE /64 |
 | DNS names (9 hosts) | 144 | 36 |
 | LHCONE / CRIC registration | One prefix | Every /64 |
 | Adding a path later | Already in place | New /64, then repeat steps 1-7 for it |
@@ -64,13 +65,15 @@ The router commands on this page are for Cisco NX-OS. The base configuration is 
 
 Every host uses the **same host id in every subnet**: `dtn-01` is `::100` everywhere, `dtn-08` is `::800` and the redirector is `::900`. The XRootD redirector plugin requires this, and it keeps DNS readable.
 
-| Subnet | Role | Gateway (SENSE router) | dtn-01 ... dtn-08 | Redirector | DNS names |
+The SENSE router has a single gateway address, `2001:db8:6020:f010::1/60`, and every host uses it for all 16 subnets.
+
+| Subnet | Role | Gateway | dtn-01 ... dtn-08 | Redirector | DNS names |
 | --- | --- | --- | --- | --- | --- |
 | `2001:db8:6020:f010::/64` | Default: normal transfers, SAM tests | `f010::1` | `f010::100` ... `f010::800` | `f010::900` | `dtn-01`, `redir` |
-| `2001:db8:6020:f011::/64` | SENSE path 1 | `f011::1` | `f011::100` ... `f011::800` | `f011::900` | `dtn-f011-01`, `redir-f011` |
-| `2001:db8:6020:f012::/64` | SENSE path 2 | `f012::1` | `f012::100` ... `f012::800` | `f012::900` | `dtn-f012-01`, `redir-f012` |
+| `2001:db8:6020:f011::/64` | SENSE path 1 | `f010::1` | `f011::100` ... `f011::800` | `f011::900` | `dtn-f011-01`, `redir-f011` |
+| `2001:db8:6020:f012::/64` | SENSE path 2 | `f010::1` | `f012::100` ... `f012::800` | `f012::900` | `dtn-f012-01`, `redir-f012` |
 | ... | ... | ... | ... | ... | ... |
-| `2001:db8:6020:f01f::/64` | SENSE path 15 | `f01f::1` | `f01f::100` ... `f01f::800` | `f01f::900` | `dtn-f01f-01`, `redir-f01f` |
+| `2001:db8:6020:f01f::/64` | SENSE path 15 | `f010::1` | `f01f::100` ... `f01f::800` | `f01f::900` | `dtn-f01f-01`, `redir-f01f` |
 | `2001:db8:6020:ff00::/126` | Border link | border `::1`, SENSE router `::2` | | | |
 
 The BGP peering addresses on the request VLANs (`fc00::...`) come from SiteRM's `ipv6-address-pool`, not from your space. See [Frontend Configuration](/customization/configuration-frontend/) if the default pool overlaps with anything at your site.
@@ -78,7 +81,7 @@ The BGP peering addresses on the request VLANs (`fc00::...`) come from SiteRM's 
 ## Step 1: Allocate the IPv6 space
 
 1. Request one **/60 that starts on a /60 boundary**. The last hex digit of the fourth group must be 0: `2001:db8:6020:f010::/60` covers `f010` to `f01f`.
-2. List the 16 /64s:
+2. List the 16 /64s inside it:
 
    ```bash
    python3 -c 'import ipaddress; print(*ipaddress.ip_network("2001:db8:6020:f010::/60").subnets(new_prefix=64), sep="\n")'
@@ -129,19 +132,21 @@ interface Ethernet1/48
   no shutdown
 ipv6 route ::/0 2001:db8:6020:ff00::1
 
-! Host VLAN. Gateway for the default /64 and all 15 SENSE /64s.
+! Host VLAN. One gateway address for the whole /60.
 vlan 1010
   name sense-hosts
 interface Vlan1010
   description gateway 2001:db8:6020:f010::/60
   mtu 9216
-  ipv6 address 2001:db8:6020:f010::1/64
-  ipv6 address 2001:db8:6020:f011::1/64 secondary
-  ipv6 address 2001:db8:6020:f012::1/64 secondary
-  ! ... one line per /64 ...
-  ipv6 address 2001:db8:6020:f01f::1/64 secondary
+  ipv6 address 2001:db8:6020:f010::1/60
   ipv6 nd suppress-ra
   no shutdown
+
+! One route per SENSE /64, so that BGP can announce each /64 on its own.
+ipv6 route 2001:db8:6020:f011::/64 Vlan1010
+ipv6 route 2001:db8:6020:f012::/64 Vlan1010
+! ... one line per SENSE /64 ...
+ipv6 route 2001:db8:6020:f01f::/64 Vlan1010
 
 ! DTN and redirector ports. Untagged host traffic lands in VLAN 1010.
 interface Ethernet1/1-9
@@ -169,8 +174,8 @@ router bgp 65010
 
 Notes:
 
-- Some NX-OS releases accept a plain repeated `ipv6 address` line instead of `secondary`. After applying, run `show ipv6 interface Vlan1010` and check that all 16 addresses are listed.
-- Every /64 in the SENSE pool must be in the SENSE router's routing table (here: connected on `Vlan1010`). A BGP `network` statement announces nothing for a prefix that is not in the routing table.
+- SiteRM announces a path's /64 with a BGP `network` statement. That announces a prefix only when the exact prefix is in the routing table, and the connected route on `Vlan1010` is the /60. The static routes add each SENSE /64 and point it back to the same VLAN, so traffic still reaches the hosts directly. The same rule applies on other NOS (on FRR, `bgp network import-check`).
+- After applying, `show ipv6 route 2001:db8:6020:f013::/64` must show the static route via `Vlan1010`. If your release does not accept a route to an interface without a next hop, give `Vlan1010` one gateway address per /64 instead, as in [Model B](#model-b-individual-64s).
 - Router advertisements are suppressed. Hosts get static addresses and routes in [Step 3](#step-3-configure-the-hosts).
 - Cisco NX-OS and Arista EOS need the SENSE-controlled trunk ports to start with an empty allowed VLAN list (or only VLANs SENSE does not control). See [Enable Switch Control](/customization/enable-switch-control/).
 
@@ -192,54 +197,40 @@ SiteRM needs to change VLANs, VLAN interfaces, trunk allowed lists, prefix-lists
 
 ## Step 3: Configure the hosts
 
-Every data server and the redirector gets:
-
-- the default /64 address on the physical NIC, with the main default route via the SENSE router;
-- one **macvlan** per SENSE /64, each with its own routing table and a source rule, so traffic from that /64 always leaves through its own gateway.
+Every data server and the redirector gets all 16 addresses on its data NIC, with the same host id in each /64, and one default route via the SENSE router (`f010::1`). No extra interfaces, routing tables or source rules are needed: every subnet has the same gateway, and the SENSE router picks the path for each packet by its destination.
 
 ![Host networking]({{ site.url }}{{ site.baseurl }}/images/l3-example-host.svg "Host networking inside dtn-03")
 
-A separate interface per subnet also gives per-subnet byte counters in node_exporter (DMM uses these to measure each priority path) and a place to attach QoS per subnet.
+The 15 SENSE addresses are added with `preferred_lft 0`. Linux then uses them only when a program binds to one of them (HAProxy, XRootD with `tpc.fixed_route`) or a client connects to one. Without it, Linux can pick any of the 16 addresses as the source of a new outgoing connection; in a test it picked `f01f`, the last address added.
 
 Save this script as `/usr/local/sbin/sense-multisubnet.sh` on each host and change `HOSTID` (and `PHYS` if needed). It can be run again safely.
 
 ```bash
 #!/bin/bash
 # /usr/local/sbin/sense-multisubnet.sh
-# SENSE multi-subnet IPv6 setup for one data server. Safe to run again.
+# SENSE multi-subnet IPv6 setup for one data server (Model A). Safe to run again.
 set -euo pipefail
 
 PHYS=enp1s0f0np0                   # data NIC, connected to the SENSE router
 HOSTID=300                         # same in every subnet: dtn-01=100 ... dtn-08=800, redir=900
 MTU=9000
-DEFAULT_NET=2001:db8:6020:f010     # default /64 (first 64 bits); lives on PHYS
+DEFAULT_NET=2001:db8:6020:f010     # default /64 (first 64 bits); its ::1 is the gateway for the whole /60
 SENSE_NETS="2001:db8:6020:f011 2001:db8:6020:f012 2001:db8:6020:f013
             2001:db8:6020:f014 2001:db8:6020:f015 2001:db8:6020:f016
             2001:db8:6020:f017 2001:db8:6020:f018 2001:db8:6020:f019
             2001:db8:6020:f01a 2001:db8:6020:f01b 2001:db8:6020:f01c
             2001:db8:6020:f01d 2001:db8:6020:f01e 2001:db8:6020:f01f"
-TABLE=200                          # first SENSE /64 uses table 201
 
-# Default subnet: address on the physical NIC, main default route via the SENSE router.
 sysctl -qw "net.ipv6.conf.${PHYS}.autoconf=0" "net.ipv6.conf.${PHYS}.accept_ra=0"
 ip link set "${PHYS}" mtu "${MTU}" up
 ip -6 addr replace "${DEFAULT_NET}::${HOSTID}/64" dev "${PHYS}"
-ip -6 route replace default via "${DEFAULT_NET}::1" dev "${PHYS}"
-
 for NET in ${SENSE_NETS}; do
-    TABLE=$((TABLE + 1))
-    # Name it after the subnet (sense-f011). Do not use vlan.<N>: SiteRM uses that for its VLANs.
-    IF="sense-${NET##*:}"
-    ip link show "${IF}" >/dev/null 2>&1 || ip link add "${IF}" link "${PHYS}" type macvlan mode bridge
-    sysctl -qw "net.ipv6.conf.${IF}.autoconf=0" "net.ipv6.conf.${IF}.accept_ra=0"
-    ip link set "${IF}" mtu "${MTU}" up
-    ip -6 addr replace "${NET}::${HOSTID}/64" dev "${IF}"
-    # Own table per subnet: traffic sourced from this /64 always leaves through its gateway.
-    ip -6 route replace "${NET}::/64" dev "${IF}" table "${TABLE}"
-    ip -6 route replace default via "${NET}::1" dev "${IF}" table "${TABLE}"
-    while ip -6 rule del from "${NET}::${HOSTID}" table "${TABLE}" 2>/dev/null; do :; done
-    ip -6 rule add from "${NET}::${HOSTID}" table "${TABLE}"
+    # preferred_lft 0: the address is only used when a program binds to it or a client
+    # connects to it. Everything else keeps using the default address.
+    ip -6 addr replace "${NET}::${HOSTID}/64" dev "${PHYS}" preferred_lft 0
 done
+# One gateway for all 16 subnets.
+ip -6 route replace default via "${DEFAULT_NET}::1" dev "${PHYS}"
 ```
 
 Run it at boot with `/etc/systemd/system/sense-multisubnet.service`:
@@ -268,19 +259,51 @@ systemctl enable --now sense-multisubnet.service
 Check the result (dtn-03):
 
 ```bash
-ip -br -6 addr show | grep -E 'enp1s0f0np0|sense-'   # 1 physical + 15 macvlans, all with ::300
-ip -6 rule show | grep -c 'lookup 2'                  # 15
-ip -6 route get 2001:db8:9000:a2::200 from 2001:db8:6020:f013::300
-# 2001:db8:9000:a2::200 from 2001:db8:6020:f013::300 via 2001:db8:6020:f013::1 dev sense-f013 table 203 ...
-ping -6 -c 3 -I 2001:db8:6020:f013::300 2001:db8:6020:f013::1
+ip -6 addr show dev enp1s0f0np0 | grep -c 'inet6 2001:db8:6020:f01'   # 16
+ip -6 addr show dev enp1s0f0np0 | grep -c deprecated                  # 15: the SENSE addresses
+ip -6 route get 2001:db8:9000:a2::200
+# 2001:db8:9000:a2::200 from :: via 2001:db8:6020:f010::1 dev enp1s0f0np0 src 2001:db8:6020:f010::300 ...
+ping -6 -c 3 -I 2001:db8:6020:f013::300 2001:db8:6020:f010::1
 ```
+
+`ip` shows the SENSE addresses as `deprecated`. That is how it displays `preferred_lft 0` and is expected.
 
 Notes:
 
-- If NetworkManager or netplan manages the physical NIC, configure the default /64 address and route there and keep only the loop in the script.
-- Never name a macvlan `vlan.<N>`. The SiteRM Agent names its own VLAN interfaces that way and reads the VLAN id from the name.
-- Run node_exporter in the host network namespace so it sees the macvlan counters.
-- On Kubernetes, the same layout is one pod per subnet with a Multus macvlan attachment instead of host macvlans.
+- If NetworkManager or netplan manages the physical NIC, configure the default address and route there and keep only the SENSE address loop in the script.
+- With one interface, node_exporter counts the traffic of all subnets together. For byte counters per subnet, use one interface per subnet as described below.
+
+### Optional: one interface per subnet (macvlan)
+
+The single-interface layout above is all SENSE needs. Use one interface per subnet only when you need it, for example to separate the subnets (firewall rules, a container per subnet), to get byte counters per subnet from node_exporter, or to put a subnet on its own VLAN.
+
+Each SENSE /64 then gets a macvlan on top of the data NIC. Because the subnet has its own interface, it also needs its own routing table and source rule, so that its traffic leaves through that interface. Replace the `for` loop in the script with:
+
+```bash
+TABLE=200
+for NET in ${SENSE_NETS}; do
+    TABLE=$((TABLE + 1))
+    # Name it after the subnet (sense-f011). Do not use vlan.<N>: SiteRM uses that for its VLANs.
+    IF="sense-${NET##*:}"
+    ip link show "${IF}" >/dev/null 2>&1 || ip link add "${IF}" link "${PHYS}" type macvlan mode bridge
+    sysctl -qw "net.ipv6.conf.${IF}.autoconf=0" "net.ipv6.conf.${IF}.accept_ra=0"
+    ip link set "${IF}" mtu "${MTU}" up
+    ip -6 addr replace "${NET}::${HOSTID}/64" dev "${IF}" preferred_lft 0
+    # Own table per interface, so traffic from this /64 leaves through its own interface.
+    ip -6 route replace "${NET}::/64" dev "${IF}" table "${TABLE}"
+    ip -6 route replace default via "${DEFAULT_NET}::1" dev "${IF}" onlink table "${TABLE}"   # Model B: via "${NET}::1"
+    while ip -6 rule del from "${NET}::${HOSTID}" table "${TABLE}" 2>/dev/null; do :; done
+    ip -6 rule add from "${NET}::${HOSTID}" table "${TABLE}"
+done
+```
+
+Check: `ip -6 route get 2001:db8:9000:a2::200 from 2001:db8:6020:f013::300` must show `dev sense-f013 table 203`.
+
+- `onlink` is needed because the gateway `f010::1` is not in the macvlan's own /64. In Model B, use each /64's own gateway, `via "${NET}::1"`, without `onlink`.
+- If each subnet is on its own VLAN, create a VLAN interface instead of the macvlan (`ip link add link "${PHYS}" name "${IF}" type vlan id <id>`). The SENSE router then needs one VLAN interface with a gateway address per subnet, and the routes use `via "${NET}::1"`.
+- Never name these interfaces `vlan.<N>`. The SiteRM Agent names its own VLAN interfaces that way and reads the VLAN id from the name.
+- Run node_exporter in the host network namespace so it sees the counters of every interface.
+- On Kubernetes, the same layout is one pod per subnet with a Multus macvlan attachment.
 
 ## Step 4: DNS
 
@@ -737,7 +760,7 @@ With `qos.interfaces` set, SiteRM shares the bandwidth of a priority path over a
 ## Step 8: Check everything before the first request
 
 - **SiteRM Frontend web UI:** `cisconx_s0` shows `Ethernet1/36` and `Ethernet1/1` ... `Ethernet1/8`, all 8 Agents are reporting, and the [Topology View](/operational/topology-view/) shows the hosts under the switch.
-- **SENSE router:** `show ipv6 route 2001:db8:6020:f013::/64` shows a direct route on `Vlan1010`. `show bgp ipv6 unicast summary` shows no neighbors yet.
+- **SENSE router:** `show ipv6 route 2001:db8:6020:f013::/64` shows the static route via `Vlan1010`. `show bgp ipv6 unicast summary` shows no neighbors yet.
 - **Routed path:** from a remote host, `ping6` and `traceroute6` to a few SENSE names (`dtn-f013-03`, `redir-f01f`) go through the border router and then the SENSE router.
 - **Storage:** the subnet tests from [Step 6](#test-that-each-subnet-stays-in-its-subnet) pass for several subnets.
 - **SENSE team:** confirm that the Orchestrator sees the routing service of `cisconx_s0` with the 15 /64s and AS 65010.
@@ -800,7 +823,7 @@ interface Ethernet1/36
 
 ## Model B: individual /64s
 
-Use Model B when a /60 is not available and the site can only provide separate /64s.
+Use Model B when a /60 is not available and the site can only provide separate /64s. Each /64 is a separate subnet with its own gateway address on the SENSE router.
 
 ![Model B topology]({{ site.url }}{{ site.baseurl }}/images/l3-example-model-b.svg "Model B: individual /64s")
 
@@ -824,7 +847,7 @@ The steps are the same as Model A. What changes:
    ipv6 route 2001:db8:7a00:4a13::/64 2001:db8:7a00:ff00::2
    ```
 
-3. **SENSE router:** one gateway address per /64:
+3. **SENSE router:** one gateway address per /64. Each /64 is then a connected route, so BGP finds the exact /64 without static routes:
 
    ```
    interface Vlan1010
@@ -838,7 +861,41 @@ The steps are the same as Model A. What changes:
      no shutdown
    ```
 
-4. **Hosts:** in the Step 3 script set `DEFAULT_NET=2001:db8:7a00:100` and `SENSE_NETS="2001:db8:7a00:2841 2001:db8:7a00:3922 2001:db8:7a00:4a13"`. The macvlans become `sense-2841`, `sense-3922` and `sense-4a13`.
+   Some NX-OS releases accept a plain repeated `ipv6 address` line instead of `secondary`. After applying, run `show ipv6 interface Vlan1010` and check that all four addresses are listed.
+
+4. **Hosts:** all addresses still go on the data NIC, but each /64 now has its own gateway. Each SENSE /64 therefore gets its own routing table and a source rule, so traffic from that address always leaves through that /64's gateway. Use this script instead of the Model A one:
+
+   ```bash
+   #!/bin/bash
+   # /usr/local/sbin/sense-multisubnet.sh
+   # SENSE multi-subnet IPv6 setup for one data server (Model B). Safe to run again.
+   set -euo pipefail
+
+   PHYS=enp1s0f0np0                   # data NIC, connected to the SENSE router
+   HOSTID=300                         # same in every subnet: dtn-01=100 ... dtn-08=800, redir=900
+   MTU=9000
+   DEFAULT_NET=2001:db8:7a00:100      # default /64 (first 64 bits)
+   SENSE_NETS="2001:db8:7a00:2841 2001:db8:7a00:3922 2001:db8:7a00:4a13"
+   TABLE=200                          # first SENSE /64 uses table 201
+
+   sysctl -qw "net.ipv6.conf.${PHYS}.autoconf=0" "net.ipv6.conf.${PHYS}.accept_ra=0"
+   ip link set "${PHYS}" mtu "${MTU}" up
+   ip -6 addr replace "${DEFAULT_NET}::${HOSTID}/64" dev "${PHYS}"
+   ip -6 route replace default via "${DEFAULT_NET}::1" dev "${PHYS}"
+
+   for NET in ${SENSE_NETS}; do
+       TABLE=$((TABLE + 1))
+       ip -6 addr replace "${NET}::${HOSTID}/64" dev "${PHYS}" preferred_lft 0
+       # Own table per /64: traffic from this address always leaves through this /64's gateway.
+       ip -6 route replace "${NET}::/64" dev "${PHYS}" table "${TABLE}"
+       ip -6 route replace default via "${NET}::1" dev "${PHYS}" table "${TABLE}"
+       while ip -6 rule del from "${NET}::${HOSTID}" table "${TABLE}" 2>/dev/null; do :; done
+       ip -6 rule add from "${NET}::${HOSTID}" table "${TABLE}"
+   done
+   ```
+
+   Check: `ip -6 rule show | grep -c 'lookup 2'` prints 3, and `ip -6 route get 2001:db8:9000:a2::200 from 2001:db8:7a00:3922::300` shows `via 2001:db8:7a00:3922::1 dev enp1s0f0np0 table 202`.
+
 5. **DNS:** in the generator set `DEFAULT_NET = "2001:db8:7a00:100::/64"` and `SENSE_NETS = ["2001:db8:7a00:2841::/64", "2001:db8:7a00:3922::/64", "2001:db8:7a00:4a13::/64"]` (36 names).
 6. **Certificates:** `TAGS="2841 3922 4a13"` (4 names per host).
 7. **HAProxy:** `PREFIX=2001:db8:7a00` and `TAGS="2841 3922 4a13"`.
@@ -847,7 +904,7 @@ The steps are the same as Model A. What changes:
 
 Adding a fourth path later means repeating every item above for the new /64.
 
-If the hosts must keep an existing production address and default route on another router, leave the `DEFAULT_NET` lines out of the script. The per-subnet tables still send SENSE traffic to the SENSE router, as long as the SENSE router is reachable at Layer 2 from the host for those /64s.
+If the hosts must keep an existing production address and default route on another router, leave out the two script lines that configure `DEFAULT_NET` (address and default route). The per-subnet tables still send SENSE traffic to the SENSE router, as long as the SENSE router is reachable at Layer 2 from the host for those /64s.
 
 ## Checklist for the SENSE team
 

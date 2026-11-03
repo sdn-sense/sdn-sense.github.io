@@ -71,7 +71,7 @@ The diagram page is served with `Content-Security-Policy: sandbox`, so its scrip
 
 ## In Autogole Grafana
 
-Each SiteRM site dashboard in [Autogole Grafana](https://autogole-grafana.nrp-nautilus.io) starts with a collapsed "Topology" row that shows the diagram without the cards. Grafana shows it as a static picture: hovering works, but zoom, theme switching and export do not; use the Frontend page for those. It is refreshed at most every 5 minutes.
+Each SiteRM site dashboard in [Autogole Grafana](https://autogole-grafana.nrp-nautilus.io) starts with an expanded "Topology" row that shows the diagram without the cards. Grafana shows it as a static picture: hovering works, but zoom, theme switching and export do not; use the Frontend page for those. It is refreshed at most every 5 minutes.
 
 If the row shows "Topology for <SITE> is not available", the message says why. Usually the Frontend runs a SiteRM version older than 1.6.5, or Autogole monitoring could not get a token for the site because its Frontend was unreachable.
 
