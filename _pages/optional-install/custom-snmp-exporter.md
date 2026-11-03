@@ -207,14 +207,14 @@ curl http://localhost:9116/metrics
 
 ## SNMP Configuration Reference
 
-The SNMP exporter parameters map directly to the `easysnmp` session parameters used internally by SiteRM. The table below maps between the two:
+SiteRM's built-in SNMP client uses `easysnmp` session parameters. The SNMP exporter uses its own names for some of them, such as the SNMPv3 security levels. The table below maps between the two:
 
 | SNMP Version | SiteRM `ansible-conf.yaml` (`session_vars`) | SNMP Exporter `snmp.yml` (`auth`) |
 |---|---|---|
 | v1 | `version: 1`, `community: public` | `version: 1`, `community: public` |
 | v2c | `version: 2`, `community: public` | `version: 2`, `community: public` |
-| v3 | `version: 3`, `security_level: authNoPriv` | `version: 3`, `security_level: authNoPriv` |
-| v3 | `version: 3`, `security_level: authPriv` | `version: 3`, `security_level: authPriv` |
+| v3 | `version: 3`, `security_level: auth_without_privacy` | `version: 3`, `security_level: authNoPriv` |
+| v3 | `version: 3`, `security_level: auth_with_privacy` | `version: 3`, `security_level: authPriv` |
 
 For a full list of SNMPv3 session parameters supported by SiteRM's built-in SNMP client, see [easysnmp session documentation](https://easysnmp.readthedocs.io/en/latest/session_api.html).
 

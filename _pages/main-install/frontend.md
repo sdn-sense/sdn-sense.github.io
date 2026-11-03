@@ -33,7 +33,7 @@ git clone https://github.com/sdn-sense/siterm-startup
 
 * **It is recomended to use stable tag version. master branch is used for developement. Stable version is shown at the sidebar on the left** Use `git fetch --all --tags` and `git checkout <tag>`
 * Modify FE Contig File in cloned repo, path:`fe/conf/etc/siterm.yaml` and specify the SiteName and MD5 parameters for Frontend (based on your `mapping.yaml` file).
-* Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`. This can be anything secure and should not change between redeployments.
+* Modify Environment file in cloned repo, path:`fe/conf/environment` and change `MARIA_DB_PASSWORD`. This can be anything secure and should not change between redeployments. From SiteRM 1.6.5 the Frontend refuses to start if it is unset, still `REPLACEME`, or contains whitespace or any of `` " ' ` \ / & $ ; | < > ( ) ``.
 * Prepare ansible configuration file at `fe/conf/etc/ansible-conf.yaml`. For more details, see [Supported network devices](/getting-started/install-supported-network-devices/) page
 * **Obtain TLS certificates.** SiteRM requires a valid TLS certificate and private key. If you do not already have them, use Let's Encrypt:
 

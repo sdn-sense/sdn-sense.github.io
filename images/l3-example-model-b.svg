@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="1000" height="650"><defs><marker id="a-grey" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/></marker><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1e6fb8"/></marker><marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7e3fbf"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2c8c84"/></marker></defs><rect width="1000" height="650" fill="#ffffff"/><text xml:space="preserve" style="white-space:pre" x="500" y="26" font-family="Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#1f2933">Model B — individual /64s configured one by one</text>
+<rect x="40" y="42" width="360" height="60" rx="10" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="220" y="67" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#1f2933">Internet / LHCONE</text>
+<text xml:space="preserve" style="white-space:pre" x="220" y="88" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#52606d">default routed path</text>
+<rect x="600" y="42" width="360" height="60" rx="10" fill="#e3f2fd" stroke="#1e6fb8" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="780" y="67" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#1f2933">ESnet + SENSE-O → remote site</text>
+<text xml:space="preserve" style="white-space:pre" x="780" y="88" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#52606d">one VLAN + BGP session per priority path</text>
+<rect x="40" y="145" width="360" height="105" rx="10" fill="#f0f4f8" stroke="#7b8794" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="220" y="168" font-family="Helvetica, Arial, sans-serif" font-size="13.5" text-anchor="middle" font-weight="bold" fill="#1f2933">Border / production router · AS 64496</text>
+<text xml:space="preserve" style="white-space:pre" x="56" y="192" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Announces 2001:db8:7a00::/48 upstream</text>
+<text xml:space="preserve" style="white-space:pre" x="56" y="211" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">ipv6 route &lt;each /64&gt; 2001:db8:7a00:ff00::2</text>
+<text xml:space="preserve" style="white-space:pre" x="56" y="230" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">  100::/64  2841::/64  3922::/64  4a13::/64</text>
+<line x1="220" y1="102" x2="220" y2="145" stroke="#9aa5b1" stroke-width="3"/>
+<line x1="330" y1="250" x2="430" y2="300" stroke="#9aa5b1" stroke-width="3"/>
+<text xml:space="preserve" style="white-space:pre" x="56" y="284" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#52606d">PTP 2001:db8:7a00:ff00::/126</text>
+<rect x="330" y="300" width="400" height="145" rx="10" fill="#e6f6f4" stroke="#2c8c84" stroke-width="2"/>
+<text xml:space="preserve" style="white-space:pre" x="530" y="323" font-family="Helvetica, Arial, sans-serif" font-size="13.5" text-anchor="middle" font-weight="bold" fill="#1f2933">SENSE router · cisconx_s0 · private AS 65010</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="347" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Eth1/48  PTP ff00::2/126</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="366" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">         ::/0 via ff00::1 (border)</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="385" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">Vlan1010 gw 100::1 2841::1</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="404" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">             3922::1 4a13::1</text>
+<text xml:space="preserve" style="white-space:pre" x="346" y="423" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">router bgp 65010 (peers: SiteRM)</text>
+<line x1="680" y1="300" x2="760" y2="102" stroke="#1e6fb8" stroke-width="3.5"/>
+<text xml:space="preserve" style="white-space:pre" x="732" y="205" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1e6fb8" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">Eth1/36 trunk</text>
+<text xml:space="preserve" style="white-space:pre" x="732" y="222" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1e6fb8" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">VLANs 3600-3619</text>
+<rect x="760" y="320" width="200" height="105" rx="10" fill="#f3e8fd" stroke="#7e3fbf" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="860" y="343" font-family="Helvetica, Arial, sans-serif" font-size="13.5" text-anchor="middle" font-weight="bold" fill="#1f2933">SiteRM Frontend</text>
+<text xml:space="preserve" style="white-space:pre" x="860" y="362" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" text-anchor="middle" font-weight="normal" fill="#1f2933">sense-fe.t2.example.org</text>
+<text xml:space="preserve" style="white-space:pre" x="860" y="384" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">Ansible (SSH) + SNMP</text>
+<text xml:space="preserve" style="white-space:pre" x="860" y="402" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">to the SENSE router</text>
+<text xml:space="preserve" style="white-space:pre" x="860" y="418" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal" fill="#52606d">Agents report over HTTPS</text>
+<line x1="760" y1="372" x2="733" y2="372" stroke="#7e3fbf" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a-purple)"/>
+<line x1="900" y1="320" x2="900" y2="104" stroke="#7e3fbf" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a-purple)"/>
+<text xml:space="preserve" style="white-space:pre" x="908" y="215" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#7e3fbf">REST</text>
+<line x1="84" y1="505" x2="352" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="36" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="84" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-01</text>
+<text xml:space="preserve" style="white-space:pre" x="84" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::100</text>
+<text xml:space="preserve" style="white-space:pre" x="84" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="84" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/1</text>
+<line x1="188" y1="505" x2="398" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="140" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="188" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-02</text>
+<text xml:space="preserve" style="white-space:pre" x="188" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::200</text>
+<text xml:space="preserve" style="white-space:pre" x="188" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="188" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/2</text>
+<line x1="292" y1="505" x2="444" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="244" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="292" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-03</text>
+<text xml:space="preserve" style="white-space:pre" x="292" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::300</text>
+<text xml:space="preserve" style="white-space:pre" x="292" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="292" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/3</text>
+<line x1="396" y1="505" x2="490" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="348" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="396" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-04</text>
+<text xml:space="preserve" style="white-space:pre" x="396" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::400</text>
+<text xml:space="preserve" style="white-space:pre" x="396" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="396" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/4</text>
+<line x1="500" y1="505" x2="536" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="452" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="500" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-05</text>
+<text xml:space="preserve" style="white-space:pre" x="500" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::500</text>
+<text xml:space="preserve" style="white-space:pre" x="500" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="500" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/5</text>
+<line x1="604" y1="505" x2="582" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="556" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="604" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-06</text>
+<text xml:space="preserve" style="white-space:pre" x="604" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::600</text>
+<text xml:space="preserve" style="white-space:pre" x="604" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="604" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/6</text>
+<line x1="708" y1="505" x2="628" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="660" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="708" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-07</text>
+<text xml:space="preserve" style="white-space:pre" x="708" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::700</text>
+<text xml:space="preserve" style="white-space:pre" x="708" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="708" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/7</text>
+<line x1="812" y1="505" x2="674" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="764" y="505" width="96" height="78" rx="8" fill="#fff8e1" stroke="#b7791f" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="812" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">dtn-08</text>
+<text xml:space="preserve" style="white-space:pre" x="812" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::800</text>
+<text xml:space="preserve" style="white-space:pre" x="812" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Agent</text>
+<text xml:space="preserve" style="white-space:pre" x="812" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/8</text>
+<line x1="916" y1="505" x2="720" y2="445" stroke="#2c8c84" stroke-width="1.5"/>
+<rect x="868" y="505" width="96" height="78" rx="8" fill="#fdecef" stroke="#c2185b" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="916" y="526" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">redir</text>
+<text xml:space="preserve" style="white-space:pre" x="916" y="545" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" text-anchor="middle" font-weight="normal" fill="#1f2933">::900</text>
+<text xml:space="preserve" style="white-space:pre" x="916" y="563" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">HAProxy</text>
+<text xml:space="preserve" style="white-space:pre" x="916" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="normal" fill="#52606d">Eth1/9</text>
+<text xml:space="preserve" style="white-space:pre" x="500" y="606" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal" fill="#52606d">Each host: NIC = 2001:db8:7a00:100::&lt;id&gt;  ·  macvlans sense-2841, sense-3922, sense-4a13 = &lt;subnet&gt;::&lt;id&gt;</text>
+<line x1="40" y1="630" x2="80" y2="630" stroke="#9aa5b1" stroke-width="3"/>
+<text xml:space="preserve" style="white-space:pre" x="88" y="634" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">routed path (default)</text>
+<line x1="270" y1="630" x2="310" y2="630" stroke="#1e6fb8" stroke-width="3.5"/>
+<text xml:space="preserve" style="white-space:pre" x="318" y="634" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">SENSE priority path (per request)</text>
+<line x1="570" y1="630" x2="610" y2="630" stroke="#2c8c84" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="618" y="634" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">trunk, native VLAN 1010</text>
+<line x1="800" y1="630" x2="840" y2="630" stroke="#7e3fbf" stroke-width="2" stroke-dasharray="5 4"/>
+<text xml:space="preserve" style="white-space:pre" x="848" y="634" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">SiteRM control</text></svg>

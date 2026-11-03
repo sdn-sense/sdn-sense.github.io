@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 610" width="1000" height="610"><defs><marker id="a-grey" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/></marker><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1e6fb8"/></marker><marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7e3fbf"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2c8c84"/></marker></defs><rect width="1000" height="610" fill="#ffffff"/><text xml:space="preserve" style="white-space:pre" x="500" y="24" font-family="Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#1f2933">One priority path, start to finish (Model A, subnet f013)</text>
+<rect x="18" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="80" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">Rucio + DMM</text>
+<line x1="80" y1="72" x2="80" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="153" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="215" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">SENSE-O</text>
+<line x1="215" y1="72" x2="215" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="288" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="350" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">SiteRM FE</text>
+<line x1="350" y1="72" x2="350" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="423" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="485" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">SENSE router</text>
+<line x1="485" y1="72" x2="485" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="558" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="620" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">DTNs (Agents)</text>
+<line x1="620" y1="72" x2="620" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="693" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="755" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">HAProxy redir</text>
+<line x1="755" y1="72" x2="755" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="843" y="38" width="124" height="34" rx="6" fill="#f5f7fa" stroke="#9aa5b1" stroke-width="1.5"/>
+<text xml:space="preserve" style="white-space:pre" x="905" y="60" font-family="Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1f2933">Remote site / FTS</text>
+<line x1="905" y1="72" x2="905" y2="600" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="18" y="88" width="640" height="26" rx="6" fill="#fffdf5" stroke="#b7791f" stroke-width="1"/>
+<text xml:space="preserve" style="white-space:pre" x="28" y="106" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933">1  Rucio rule tagged SENSE; DMM takes the free /64 2001:db8:6020:f013::/64 from the pool</text>
+<line x1="80" y1="150" x2="211" y2="150" stroke="#1f2933" stroke-width="1.6" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="88" y="143" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">2  L3 path f013::/64 ↔ remote, 200 Gb/s</text>
+<line x1="215" y1="185" x2="346" y2="185" stroke="#1f2933" stroke-width="1.6" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="223" y="178" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">3  delta: VLAN 3606, peer AS 65020</text>
+<line x1="350" y1="220" x2="481" y2="220" stroke="#7e3fbf" stroke-width="1.6" marker-end="url(#a-purple)"/>
+<text xml:space="preserve" style="white-space:pre" x="358" y="213" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#7e3fbf" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">4  VLAN 3606, Vlan3606 fc00:0:104:9::1, prefix-lists, route-maps, neighbor, network</text>
+<line x1="350" y1="255" x2="616" y2="255" stroke="#7e3fbf" stroke-width="1.6" marker-end="url(#a-purple)"/>
+<text xml:space="preserve" style="white-space:pre" x="358" y="248" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#7e3fbf" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">5  QoS: 200 Gb/s / 8 DTNs = 25 Gb/s each for f013::/64</text>
+<line x1="215" y1="290" x2="84" y2="290" stroke="#52606d" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="88" y="283" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#52606d" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">6  path active</text>
+<line x1="80" y1="330" x2="901" y2="330" stroke="#1f2933" stroke-width="1.6" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="88" y="323" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">7  FTS job uses davs://redir-f013.t2.example.org:1094; DMM raises FTS active limit</text>
+<line x1="905" y1="370" x2="759" y2="370" stroke="#1f2933" stroke-width="1.6" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="763" y="363" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">8  COPY / GET</text>
+<line x1="755" y1="400" x2="901" y2="400" stroke="#52606d" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="763" y="393" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#52606d" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">307 → dtn-f013-05:1094</text>
+<line x1="626" y1="445" x2="899" y2="445" stroke="#1e6fb8" stroke-width="4" marker-end="url(#a-blue)"/>
+<line x1="899" y1="445" x2="626" y2="445" stroke="#1e6fb8" stroke-width="4" marker-end="url(#a-blue)"/>
+<text xml:space="preserve" style="white-space:pre" x="632" y="435" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1e6fb8" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">9  data f013::500 ↔ remote, over VLAN 3606</text>
+<text xml:space="preserve" style="white-space:pre" x="632" y="465" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#52606d" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">     (routes learned from the BGP peer)</text>
+<line x1="80" y1="510" x2="211" y2="510" stroke="#1f2933" stroke-width="1.6" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="88" y="503" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">10  rule done → cancel</text>
+<line x1="215" y1="540" x2="346" y2="540" stroke="#1f2933" stroke-width="1.6" marker-end="url(#a-ink)"/>
+<text xml:space="preserve" style="white-space:pre" x="223" y="533" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#1f2933" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">11  delete delta</text>
+<line x1="350" y1="570" x2="481" y2="570" stroke="#7e3fbf" stroke-width="1.6" marker-end="url(#a-purple)"/>
+<text xml:space="preserve" style="white-space:pre" x="358" y="563" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" font-weight="normal" fill="#7e3fbf" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">12  remove VLAN, BGP neighbor, prefix-lists; f013 falls back to the routed path</text></svg>

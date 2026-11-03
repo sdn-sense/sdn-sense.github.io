@@ -257,3 +257,5 @@ MARIA_DB_PASSWORD=<your-secure-password>
 ```
 
 **Important:** Choose a strong password and do not change it between redeployments of the same Frontend, as the database will already contain data encrypted with the original password.
+
+The password must not be empty or the template value `REPLACEME`, and must not contain whitespace or any of `` " ' ` \ / & $ ; | < > ( ) `` (they break the container's environment file and the database initialization). From SiteRM 1.6.5 the Frontend refuses to start otherwise, and its readiness check reports why.

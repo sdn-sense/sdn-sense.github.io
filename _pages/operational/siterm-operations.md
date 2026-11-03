@@ -22,7 +22,7 @@ Frontend allows you to view and interact with SiteRM, e.g.:
 * View latest models and deltas;
 * Request and view debug action's, like rapid ping, tcpdump, arptable, iperf.
 
-Additionally, all SiteRMs are monitored by Prometheus and Grafana under AUTOGOLE. It can alert you once services are failing or if there are any issues with your SiteRM. It can be accessed here: [URL](https://autogole-grafana.nrp-nautilus.io) (Requires github or SENSE authentication - please contact SENSE team to add your git username). Slack Alerts are also sent by Grafana once failure, fix occurs.
+Additionally, all SiteRMs are monitored by Prometheus and Grafana under AUTOGOLE. It can alert you once services are failing or if there are any issues with your SiteRM. It can be accessed here: [URL](https://autogole-grafana.nrp-nautilus.io) (Requires github or SENSE authentication - please contact SENSE team to add your git username). Slack Alerts are also sent by Grafana once failure, fix occurs. Each site dashboard also has a collapsed "Topology" row with the site's topology diagram (see [Topology View](/operational/topology-view/)).
 Please join Slack Workspace ["Autogole Alarms"](https://autogolealarms.slack.com) Please join at least the channel for your domain, and address problems identified in the alerts as soon as possible. This is a free version of Slack, so messages only visible for last 90 days
 
 Channel Organizations:

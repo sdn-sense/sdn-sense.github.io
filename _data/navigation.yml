@@ -7,7 +7,7 @@ main:
 docs:
   - title: ""
     children:
-      - title: "Stable Release: 1.6.4"
+      - title: "Stable Release: 1.6.5"
         url: /docs/stable-release/
     nav: sidebar-sample
   - title: Getting Started
@@ -16,6 +16,8 @@ docs:
         url: /install-quick-start/
       - title: "Supported network devices"
         url: /getting-started/install-supported-network-devices/
+      - title: "Example: L3 Deployment (8 Servers)"
+        url: /getting-started/l3-deployment-example/
 
   - title: Customization
     children:
@@ -73,6 +75,8 @@ docs:
     children:
       - title: "SiteRM Operations"
         url: /operational/siterm-operations/
+      - title: "Topology View"
+        url: /operational/topology-view/
       - title: "How to Announce Downtime"
         url: /operational/how-to-announce-downtime/
       - title: "Common Issues and Troubleshooting"

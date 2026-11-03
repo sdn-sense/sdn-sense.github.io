@@ -172,7 +172,7 @@ snmpParams:
   session_vars:
     version: 3
     hostname: <full-qualified-domain-name.com>
-    security_level: <auth_with_privacy>
+    security_level: <security_level, one of: no_auth_or_privacy, auth_without_privacy, auth_with_privacy>
     security_username: <security_username>
     auth_protocol: <auth_protocol, like: SHA, MD5>
     auth_password: <auth_password>
@@ -220,7 +220,7 @@ inventory:
       session_vars:
         version: 3
         hostname: 10.0.1.11
-        security_level: authPriv
+        security_level: auth_with_privacy
         security_username: snmpuser
         auth_protocol: SHA
         auth_password: authpassword
@@ -283,7 +283,7 @@ inventory:
       session_vars:
         version: 3
         hostname: 10.0.1.14
-        security_level: authPriv
+        security_level: auth_with_privacy
         security_username: snmpv3user
         auth_protocol: SHA
         auth_password: authpass

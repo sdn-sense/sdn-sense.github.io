@@ -95,6 +95,8 @@ While each site hardware and network topology is different. Proceed to component
 * [Node Exporter Installation](/main-install/node-exporter/)
 * Host and Switch configuration tunings
 
+For a complete worked example (IPv6 allocation, router configuration, DNS, certificates, storage redirector and SiteRM configuration for 8 storage servers), see [Example: L3 Deployment](/getting-started/l3-deployment-example/).
+
 
 ## Quick installation notes for new sites
 
