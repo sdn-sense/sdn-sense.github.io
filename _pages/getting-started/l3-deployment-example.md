@@ -593,7 +593,7 @@ Then repeat the test through HAProxy with `davs://redir-f011.t2.example.org:1094
 
 ## Step 7: SiteRM configuration
 
-Site configuration lives in your fork of [rm-configs](https://github.com/sdn-sense/rm-configs) (see the [Quick-Start Guide](/install-quick-start/)):
+Site configuration lives in [rm-configs](https://github.com/sdn-sense/rm-configs) (see the [Quick-Start Guide](/install-quick-start/)):
 
 ```
 T2_US_Example/
