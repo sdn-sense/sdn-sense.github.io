@@ -4,7 +4,7 @@ email: sense-info@es.net
 description: >-
   SENSE lets science workflows request, provision, monitor, and troubleshoot
   end-to-end network services across sites and administrative domains.
-url: https://sdn-sense.github.io
+url: https://sdn-sense.dev
 baseurl: ""
 repository: sdn-sense/sdn-sense.github.io
 github_username: sdn-sense

@@ -28,7 +28,7 @@ sidebar:
 | helm-charts | Kubernetes Helm charts for SiteRM deployment | [https://github.com/sdn-sense/helm-charts](https://github.com/sdn-sense/helm-charts) |
 | rm-configs | Example site configuration files | [https://github.com/sdn-sense/rm-configs](https://github.com/sdn-sense/rm-configs) |
 | vpp-frr | VPP + FRR software router reference implementation | [https://github.com/sdn-sense/vpp-frr](https://github.com/sdn-sense/vpp-frr) |
-| sdn-sense.github.io | This documentation site | [https://github.com/sdn-sense/sdn-sense.github.io](https://github.com/sdn-sense/sdn-sense.github.io) |
+| sdn-sense.dev | This documentation site | [https://sdn-sense.dev/](https://sdn-sense.dev/) |
 
 ---
 

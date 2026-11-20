@@ -6,4 +6,4 @@ permalink: /docs/release-notes/
 author_profile: false
 ---
 
-This URL remains available for existing documentation links. New release articles also appear at [sdn-sense.github.io/releases/]({{ '/releases/' | relative_url }}).
+This URL remains available for existing documentation links. New release articles also appear at [sdn-sense.dev/releases/]({{ '/releases/' | relative_url }}).
