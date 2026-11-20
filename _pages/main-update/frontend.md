@@ -106,7 +106,7 @@ The siterm-startup directory structure changed in 1.6.0 (certificate paths, moun
 
 * Get the following override values file: [values.yaml](https://raw.githubusercontent.com/sdn-sense/helm-charts/refs/heads/main/siterm-fe/values.yaml)
 * Modify the downloaded file and specify the SiteName and MD5 parameters for that Specific Frontend and or any other parameters needed, e.g. Certificate Issuer details.
-* If done first time, install helm repo: `helm repo add siterm https://sdn-sense.github.io/helm-charts`
+* If done first time, install helm repo: `helm repo add siterm https://sdn-sense.dev/helm-charts`
 * Update to latest helm repo charts: `helm repo update`
 * Install the helm chart on your Kubernetes cluster: `helm install siterm siterm/siterm-fe -f values.yaml`
 

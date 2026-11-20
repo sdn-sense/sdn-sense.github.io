@@ -50,7 +50,7 @@ sidebar:
 * Download the following override values file: [values.yaml](https://github.com/sdn-sense/helm-charts/blob/main/siterm-debugger/values.yaml)
 * Modify the downloaded file and specify the SiteName and MD5 parameters for that Specific Agent/DTN and or any other parameters needed, e.g. Certificate Issuer details.
 * **IMPORTANT: In case deploying multiple debuggers and re-use same configuration file, make sure to specify `customPodName`. See details inside values.yaml file.**
-* If done first time, install helm repo: `helm repo add siterm https://sdn-sense.github.io/helm-charts`
+* If done first time, install helm repo: `helm repo add siterm https://sdn-sense.dev/helm-charts`
 * Update to latest helm repo charts: `helm repo update`
 * Install the helm chart on your Kubernetes cluster: `helm install siterm siterm/siterm-debugger -f values.yaml`
 

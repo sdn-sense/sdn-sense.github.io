@@ -93,7 +93,7 @@ sidebar:
 
 | Resource | URL |
 |---|---|
-| SiteRM Helm Chart Repository | [https://sdn-sense.github.io/helm-charts](https://sdn-sense.github.io/helm-charts) |
+| SiteRM Helm Chart Repository | [https://sdn-sense.dev/helm-charts](https://sdn-sense.dev/helm-charts) |
 | Helm Documentation | [https://helm.sh/docs/](https://helm.sh/docs/) |
 | Kubernetes Documentation | [https://kubernetes.io/docs/](https://kubernetes.io/docs/) |
 | cert-manager | [https://cert-manager.io/docs/](https://cert-manager.io/docs/) |
