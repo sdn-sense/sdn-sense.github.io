@@ -12,9 +12,8 @@ sidebar:
 
 | Resource | URL |
 |---|---|
-| SENSE Project Home (ESnet) | [https://www.es.net/research-and-initiatives/sense/](https://www.es.net/research-and-initiatives/sense/) |
-| SENSE Orchestrator (Production) | [https://sense-o.es.net](https://sense-o.es.net) |
-| SENSE Orchestrator (Development) | [https://sense-o-dev.es.net](https://sense-o-dev.es.net) |
+| SENSE Project Home (ESnet) | [https://www.es.net/network-r-and-d/sense/](https://www.es.net/network-r-and-d/sense/) |
+| SENSE Orchestrator | [https://sense.es.net/](https://sense.es.net/) |
 | SENSE Monitoring Dashboard | [https://autogole-grafana.nrp-nautilus.io](https://autogole-grafana.nrp-nautilus.io) |
 | SENSE Email Contact | sense-info@es.net |
 

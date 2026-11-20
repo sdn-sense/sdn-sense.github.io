@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">SENSE network mark</title>
+  <defs>
+    <linearGradient id="g" x1="7" y1="9" x2="57" y2="55" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#47d7ff"/>
+      <stop offset="1" stop-color="#2f70ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="17" fill="#071b31"/>
+  <path d="M18 18.5 32 12l14 6.5v14L32 52l-14-8.5v-25Z" fill="none" stroke="url(#g)" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m18 18.5 14 10 14-10M32 28.5V52M18 43.5l14-15 14 4" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#fff">
+    <circle cx="18" cy="18.5" r="4"/>
+    <circle cx="46" cy="18.5" r="4"/>
+    <circle cx="32" cy="28.5" r="4"/>
+    <circle cx="18" cy="43.5" r="4"/>
+    <circle cx="32" cy="52" r="4"/>
+    <circle cx="46" cy="32.5" r="4"/>
+  </g>
+</svg>

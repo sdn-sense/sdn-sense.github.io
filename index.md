@@ -1,90 +1,286 @@
 ---
-title: "SDN for End-to-End Networked Science at the Exascale"
-layout: single
-classes: wide
-author_profile: false
-sidebar:
-  nav: "docs"
+layout: home
+title: SENSE
+summary: End-to-end network orchestration for science workflows.
+description: SENSE gives science workflows intent-based, end-to-end network orchestration with site-controlled policy, automated provisioning, and live service visibility.
+image:
+  path: /assets/images/social/sense-social-card.png
+  width: 1200
+  height: 630
+  alt: SENSE end-to-end network orchestration for science workflows
+permalink: /
 ---
 
-Domain science applications and workflow processes are currently forced to view the network as an opaque infrastructure into which they inject data and hope that it emerges at the destination with an acceptable Quality of Experience.  There is little ability for applications to interact with the network to exchange information, negotiate performance parameters, discover expected performance metrics, or receive status/troubleshooting information in real time.  
+{% assign releases = site.categories.releases %}
+{% assign latest_release = releases | first %}
+{% assign featured_presentations = site.data.presentations | where: "featured", true %}
+{% assign featured_presentation = featured_presentations | first %}
+{% assign participants = site.data.participants.organizations %}
 
-The Software-Defined Network for End-to-end Networked Science at Exascale (SENSE) system is motivated by a vision for a new smart network and smart application ecosystem that will provide a more deterministic and interactive environment for domain science workflows.  The Software-Defined Network for End-to-end Networked Science at Exascale (SENSE) system includes a model-based architecture, implementation, and deployment which enables automated end-to-end network service instantiation across administrative domains.  
+<section class="home-hero">
+  <div class="shell home-hero-grid">
+    <div>
+      <p class="eyebrow">End-to-end network orchestration</p>
+      <h1>The network becomes part of the workflow.</h1>
+      <p class="hero-lead">SENSE gives science applications a way to request, provision, monitor, and troubleshoot network services across sites and administrative domains.</p>
+      <div class="action-row">
+        <a class="button button-light" href="#how-it-works">See how SENSE works</a>
+        <a class="button button-outline-light" href="{{ '/install-quick-start/' | relative_url }}">Deploy SiteRM</a>
+      </div>
+      <ul class="hero-proof" aria-label="SENSE capabilities">
+        <li>Intent-based requests</li>
+        <li>Site-controlled policy</li>
+        <li>Live service visibility</li>
+      </ul>
+    </div>
 
-An intent based interface allows applications to express their high-level service requirements, an intelligent orchestrator and resource control systems allow for custom tailoring of scalability and real-time responsiveness based on individual application and infrastructure operator requirements.  This allows the science applications to manage the network as a first-class schedulable resource as is the current practice for instruments, compute, and storage systems.
+    <div class="network-stage" aria-label="A science workflow connected through SENSE orchestration to two managed sites">
+      <svg viewBox="0 0 500 440" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="network-line" x1="40" y1="40" x2="460" y2="400" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#82e1ff"/>
+            <stop offset="1" stop-color="#2f70ff"/>
+          </linearGradient>
+        </defs>
+        <path d="M103 74C180 76 184 176 250 190S350 110 407 90"/>
+        <path d="M250 190C218 255 157 289 101 352"/>
+        <path d="M250 190C300 250 351 296 404 353"/>
+        <path class="path-muted" d="M102 352C185 402 323 401 404 353"/>
+      </svg>
+      <div class="network-node node-workflow"><strong>Science workflow</strong><small>service intent</small></div>
+      <div class="network-node node-orchestrator"><strong>SENSE-O</strong><small>multi-domain plan</small></div>
+      <div class="network-node node-core"><strong>Service</strong><small>lifecycle</small></div>
+      <div class="network-node node-site-a"><strong>SiteRM A</strong><small>local control</small></div>
+      <div class="network-node node-site-b"><strong>SiteRM B</strong><small>local control</small></div>
+    </div>
+  </div>
+</section>
 
-# SENSE Architeture
+<section class="section" id="why-sense">
+  <div class="shell">
+    <div class="section-heading section-heading-split">
+      <div>
+        <p class="eyebrow">Why SENSE</p>
+        <h2>Make network behavior visible and actionable</h2>
+      </div>
+      <p>Distributed science depends on instruments, data, compute, and storage at many facilities. SENSE connects those resources with network services that applications can request and operators can govern.</p>
+    </div>
+    <ul class="card-grid card-grid-four">
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">API</span>
+        <h3>Express intent</h3>
+        <p>Workflows describe the connectivity and performance they need instead of scripting device-specific changes.</p>
+      </li>
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">E2E</span>
+        <h3>Coordinate domains</h3>
+        <p>The orchestrator plans an end-to-end service and coordinates resource managers along the path.</p>
+      </li>
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">POL</span>
+        <h3>Keep site control</h3>
+        <p>Each SiteRM validates requests against local policy before applying an approved configuration.</p>
+      </li>
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">OBS</span>
+        <h3>Operate the service</h3>
+        <p>Telemetry and active diagnostics help teams see service state and isolate host, network, or application issues.</p>
+      </li>
+    </ul>
+  </div>
+</section>
 
-In the SENSE Architecture there are three distinct functional roles:
+<section class="section section-tint" id="how-it-works">
+  <div class="shell architecture-grid">
+    <figure class="architecture-figure">
+      <img src="{{ '/images/sense-arch.png' | relative_url }}" alt="SENSE architecture showing orchestrators, resource managers, and supporting services" width="1280" height="726" loading="lazy">
+      <figcaption>SENSE coordinates orchestration across independently operated resource domains.</figcaption>
+    </figure>
+    <div>
+      <p class="eyebrow">How it works</p>
+      <h2>Global intent, local authority</h2>
+      <p>SENSE separates end-to-end planning from site-level control. The orchestrator builds the service plan; each resource manager publishes available resources, evaluates the requested change, and controls its own infrastructure.</p>
+      <ol class="component-list">
+        <li>
+          <span class="component-index">01</span>
+          <div><h3>A workflow requests a service</h3><p>The request carries application context and network requirements.</p></div>
+        </li>
+        <li>
+          <span class="component-index">02</span>
+          <div><h3>SENSE-O computes the path</h3><p>Resource models from participating domains support multi-domain planning.</p></div>
+        </li>
+        <li>
+          <span class="component-index">03</span>
+          <div><h3>SiteRM enforces local policy</h3><p>The site accepts, rejects, or provisions the requested change on hosts and network devices.</p></div>
+        </li>
+      </ol>
+      <div class="action-row">
+        <a class="button button-outline" href="{{ '/install-quick-start/' | relative_url }}">Read the deployment guide</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-- **Orchestrators** – accept user and workflow intents, perform end-to-end planning, and coordinate provisioning over multiple domains
-- **Resource Managers (RMs)** – manage and commit resources within a single administrative domain
-- **Addons** – capability-specific extensions that augment orchestration (e.g., Real-Time Monitoring dashboards, Container Runtime, Janus controller)
+<section class="section">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">SiteRM</p>
+      <h2>Site-level control for real infrastructure</h2>
+      <p>SiteRM translates SENSE service requests into guarded, observable actions on the site network and connected systems.</p>
+    </div>
+    <ul class="card-grid">
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">FE</span>
+        <h3>Frontend</h3>
+        <p>Publishes the site resource model, evaluates deltas, coordinates provisioning, and exposes the control and visibility API.</p>
+        <a href="{{ '/main-install/frontend/' | relative_url }}">Install the Frontend</a>
+      </li>
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">AG</span>
+        <h3>Agent</h3>
+        <p>Reports host and interface state, then applies approved VLAN, IP, routing, DSCP, and QoS changes on managed systems.</p>
+        <a href="{{ '/main-install/agent/' | relative_url }}">Install an Agent</a>
+      </li>
+      <li class="feature-card">
+        <span class="feature-icon" aria-hidden="true">DBG</span>
+        <h3>Debugger</h3>
+        <p>Runs authorized tests such as ping, traceroute, iPerf, FDT, and packet capture to investigate end-to-end behavior.</p>
+        <a href="{{ '/main-install/debugger/' | relative_url }}">Install the Debugger</a>
+      </li>
+    </ul>
+  </div>
+</section>
 
-![alt]({{ site.url }}{{ site.baseurl }}/images/sense-arch.png "SENSE Architecture")
+<section class="section section-dark">
+  <div class="shell">
+    <div class="section-heading section-heading-split">
+      <div>
+        <p class="eyebrow">Built for heterogeneous sites</p>
+        <h2>One control plane across network platforms</h2>
+      </div>
+      <p>SiteRM uses a shared resource model and vendor-specific backends to collect state and apply supported services across production and software-based network systems.</p>
+    </div>
+    <ul class="vendor-cloud" aria-label="Supported production network platforms">
+      <li>Dell OS9</li><li>Dell OS10</li><li>Arista EOS</li><li>Juniper Junos</li><li>Cisco NX-OS</li><li>SONiC</li><li>FRRouting</li><li>FRR + VPP</li>
+    </ul>
+    <div class="action-row" style="margin-top: 2rem">
+      <a class="button button-outline-light" href="{{ '/getting-started/install-supported-network-devices/' | relative_url }}">Compare supported capabilities</a>
+    </div>
+  </div>
+</section>
 
+{% if participants and participants.size > 0 %}
+<section class="section section-tint" id="participants">
+  <div class="shell">
+    <div class="section-heading section-heading-split">
+      <div>
+        <p class="eyebrow">Deployed across the community</p>
+        <h2>Participating sites and network partners</h2>
+      </div>
+      <p>Current SiteRM configurations span production facilities, research networks, testbeds, and sites deploying now. Organizations are deduplicated from the public-facing site inventory; internal topology details are not published.</p>
+    </div>
+    <ul class="participant-grid" aria-label="SENSE participating organizations">
+      {% for participant in participants %}
+      <li>
+        <a class="participant-card" href="{{ participant.url }}">
+          <span class="participant-logo" aria-hidden="true">
+            <img src="{{ participant.mark | relative_url }}" alt="" width="240" height="96" loading="lazy" style="--participant-logo-scale: {{ participant.logo_scale | default: 1 }};">
+          </span>
+          <span class="participant-copy">
+            <strong>{{ participant.short_name | default: participant.name }}</strong>
+            <small>{{ participant.category }}</small>
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="participant-note">Deployment inventory verified {{ site.data.participants.verified | date: "%B %-d, %Y" }} from <code>rm-configs</code>. This is a technical participation list, not a sponsorship claim.</p>
+  </div>
+</section>
+{% endif %}
 
-Traditional scientific workflows interact with the network blindly. Applications inject data and hope the network behaves well enough. When performance degrades, it is unclear whether the cause is the network, the host, the storage system, or the application itself.
+{% if latest_release %}
+<section class="section">
+  <div class="shell spotlight-grid">
+    <div class="spotlight-panel">
+      <p class="eyebrow">Current stable release</p>
+      <span class="release-version">SiteRM {{ latest_release.version }}</span>
+      <h2>{{ latest_release.summary }}</h2>
+      <p class="release-meta">Published {{ latest_release.date | date: "%B %-d, %Y" }}</p>
+      <div class="action-row">
+        <a class="button button-light" href="{{ latest_release.url | relative_url }}">Read the release notes</a>
+        <a class="button button-outline-light" href="{{ '/main-update/frontend/' | relative_url }}">Upgrade SiteRM</a>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Release highlights</p>
+      <h2>Safer automation and clearer topology</h2>
+      <p>SiteRM {{ latest_release.version }} adds the Archify topology experience, idempotent delta submission, and stable paging for delta and model views.</p>
+      {% if latest_release.highlights %}
+      <ul class="component-list">
+        {% for highlight in latest_release.highlights %}
+        <li><span class="component-index">{{ forloop.index | prepend: '0' }}</span><div><h3>{{ highlight }}</h3></div></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
-SENSE addresses this by introducing:
+<section class="section section-tint">
+  <div class="shell start-grid">
+    <div>
+      <p class="eyebrow">Start with SiteRM</p>
+      <h2>Choose the path that matches your role</h2>
+      <p>Site operators can begin with the deployment checklist. Network engineers can review device coverage. Existing sites can move directly to operations and upgrades.</p>
+    </div>
+    <div>
+      <article class="start-card"><p class="eyebrow">New site</p><h3><a href="{{ '/install-quick-start/' | relative_url }}">Plan a SiteRM deployment</a></h3><p>Understand the Frontend, Agent, Debugger, configuration, and firewall requirements.</p></article>
+      <article class="start-card"><p class="eyebrow">Network engineer</p><h3><a href="{{ '/getting-started/install-supported-network-devices/' | relative_url }}">Review device capabilities</a></h3><p>Compare model discovery, VLAN, BGP, diagnostics, and QoS support by platform.</p></article>
+      <article class="start-card"><p class="eyebrow">Site operator</p><h3><a href="{{ '/operational/siterm-operations/' | relative_url }}">Operate and troubleshoot SiteRM</a></h3><p>Use service state, topology, monitoring, and active diagnostics in production.</p></article>
+    </div>
+  </div>
+</section>
 
-- **Intent-based requests** from applications and workflows
-- **Automated orchestration** across administrative domains
-- **Real-time visibility and control** of network and end-system behavior
+{% if releases and releases.size > 0 %}
+<section class="section">
+  <div class="shell">
+    <div class="section-heading section-heading-split">
+      <div><p class="eyebrow">Project updates</p><h2>Recent releases</h2></div>
+      <p>Each release article summarizes operational impact, upgrade notes, supported platforms, and the source tag.</p>
+    </div>
+    <div class="release-grid">
+      {% for release in releases limit: 3 %}{% include release-card.html release=release %}{% endfor %}
+    </div>
+    <div class="action-row" style="margin-top: 2rem"><a class="button button-outline" href="{{ '/releases/' | relative_url }}">Browse every release</a></div>
+  </div>
+</section>
+{% endif %}
 
-Within this architecture, **SiteRM** is the component that makes *site-local reality* visible, controllable, and enforceable.
+{% if featured_presentation %}
+<section class="section section-tint">
+  <div class="shell architecture-grid">
+    <figure class="architecture-figure">
+      <img src="{{ featured_presentation.cover | relative_url }}" alt="{{ featured_presentation.cover_alt }}" width="{{ featured_presentation.cover_width }}" height="{{ featured_presentation.cover_height }}" loading="lazy">
+    </figure>
+    <div>
+      <p class="eyebrow">Featured presentation</p>
+      <h2>{{ featured_presentation.title }}</h2>
+      <p class="card-meta">{{ featured_presentation.event }} · {{ featured_presentation.date | date: "%B %-d, %Y" }}</p>
+      <p>{{ featured_presentation.summary }}</p>
+      <div class="action-row">
+        <a class="button" href="{{ featured_presentation.file | relative_url }}">{{ featured_presentation.cta_label | default: "Download presentation" }}</a>
+        <a class="button button-outline" href="{{ '/docs/publications/' | relative_url }}">View the project library</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
 
-## SiteRM Resource Manager
-
-
-![alt]({{ site.url }}{{ site.baseurl }}/images/sense-detail-arch.png "SENSE Detailed Architecture")
-
-SiteRM is the **site-level resource manager** within the **SENSE (Software-Defined Network for End-to-End Networked Science at Exascale)** ecosystem. It provides the missing link between *global intent* expressed by orchestrators and *concrete, enforceable actions* on real sites infrastructure: hosts, switches.
-
-The core idea: **Treat the network and end systems as first-class, schedulable resources**, just like compute and storage. SiteRM exists to make that idea operational in multi-domain context.
-
-
-## What SiteRM Is (and Is Not)
-
-**SiteRM is:**
-
-- A site-controlled service that exposes capabilities, state, and policy to SENSE Orchetrator
-- An execution point for approved configuration changes on the network and host devices
-- A monitoring and telemetry source for hosts and networks
-- A policy enforcement layer protecting site resources based on administrator policies
-
-**SiteRM is not:**
-
-- A global scheduler
-- A user-facing workflow engine
-- A replacement for batch systems, SDN controllers
-
-## SiteRM Components
-
-SiteRM is modular. At a minimum, it consists of three cooperating components usually running at the Sites:
-
-### 1. SiteRM Frontend (FE)
-
-The **SiteRM Frontend** is the authoritative control and visibility plane for a site. The Frontend is the *only* component that external systems talk to directly. It is responsible for:
-
-- Expose REST APIs for Orchestrator(s)
-- Maintain site policy and authorization information
-- Aggregate and normalize telemetry
-- Produce MRML Model and accept Delta (Model changes)
-- Accept, Check, Deny/Approve configuration actions before execution
-- Interface with local site controllers and network devices (e.g., OVS, Switches, Software Based Routers)
-- Accept Debug actions (Ping, Traceroute, IPerf, tcpdump, arp)
-
-### 2. SiteRM Agent
-
-The **SiteRM Agent** runs on the resources it manages (data transfer nodes, storage nodes, compute nodes). Agents never act autonomously. Every action is explicitly approved and dispatched by the Frontend. It is responsible for:
-
-- Collect detailed system and network telemetry
-- Execute approved configuration changes from SiteRM Frontend (Create/Delete vlan, Add/Remove IP)
-- Enforce QoS and traffic policies
-
----
-
-### 3. SiteRM Debugger
-
-The **SiteRM Debugger** provides observability and introspection. Debugger never act's on its own. All debug actions come from the Frontend. it is responsible for action execution on the host. The Debugger is critical for distinguishing **network problems from host or application problems**. TODO: ADD Link to Debugger Actions for more details.
+<section class="section section-dark">
+  <div class="shell section-heading section-heading-split" style="margin-bottom: 0">
+    <div><p class="eyebrow">Work with SENSE</p><h2>Bring deterministic network services to your science workflow</h2></div>
+    <div><p>Talk with the SENSE team about orchestration needs, site policy, integration, and deployment.</p><div class="action-row"><a class="button button-light" href="mailto:{{ site.email }}">Contact the SENSE team</a><a class="button button-outline-light" href="https://github.com/sdn-sense">Explore the source</a></div></div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<header class="page-hero page-hero--compact">
+    <div class="site-container page-hero__content">
+      <p class="eyebrow">Project updates</p>
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}<p class="page-hero__lede">{{ page.description }}</p>{% endif %}
+    </div>
+  </header>
+
+  <section class="site-section">
+    <div class="site-container">
+      {% if content != blank %}<div class="prose archive-intro">{{ content }}</div>{% endif %}
+      {% assign releases = site.categories.releases %}
+      {% if releases and releases.size > 0 %}
+        <div class="release-grid">
+          {% for release in releases %}
+            {% include release-card.html release=release %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No release articles have been published yet.</p>
+      {% endif %}
+    </div>
+  </section>

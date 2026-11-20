@@ -1,0 +1,113 @@
+# Selected peer-reviewed SENSE publications, newest first. Metadata is sourced
+# from Crossref and the publisher DOI records. Use a DOI URL when available.
+
+- title: >-
+    SENSE in Practice: Quantifying the End-to-End Benefits of Intent-Based
+    Bandwidth Reservation for Exascale Science Workflows
+  authors:
+    - "Inder Monga"
+    - "Mazahir Hussain"
+    - "Justas Balcas"
+    - "Aashay Arora"
+    - "Diego Davila"
+    - "Buseung Cho"
+    - "Xi Yang"
+    - "Cees de Laat"
+  year: 2025
+  venue: "SC Workshops '25"
+  doi: "10.1145/3731599.3767454"
+  url: "https://doi.org/10.1145/3731599.3767454"
+  summary: >-
+    A measurement-driven evaluation of intent-based bandwidth reservation for
+    end-to-end exascale science workflows.
+
+- title: "Automated Network Services for Exascale Data Movement"
+  authors:
+    - "Justas Balcas"
+    - "Harvey Newman"
+    - "Preeti P. Bhat"
+    - "Frank Würthwein"
+    - "Jonathan Guiang"
+    - "Aashay Arora"
+    - "Diego Davila"
+    - "John Graham"
+    - "Thomas Hutton"
+    - "Tom Lehman"
+    - "Xi Yang"
+    - "Chin Guok"
+    - "David Alexander Mason"
+    - "Oliver Gutsche"
+    - "Phil DeMar"
+    - "Chih-Hao Huang"
+    - "Syed Asif Shah"
+    - "Dmitry Litvintsev"
+    - "Ryan Heath"
+    - "Andrew Malone Melo"
+  year: 2024
+  venue: "EPJ Web of Conferences, volume 295"
+  doi: "10.1051/epjconf/202429501009"
+  url: "https://doi.org/10.1051/epjconf/202429501009"
+  summary: >-
+    Automated end-to-end network services for data movement at exascale.
+
+- title: "400Gbps benchmark of XRootD HTTP-TPC"
+  authors:
+    - "Aashay Arora"
+    - "Jonathan Guiang"
+    - "Diego Davila"
+    - "Frank Würthwein"
+    - "Justas Balcas"
+    - "Harvey Newman"
+  year: 2024
+  venue: "EPJ Web of Conferences, volume 295"
+  doi: "10.1051/epjconf/202429501001"
+  url: "https://doi.org/10.1051/epjconf/202429501001"
+  summary: >-
+    A 400 Gbps performance benchmark of third-party data transfers using
+    XRootD HTTP-TPC.
+
+- title: >-
+    Integrating End-to-End Exascale SDN into the LHC Data Distribution
+    Cyberinfrastructure
+  authors:
+    - "Jonathan Guiang"
+    - "Aashay Arora"
+    - "Diego Davila"
+    - "John Graham"
+    - "Dima Mishin"
+    - "Igor Sfiligoi"
+    - "Frank Wuerthwein"
+    - "Tom Lehman"
+    - "Xi Yang"
+    - "Chin Guok"
+    - "Harvey Newman"
+    - "Justas Balcas"
+    - "Thomas Hutton"
+  year: 2022
+  venue: "Practice and Experience in Advanced Research Computing"
+  doi: "10.1145/3491418.3535134"
+  url: "https://doi.org/10.1145/3491418.3535134"
+  summary: >-
+    Integration of end-to-end SENSE services with the LHC data distribution
+    cyberinfrastructure.
+
+- title: >-
+    Software-Defined Network for End-to-end Networked Science at the Exascale
+  authors:
+    - "Inder Monga"
+    - "Chin Guok"
+    - "John MacAuley"
+    - "Alex Sim"
+    - "Harvey Newman"
+    - "Justas Balcas"
+    - "Phil DeMar"
+    - "Linda Winkler"
+    - "Tom Lehman"
+    - "Xi Yang"
+  year: 2020
+  venue: "Future Generation Computer Systems, volume 110"
+  doi: "10.1016/j.future.2020.04.018"
+  url: "https://doi.org/10.1016/j.future.2020.04.018"
+  summary: >-
+    The foundational SENSE architecture and its model-based approach to
+    automated, multi-domain network service orchestration.

@@ -12,7 +12,7 @@ sidebar:
 
 `node_exporter` exposes host-level metrics on port **9100** (default). While this is normal Prometheus behavior, security scanners frequently flag this port due to the presence of the `/debug/pprof` endpoint — a Go runtime profiling interface that is compiled into most Go binaries, including `node_exporter`.
 
-**This is not a vulnerability**, but many compliance validators and vulnerability scanners treat any exposed `pprof` endpoint as a finding. The recommended approach is to restrict port 9100 to only the SiteRM Frontend (FE) host and enable the [passthrough mechanism](#node-exporter-passthrough-via-frontend) so that external monitoring systems never reach the agent directly.
+**This is not a vulnerability**, but many compliance validators and vulnerability scanners treat any exposed `pprof` endpoint as a finding. The recommended approach is to restrict port 9100 to only the SiteRM Frontend (FE) host and enable the [passthrough mechanism](#architecture-passthrough-via-frontend) so that external monitoring systems never reach the agent directly.
 
 ---
 

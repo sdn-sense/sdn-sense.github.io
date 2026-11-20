@@ -1,0 +1,140 @@
+# Public organization inventory derived from current rm-configs mapping groups.
+# Internal topology, endpoint, port, VLAN, and addressing data are intentionally
+# excluded. Identity images are normalized from each organization's public site
+# icon; StarLight uses its official homepage wordmark. `logo_scale` compensates
+# for transparent whitespace in the normalized canvases without altering marks.
+verified: 2026-11-20
+organizations:
+  - name: "ESnet"
+    url: "https://www.es.net/"
+    mark: "/assets/images/participants/esnet.png"
+    logo_scale: 4.25
+    category: "Core SENSE infrastructure"
+    config_scope: "SENSE orchestration and WAN services"
+
+  - name: "Fermilab"
+    url: "https://www.fnal.gov/"
+    mark: "/assets/images/participants/fermilab.png"
+    logo_scale: 2
+    category: "Production SiteRM"
+    config_scope: "T1_US_FNAL"
+
+  - name: "Caltech"
+    url: "https://www.caltech.edu/"
+    mark: "/assets/images/participants/caltech.png"
+    logo_scale: 1.4
+    category: "Production SiteRM"
+    config_scope: "T2_US_Caltech"
+
+  - name: "MGHPCC"
+    url: "https://www.mghpcc.org/"
+    mark: "/assets/images/participants/mghpcc.png"
+    logo_scale: 2
+    category: "Production SiteRM"
+    config_scope: "T2_US_MGHPCC"
+
+  - name: "San Diego Supercomputer Center"
+    short_name: "SDSC"
+    url: "https://www.sdsc.edu/"
+    mark: "/assets/images/participants/sdsc.png"
+    logo_scale: 1.1
+    category: "Production SiteRM"
+    config_scope: "T2_US_SDSC sites"
+
+  - name: "UC San Diego"
+    url: "https://ucsd.edu/"
+    mark: "/assets/images/participants/ucsd.png"
+    logo_scale: 1.4
+    category: "Production SiteRM"
+    config_scope: "T2_US_UCSD"
+
+  - name: "University of Chicago"
+    url: "https://www.uchicago.edu/"
+    mark: "/assets/images/participants/uchicago.png"
+    logo_scale: 1.4
+    category: "Production SiteRM"
+    config_scope: "T2_US_UChicago"
+
+  - name: "University of Hawaiʻi / GOREX"
+    short_name: "Hawaiʻi / GOREX"
+    url: "https://www.hawaii.edu/"
+    mark: "/assets/images/participants/hawaii.png"
+    logo_scale: 4.25
+    category: "Production endpoints"
+    config_scope: "T2_US_UH_GOREX"
+
+  - name: "CENIC"
+    url: "https://cenic.org/"
+    mark: "/assets/images/participants/cenic.png"
+    logo_scale: 1.1
+    category: "Production network domain"
+    config_scope: "NRM_CENIC sites"
+
+  - name: "Great Plains Network"
+    short_name: "GPN"
+    url: "https://www.greatplains.net/"
+    mark: "/assets/images/participants/gpn.png"
+    logo_scale: 2
+    category: "Production network domain"
+    config_scope: "NRM_GPN"
+
+  - name: "Internet2"
+    url: "https://internet2.edu/"
+    mark: "/assets/images/participants/internet2.png"
+    logo_scale: 1.1
+    category: "Production network domain"
+    config_scope: "T3_US_Internet2"
+
+  - name: "National Research Platform"
+    short_name: "NRP"
+    url: "https://nrp.ai/"
+    mark: "/assets/images/participants/nrp.png"
+    logo_scale: 2
+    category: "Production platform"
+    config_scope: "T3_US_NRP"
+
+  - name: "StarLight"
+    url: "https://startap.net/starlight/"
+    mark: "/assets/images/participants/starlight.png"
+    logo_scale: 1.2
+    category: "Production platform"
+    config_scope: "T3_US_Starlight sites"
+
+  - name: "University of Nebraska–Lincoln"
+    short_name: "Nebraska"
+    url: "https://www.unl.edu/"
+    mark: "/assets/images/participants/nebraska.png"
+    logo_scale: 1.05
+    category: "Deploying / onboarding"
+    config_scope: "T2_US_Nebraska"
+
+  - name: "University of Wisconsin–Madison"
+    short_name: "Wisconsin"
+    url: "https://www.wisc.edu/"
+    mark: "/assets/images/participants/wisconsin.png"
+    logo_scale: 2
+    category: "Deploying / onboarding"
+    config_scope: "T2_US_Wisconsin"
+
+  - name: "CERN"
+    url: "https://home.cern/"
+    mark: "/assets/images/participants/cern.png"
+    logo_scale: 1.1
+    category: "SiteRM via FABRIC"
+    config_scope: "T3_FABRIC_CERN sites"
+
+  - name: "FABRIC Testbed"
+    short_name: "FABRIC"
+    url: "https://www.whatisfabric.net/"
+    mark: "/assets/images/participants/fabric.png"
+    logo_scale: 1.1
+    category: "Testbed integration"
+    config_scope: "FABRIC testbed sites"
+
+  - name: "SCinet / SC26"
+    short_name: "SCinet"
+    url: "https://sc26.supercomputing.org/scinet/"
+    mark: "/assets/images/participants/scinet.png"
+    logo_scale: 2
+    category: "Demonstration infrastructure"
+    config_scope: "NRM_SC26"

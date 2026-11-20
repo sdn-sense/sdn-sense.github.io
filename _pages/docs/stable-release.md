@@ -1,16 +1,15 @@
 ---
-title: "Stable Release: 1.6.5"
+title: "Stable release: SiteRM 1.6.5"
 layout: single
 classes: wide
 permalink: "/docs/stable-release/"
 author_profile: false
 sidebar:
   nav: "docs"
-redirect_to: "/docs/release-notes/"
 ---
 
-The current stable release is **SiteRM 1.6.5**.
+SiteRM **1.6.5** is the current production release. It was published on November 2, 2026.
 
-> **Latest release:** `1.6.5` was published as the production release (`latest` tag) on **Monday, November 2, 2026**. Sites should upgrade from `1.6.4`; check the MariaDB password and container restart-policy upgrade notes first. See the [Release Notes](/docs/release-notes/) for the full 1.6.5 changelog and upgrade instructions.
+The release introduces the Archify topology view, idempotent delta submission, and paging for deltas and models. Sites upgrading from 1.6.4 should review the MariaDB password validation and container restart-policy notes before deployment.
 
-See the full [Release Notes](/docs/release-notes/) for details, upgrade instructions, and Docker/Helm version information.
+[Read the SiteRM 1.6.5 release article]({{ '/releases/1.6.5/' | relative_url }}) or browse the [complete release archive]({{ '/releases/' | relative_url }}).

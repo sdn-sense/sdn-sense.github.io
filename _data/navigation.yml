@@ -1,8 +1,12 @@
 main:
-  - title: "Home Page"
+  - title: "Overview"
     url: /
-  - title: "Posts"
-    url: /posts/
+  - title: "Documentation"
+    url: /install-quick-start/
+  - title: "Releases"
+    url: /releases/
+  - title: "Presentations"
+    url: /docs/publications/
 
 docs:
   - title: ""
@@ -113,9 +117,9 @@ docs:
 
   - title: Extras
     children:
-      - title: "Release Notes"
-        url: /docs/release-notes/
+      - title: "Release Archive"
+        url: /releases/
       - title: "Useful Links"
         url: /docs/useful-links/
-      - title: "Publications/Presentations"
+      - title: "Publications & Presentations"
         url: /docs/publications/

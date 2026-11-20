@@ -1,0 +1,48 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" data-site-header>
+  <div class="shell header-inner">
+    <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="SENSE home">
+      <img src="{{ '/assets/images/sense-mark.svg' | relative_url }}" alt="" width="44" height="44">
+      <span>
+        <strong>SENSE</strong>
+        <small>Networked science at scale</small>
+      </span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+      <span class="nav-toggle-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>Menu</span>
+    </button>
+
+    <nav class="primary-nav" id="primary-navigation" aria-label="Primary" data-primary-nav>
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Overview</a></li>
+        <li class="nav-group">
+          <details>
+            <summary>Documentation</summary>
+            <ul>
+              <li><a href="{{ '/install-quick-start/' | relative_url }}">Quick start</a></li>
+              <li><a href="{{ '/getting-started/install-supported-network-devices/' | relative_url }}">Supported devices</a></li>
+              <li><a href="{{ '/getting-started/l3-deployment-example/' | relative_url }}">L3 deployment example</a></li>
+              <li><a href="{{ '/operational/siterm-operations/' | relative_url }}">Operations guide</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="{{ '/releases/' | relative_url }}">Releases</a></li>
+        <li><a href="{{ '/docs/publications/' | relative_url }}">Presentations</a></li>
+        <li class="nav-group">
+          <details>
+            <summary>Project</summary>
+            <ul>
+              <li><a href="https://www.es.net/network-r-and-d/sense/">SENSE at ESnet</a></li>
+              <li><a href="https://sense.es.net/">SENSE Orchestrator</a></li>
+              <li><a href="{{ '/docs/useful-links/' | relative_url }}">Project resources</a></li>
+              <li><a href="mailto:{{ site.email }}">Contact the team</a></li>
+            </ul>
+          </details>
+        </li>
+        <li class="nav-cta"><a class="button button-small" href="https://github.com/sdn-sense">GitHub</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

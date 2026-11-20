@@ -83,7 +83,7 @@ ERROR: Configuration file ../conf/etc/ansible-conf.yaml was not modified. SiteRM
 **Cause**: The configuration file has not been modified. Even in raw switch mode, this file must be edited.
 
 **Resolution:** Ensure correct information is added to `ansible-conf.yaml`. See:
-[NetControl Ansible Documentation](https://sdn-sense.github.io/NetControlAnsible.html)
+[Switch control and Ansible configuration](/customization/enable-switch-control/#configuration-for-ansible-control)
 
 ---
 

@@ -1,0 +1,89 @@
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ "/#organization" | absolute_url | jsonify }},
+      "name": "SENSE",
+      "alternateName": "Software-Defined Network for End-to-End Networked Science",
+      "url": {{ "/" | absolute_url | jsonify }},
+      "logo": {{ "/assets/images/sense-mark.svg" | absolute_url | jsonify }},
+      "email": "sense-info@es.net",
+      "sameAs": [
+        "https://github.com/sdn-sense",
+        "https://www.es.net/network-r-and-d/sense/",
+        "https://sense.es.net/"
+      ]
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "SiteRM",
+      "description": "Site resource management, policy enforcement, provisioning, monitoring, and diagnostics for SENSE network services.",
+      "codeRepository": "https://github.com/sdn-sense/siterm",
+      "programmingLanguage": "Python",
+      "runtimePlatform": "Linux",
+      "version": {{ site.current_release | jsonify }},
+      "url": {{ "/install-quick-start/" | absolute_url | jsonify }}
+    },
+    {
+      "@type": "ItemList",
+      "name": "Participating SENSE sites and network partners",
+      "itemListElement": [
+        {% for participant in site.data.participants.organizations %}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "item": {
+            "@type": "Organization",
+            "name": {{ participant.name | jsonify }},
+            "url": {{ participant.url | jsonify }}
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  ]
+}
+</script>
+{% elsif page.url == "/docs/publications/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "SENSE presentations",
+  "itemListElement": [
+    {% for presentation in site.data.presentations %}
+    {% if presentation.external_url %}
+      {% assign structured_presentation_url = presentation.external_url %}
+    {% else %}
+      {% assign structured_presentation_url = presentation.file | absolute_url %}
+    {% endif %}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "item": {
+        "@type": "CreativeWork",
+        "name": {{ presentation.title | jsonify }},
+        "description": {{ presentation.summary | jsonify }},
+        "datePublished": {{ presentation.date | date: "%Y-%m-%d" | jsonify }},
+        "url": {{ structured_presentation_url | jsonify }},
+        "author": [
+          {% for speaker in presentation.speakers %}
+          {"@type": "Person", "name": {{ speaker | jsonify }}}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]{% if presentation.status == "Conference presentation" %},
+        "isPartOf": {
+          "@type": "Event",
+          "name": {{ presentation.event | jsonify }},
+          "startDate": {{ presentation.date | date: "%Y-%m-%d" | jsonify }},
+          "location": {"@type": "Place", "name": {{ presentation.location | jsonify }}}
+        }{% endif %}
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<header class="page-hero page-hero--compact release-hero">
+    <div class="site-container page-hero__content">
+      <p class="eyebrow">Release notes</p>
+      <h1>{{ page.title }}</h1>
+      <p class="page-hero__lede">{{ page.summary }}</p>
+      <div class="release-meta">
+        <span class="status-pill">{{ page.status | default: "Production release" }}</span>
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      </div>
+    </div>
+  </header>
+
+  <article class="site-container article release-article">
+    {% if page.highlights %}
+      <aside class="release-highlights" aria-labelledby="release-highlights-title">
+        <h2 id="release-highlights-title">Highlights</h2>
+        <ul>
+          {% for highlight in page.highlights %}
+            <li>{{ highlight }}</li>
+          {% endfor %}
+        </ul>
+      </aside>
+    {% endif %}
+
+    <div class="prose release-body">
+      {{ content }}
+    </div>
+
+    <footer class="release-footer">
+      <a class="button button--secondary" href="{{ page.release_url }}">View the {{ page.version }} source tag</a>
+      <a class="text-link" href="{{ '/releases/' | relative_url }}">All releases</a>
+    </footer>
+  </article>

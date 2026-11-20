@@ -1,0 +1,24 @@
+<aside class="docs-sidebar" aria-label="Documentation navigation" data-docs-sidebar>
+  <button class="docs-nav-toggle" type="button" aria-expanded="false" aria-controls="docs-navigation" data-docs-toggle>
+    <span>Documentation menu</span>
+    <span aria-hidden="true">+</span>
+  </button>
+  <div class="docs-nav-panel" id="docs-navigation" data-docs-panel>
+    <label class="docs-filter">
+      <span>Filter documentation</span>
+      <input type="search" placeholder="Type to filter" autocomplete="off" data-docs-filter>
+    </label>
+    <nav aria-label="Documentation sections">
+      {% for section in site.data.navigation.docs %}
+        <section class="docs-nav-section" data-docs-section>
+          {% if section.title != "" %}<h2>{{ section.title }}</h2>{% endif %}
+          <ul>
+            {% for item in section.children %}
+              <li data-docs-item><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endfor %}
+    </nav>
+  </div>
+</aside>

@@ -1,0 +1,17 @@
+{% assign release = include.release %}
+<article class="release-card">
+  <div class="release-card__meta">
+    <span class="release-card__version">SiteRM {{ release.version }}</span>
+    <time datetime="{{ release.date | date_to_xmlschema }}">{{ release.date | date: "%B %-d, %Y" }}</time>
+  </div>
+  <h2 class="release-card__title"><a href="{{ release.url | relative_url }}">{{ release.title }}</a></h2>
+  <p>{{ release.summary }}</p>
+  {% if release.highlights %}
+    <ul class="release-card__highlights">
+      {% for highlight in release.highlights limit: 3 %}
+        <li>{{ highlight }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <a class="text-link" href="{{ release.url | relative_url }}" aria-label="Read the SiteRM {{ release.version }} release notes">Read release notes</a>
+</article>
