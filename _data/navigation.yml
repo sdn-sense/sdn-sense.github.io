@@ -5,8 +5,8 @@ main:
     url: /install-quick-start/
   - title: "Releases"
     url: /releases/
-  - title: "Presentations"
-    url: /docs/publications/
+  - title: "Blog"
+    url: /blog/
 
 docs:
   - title: ""
@@ -21,7 +21,7 @@ docs:
       - title: "Supported network devices"
         url: /getting-started/install-supported-network-devices/
       - title: "SENSE Service Request Examples"
-        url: /guides/sense-network-service-examples/
+        url: /blog/sense-network-service-examples/
       - title: "Example: L3 Deployment (8 Servers)"
         url: /getting-started/l3-deployment-example/
 
@@ -119,9 +119,11 @@ docs:
 
   - title: Extras
     children:
+      - title: "Blog"
+        url: /blog/
       - title: "Release Archive"
         url: /releases/
       - title: "Useful Links"
         url: /docs/useful-links/
-      - title: "Publications & Presentations"
+      - title: "Selected Publications"
         url: /docs/publications/

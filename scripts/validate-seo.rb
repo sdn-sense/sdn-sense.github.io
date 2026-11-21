@@ -30,6 +30,17 @@ pages.each do |path|
   document = Nokogiri::HTML(path.read)
   failures = []
 
+  redirect_page = document.css("meta").any? do |meta|
+    meta["http-equiv"].to_s.casecmp("refresh").zero?
+  end
+  if redirect_page
+    canonical = document.at_css('link[rel="canonical"]')&.[]("href").to_s
+    unless canonical == "#{expected_origin}/blog/sense-network-service-examples/"
+      errors << "#{relative_path}: unexpected redirect canonical #{canonical.inspect}"
+    end
+    next
+  end
+
   descriptions = document.css('meta[name="description"]')
   canonicals = document.css('link[rel="canonical"]')
   failures << "expected exactly one meta description" unless descriptions.length == 1
@@ -77,6 +88,9 @@ end
 
 {
   "index.html" => %w[WebSite Organization SoftwareSourceCode ItemList],
+  "blog/index.html" => %w[Blog ItemList],
+  "blog/page/2/index.html" => %w[Blog ItemList],
+  "blog/page/3/index.html" => %w[Blog ItemList],
   "docs/publications/index.html" => %w[ItemList]
 }.each do |relative_path, required_types|
   path = site.join(relative_path)
@@ -90,6 +104,24 @@ end
   end
   missing_types = required_types - types
   errors << "#{relative_path}: missing schema types #{missing_types.join(', ')}" unless missing_types.empty?
+end
+
+{
+  "blog/index.html" => { "next" => "#{expected_origin}/blog/page/2/" },
+  "blog/page/2/index.html" => {
+    "prev" => "#{expected_origin}/blog/",
+    "next" => "#{expected_origin}/blog/page/3/"
+  },
+  "blog/page/3/index.html" => { "prev" => "#{expected_origin}/blog/page/2/" }
+}.each do |relative_path, expected_links|
+  path = site.join(relative_path)
+  next errors << "missing paginated SEO target: #{relative_path}" unless path.file?
+
+  document = Nokogiri::HTML(path.read)
+  expected_links.each do |rel, expected_href|
+    href = document.at_css(%(link[rel="#{rel}"]))&.[]("href")
+    errors << "#{relative_path}: expected rel=#{rel} #{expected_href}, found #{href.inspect}" unless href == expected_href
+  end
 end
 
 robots = site.join("robots.txt")

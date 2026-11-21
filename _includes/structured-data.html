@@ -47,39 +47,68 @@
   ]
 }
 </script>
+{% elsif page.layout == "blog_archive" and paginator %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": {{ "/blog/#blog" | absolute_url | jsonify }},
+      "name": "SENSE Blog",
+      "description": "SENSE releases, conference presentations, and practical network-service guides.",
+      "url": {{ "/blog/" | absolute_url | jsonify }},
+      "publisher": {"@type": "Organization", "name": "SENSE", "url": {{ "/" | absolute_url | jsonify }}}
+    },
+    {
+      "@type": "ItemList",
+      "name": {{ page.title | jsonify }},
+      "url": {{ page.url | absolute_url | jsonify }},
+      "numberOfItems": {{ paginator.posts.size }},
+      "itemListElement": [
+        {% assign blog_position_offset = paginator.page | minus: 1 | times: paginator.per_page %}
+        {% for post in paginator.posts %}
+        {
+          "@type": "ListItem",
+          "position": {{ blog_position_offset | plus: forloop.index }},
+          "item": {
+            "@type": "BlogPosting",
+            "name": {{ post.title | jsonify }},
+            "description": {{ post.summary | default: post.description | strip_html | jsonify }},
+            "datePublished": {{ post.date | date_to_xmlschema | jsonify }},
+            "url": {{ post.url | absolute_url | jsonify }},
+            "image": {{ post.cover | absolute_url | jsonify }},
+            "author": {"@type": "Organization", "name": "SENSE team"}
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  ]
+}
+</script>
 {% elsif page.url == "/docs/publications/" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "SENSE presentations",
+  "name": "Selected SENSE publications",
   "itemListElement": [
-    {% for presentation in site.data.presentations %}
-    {% if presentation.external_url %}
-      {% assign structured_presentation_url = presentation.external_url %}
-    {% else %}
-      {% assign structured_presentation_url = presentation.file | absolute_url %}
-    {% endif %}
+    {% for publication in site.data.publications %}
     {
       "@type": "ListItem",
       "position": {{ forloop.index }},
       "item": {
-        "@type": "CreativeWork",
-        "name": {{ presentation.title | jsonify }},
-        "description": {{ presentation.summary | jsonify }},
-        "datePublished": {{ presentation.date | date: "%Y-%m-%d" | jsonify }},
-        "url": {{ structured_presentation_url | jsonify }},
+        "@type": "ScholarlyArticle",
+        "name": {{ publication.title | jsonify }},
+        "description": {{ publication.summary | jsonify }},
+        "datePublished": {{ publication.year | append: "-01-01" | jsonify }},
+        "url": {{ publication.url | jsonify }},
         "author": [
-          {% for speaker in presentation.speakers %}
-          {"@type": "Person", "name": {{ speaker | jsonify }}}{% unless forloop.last %},{% endunless %}
+          {% for author in publication.authors %}
+          {"@type": "Person", "name": {{ author | jsonify }}}{% unless forloop.last %},{% endunless %}
           {% endfor %}
-        ]{% if presentation.status == "Conference presentation" %},
-        "isPartOf": {
-          "@type": "Event",
-          "name": {{ presentation.event | jsonify }},
-          "startDate": {{ presentation.date | date: "%Y-%m-%d" | jsonify }},
-          "location": {"@type": "Place", "name": {{ presentation.location | jsonify }}}
-        }{% endif %}
+        ]
       }
     }{% unless forloop.last %},{% endunless %}
     {% endfor %}

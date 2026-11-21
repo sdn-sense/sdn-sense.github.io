@@ -1,0 +1,67 @@
+---
+layout: default
+---
+<header class="page-hero page-hero--compact blog-hero">
+  <div class="site-container page-hero__content">
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="page-hero__lede">{{ page.summary }}</p>{% endif %}
+  </div>
+</header>
+
+<section class="site-section blog-archive" aria-labelledby="blog-archive-title">
+  <div class="site-container">
+    <div class="blog-archive__intro">
+      <h2 class="visually-hidden" id="blog-archive-title">SENSE blog entries</h2>
+      <p>Browse practical examples, project presentations, and SiteRM release notes. Entries are shown newest first.</p>
+    </div>
+
+    {% if paginator and paginator.posts.size > 0 %}
+      <div class="blog-list" data-blog-list>
+        {% for post in paginator.posts %}
+          {% include blog-card.html post=post %}
+        {% endfor %}
+      </div>
+
+      {% if paginator.total_pages > 1 %}
+        <nav class="blog-pagination" aria-label="Blog pages">
+          <div class="blog-pagination__step">
+            {% if paginator.previous_page %}
+              <a class="text-link" href="{{ paginator.previous_page_path | relative_url }}" rel="prev">Previous</a>
+            {% else %}
+              <span aria-disabled="true">Previous</span>
+            {% endif %}
+          </div>
+
+          <ol class="blog-pagination__pages">
+            {% for page_number in (1..paginator.total_pages) %}
+              <li>
+                {% if page_number == paginator.page %}
+                  <span aria-current="page" aria-label="Page {{ page_number }}, current page">{{ page_number }}</span>
+                {% else %}
+                  {% if page_number == 1 %}
+                    {% assign page_href = "/blog/" %}
+                  {% else %}
+                    {% assign page_href = site.paginate_path | replace: ":num", page_number %}
+                  {% endif %}
+                  <a href="{{ page_href | relative_url }}" aria-label="Page {{ page_number }}">{{ page_number }}</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ol>
+
+          <div class="blog-pagination__step blog-pagination__step--next">
+            {% if paginator.next_page %}
+              <a class="text-link" href="{{ paginator.next_page_path | relative_url }}" rel="next">Next</a>
+            {% else %}
+              <span aria-disabled="true">Next</span>
+            {% endif %}
+          </div>
+
+          <p class="blog-pagination__status">Page {{ paginator.page }} of {{ paginator.total_pages }} · {{ paginator.total_posts }} entries</p>
+        </nav>
+      {% endif %}
+    {% else %}
+      <p>No blog entries have been published yet.</p>
+    {% endif %}
+  </div>
+</section>

@@ -3,7 +3,6 @@ layout: default
 ---
 <header class="page-hero page-hero--compact article-hero">
   <div class="site-container page-hero__content">
-    <p class="eyebrow">SENSE guide</p>
     <h1>{{ page.title }}</h1>
     {% if page.summary %}<p class="page-hero__lede">{{ page.summary }}</p>{% endif %}
     <div class="article-meta">
@@ -14,6 +13,12 @@ layout: default
 </header>
 
 <article class="site-container article guide-article">
+  {% if page.cover %}
+    <figure class="architecture-figure post-cover" data-post-cover>
+      <img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt }}" width="{{ page.cover_width }}" height="{{ page.cover_height }}">
+    </figure>
+  {% endif %}
+
   <div class="prose article-body">
     {{ content }}
   </div>

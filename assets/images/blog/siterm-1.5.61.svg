@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Title card for SiteRM 1.5.61</title>
+  <desc id="description">SENSE release title card published October 9, 2025.</desc>
+  <rect width="1200" height="675" fill="#0d1b2f"/>
+  <rect width="18" height="675" fill="#49b5ff"/>
+  <g fill="none" stroke="#49b5ff" stroke-width="3" opacity="0.19">
+    <path d="M845 88 1018 172 906 308 1084 414 944 574"/>
+    <path d="M1018 172 1136 88M906 308 1138 274M1084 414 1160 548"/>
+    <circle cx="845" cy="88" r="14"/>
+    <circle cx="1018" cy="172" r="18"/>
+    <circle cx="906" cy="308" r="16"/>
+    <circle cx="1084" cy="414" r="20"/>
+    <circle cx="944" cy="574" r="14"/>
+    <circle cx="1136" cy="88" r="10"/>
+    <circle cx="1138" cy="274" r="11"/>
+    <circle cx="1160" cy="548" r="12"/>
+  </g>
+  <g font-family="'Familjen Grotesk', 'IBM Plex Sans', system-ui, sans-serif">
+    <text x="82" y="104" fill="#49b5ff" font-size="24" font-weight="600" letter-spacing="4">RELEASE NOTES</text>
+    <g fill="#ffffff" font-size="96" font-weight="600" letter-spacing="-1.5">
+      <text x="82" y="382" class="title">SiteRM 1.5.61</text>
+    </g>
+    <line x1="82" y1="550" x2="770" y2="550" stroke="#49b5ff" stroke-width="3"/>
+    <text x="82" y="600" fill="#a9d9f7" font-size="26" font-weight="500">October 9, 2025</text>
+    <text x="1118" y="610" fill="#ffffff" font-size="30" font-weight="600" text-anchor="end" letter-spacing="3">SENSE</text>
+  </g>
+</svg>

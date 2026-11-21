@@ -1,18 +1,19 @@
 <footer class="site-footer">
+  <div class="shell footer-mast">
+    <a class="footer-brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/images/sense-mark.svg' | relative_url }}" alt="" width="46" height="46">
+      <span>SENSE</span>
+    </a>
+    <p>Software-defined networking that lets science workflows treat the network as a schedulable resource.</p>
+  </div>
   <div class="shell footer-grid">
-    <div class="footer-intro">
-      <a class="footer-brand" href="{{ '/' | relative_url }}">
-        <img src="{{ '/assets/images/sense-mark.svg' | relative_url }}" alt="" width="46" height="46">
-        <span>SENSE</span>
-      </a>
-      <p>Software-defined networking that lets science workflows treat the network as a schedulable resource.</p>
-    </div>
     <div>
       <h2>Explore</h2>
       <ul>
         <li><a href="{{ '/install-quick-start/' | relative_url }}">Documentation</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
         <li><a href="{{ '/releases/' | relative_url }}">Release archive</a></li>
-        <li><a href="{{ '/docs/publications/' | relative_url }}">Publications and presentations</a></li>
+        <li><a href="{{ '/docs/publications/' | relative_url }}">Selected publications</a></li>
       </ul>
     </div>
     <div>
@@ -26,6 +27,9 @@
   </div>
   <div class="shell footer-base">
     <p>&copy; {{ site.time | date: '%Y' }} SENSE. Maintained by the SENSE team.</p>
-    <p><a href="{{ '/feed.xml' | relative_url }}">Updates feed</a> <span aria-hidden="true">·</span> <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></p>
+    <ul class="footer-meta">
+      <li><a href="{{ '/feed.xml' | relative_url }}">Updates feed</a></li>
+      <li><a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></li>
+    </ul>
   </div>
 </footer>

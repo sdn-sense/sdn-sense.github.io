@@ -7,14 +7,19 @@ description: "Practical SENSE request examples for Layer 2 paths, managed IP add
 author: SENSE team
 category: guides
 categories: [guides]
-permalink: /guides/sense-network-service-examples/
+permalink: /blog/sense-network-service-examples/
+redirect_from:
+  - /guides/sense-network-service-examples/
 image:
   path: /assets/images/social/sense-social-card.png
   width: 1200
   height: 630
   alt: SENSE end-to-end network orchestration for science workflows
+cover: /assets/images/blog/sense-network-service-examples.svg
+cover_alt: "Title card for A practical guide to SENSE network service requests"
+cover_width: 1200
+cover_height: 675
 ---
-
 SENSE can build several kinds of network service from the same intent model. The important choice is not which button sounds closest; it is whether the application needs one Ethernet segment, managed endpoint addresses, a diagnostic address on the network, routed prefixes, or a shared multipoint LAN.
 
 This guide covers the five stable request patterns used by the current SENSE clients and SiteRM deployments. Every example uses fictional endpoint URNs and [documentation-only address space](https://www.rfc-editor.org/rfc/rfc3849). Replace every placeholder with resources discovered from the SENSE environment in which the request will run.

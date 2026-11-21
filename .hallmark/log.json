@@ -1,0 +1,37 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "product-led page (/), Long Document (docs)",
+  "theme": "cobalt",
+  "axes": "light/grotesk-sans/cool",
+  "hero": "Showcase",
+  "nav": "dense balanced bar",
+  "footer": "mast",
+  "imagery": "the product: Archify topology capture, architecture figure",
+  "photos": [],
+  "entry": "hero head with sentence and actions beside, topology full width",
+  "fingerprint": "showcase/rows/split/table+graphite/grid/index/split/band",
+  "sections": [
+   "hero",
+   "rows",
+   "split",
+   "table",
+   "grid",
+   "index",
+   "split",
+   "band",
+   "footer"
+  ],
+  "signature": "SiteRM Archify topology of T2_US_Caltech in the first screen",
+  "waived": [
+   "44c",
+   "79",
+   "78",
+   "49b"
+  ],
+  "prompt": "Documentation and release site for SENSE; site administrators deploy SiteRM and read docs",
+  "date": "2026-11-21"
+ }
+]

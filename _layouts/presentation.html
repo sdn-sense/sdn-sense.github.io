@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{% if page.external_url %}
+  {% assign presentation_href = page.external_url %}
+{% else %}
+  {% assign presentation_href = page.file | relative_url %}
+{% endif %}
+{% if page.cta_label %}
+  {% assign presentation_action = page.cta_label %}
+{% elsif page.file %}
+  {% capture presentation_action %}Download {{ page.format }}{% endcapture %}
+{% else %}
+  {% assign presentation_action = "View presentation" %}
+{% endif %}
+
+<header class="page-hero page-hero--compact presentation-hero">
+  <div class="site-container page-hero__content">
+    <h1>{{ page.title }}</h1>
+    <p class="page-hero__lede">{{ page.summary }}</p>
+    <div class="article-meta">
+      <span>{{ page.event }}</span>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+    </div>
+  </div>
+</header>
+
+<article class="site-container article presentation-article">
+  {% if page.cover %}
+    <figure class="architecture-figure post-cover" data-post-cover>
+      <a href="{{ presentation_href }}" aria-label="{{ presentation_action }}: {{ page.title }}">
+        <img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt }}" width="{{ page.cover_width }}" height="{{ page.cover_height }}">
+      </a>
+    </figure>
+  {% endif %}
+
+  <div class="prose presentation-body">
+    {% if content != blank %}{{ content }}{% endif %}
+    <h2>Presentation details</h2>
+    <dl>
+      <dt>Event</dt>
+      <dd>{% if page.event_url %}<a href="{{ page.event_url }}">{{ page.event }}</a>{% else %}{{ page.event }}{% endif %}</dd>
+      {% if page.location %}<dt>Location</dt><dd>{{ page.location }}</dd>{% endif %}
+      {% if page.time %}<dt>Time</dt><dd>{{ page.time }}</dd>{% endif %}
+      <dt>Presented by</dt>
+      <dd>{{ page.speakers | join: ", " }}</dd>
+      {% if page.contributors %}<dt>Contributors</dt><dd>{{ page.contributors | join: ", " }}</dd>{% endif %}
+      <dt>Material</dt>
+      <dd>{{ page.format }}{% if page.length %}, {{ page.length }}{% endif %}</dd>
+    </dl>
+  </div>
+
+  <div class="action-row">
+    <a class="button" href="{{ presentation_href }}">{{ presentation_action }}</a>
+    {% if page.event_url and page.event_url != presentation_href %}<a class="text-link" href="{{ page.event_url }}">Event details</a>{% endif %}
+    {% if page.recording_url %}<a class="text-link" href="{{ page.recording_url }}">Watch recording{% if page.recording_start %} <span>(starts at {{ page.recording_start }})</span>{% endif %}</a>{% endif %}
+  </div>
+
+  <footer class="release-footer">
+    <span>{{ page.status }}</span>
+    <a class="text-link" href="{{ '/blog/' | relative_url }}">All blog posts</a>
+  </footer>
+</article>

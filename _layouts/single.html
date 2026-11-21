@@ -3,9 +3,8 @@ layout: default
 ---
 <header class="page-banner">
   <div class="shell page-banner-inner">
-    <p class="eyebrow">{% if page.sidebar.nav == 'docs' %}Documentation{% else %}SENSE{% endif %}</p>
     <h1>{{ page.title }}</h1>
-    {% if page.summary %}<p>{{ page.summary }}</p>{% endif %}
+    {% if page.summary %}<p class="lead">{{ page.summary }}</p>{% endif %}
   </div>
 </header>
 

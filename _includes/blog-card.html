@@ -1,0 +1,56 @@
+{% assign blog_post = include.post %}
+{% if blog_post.blog_type %}
+  {% assign blog_type = blog_post.blog_type %}
+{% elsif blog_post.categories contains "presentations" %}
+  {% assign blog_type = "Presentation" %}
+{% elsif blog_post.categories contains "guides" %}
+  {% assign blog_type = "Guide" %}
+{% elsif blog_post.categories contains "releases" %}
+  {% assign blog_type = "Release" %}
+{% else %}
+  {% assign blog_type = "Update" %}
+{% endif %}
+{% assign blog_summary = blog_post.summary | default: blog_post.description | default: blog_post.excerpt %}
+
+<article class="blog-card{% if blog_post.cover %} blog-card--with-image{% endif %}" data-blog-entry data-published="{{ blog_post.date | date: '%Y-%m-%d' }}">
+  {% if blog_post.cover %}
+    <a class="blog-card__image" href="{{ blog_post.url | relative_url }}" aria-label="Read {{ blog_type | downcase }}: {{ blog_post.title }}">
+      <img src="{{ blog_post.cover | relative_url }}" alt="{{ blog_post.cover_alt | default: blog_post.title }}"{% if blog_post.cover_width %} width="{{ blog_post.cover_width }}"{% endif %}{% if blog_post.cover_height %} height="{{ blog_post.cover_height }}"{% endif %} loading="lazy">
+    </a>
+  {% endif %}
+
+  <div class="blog-card__body">
+    <p class="blog-card__meta card-meta meta-list">
+      <span class="blog-card__type">{{ blog_type }}</span>
+      <time datetime="{{ blog_post.date | date_to_xmlschema }}">{{ blog_post.date | date: "%B %-d, %Y" }}</time>
+      {% if blog_post.version %}<span>SiteRM {{ blog_post.version }}</span>{% endif %}
+      {% if blog_post.event %}<span>{{ blog_post.event }}</span>{% endif %}
+    </p>
+
+    <h2 class="blog-card__title"><a href="{{ blog_post.url | relative_url }}">{{ blog_post.title }}</a></h2>
+    <p class="blog-card__summary">{{ blog_summary | strip_html | strip }}</p>
+
+    {% if blog_post.speakers %}
+      <p class="blog-card__byline">Presented by {{ blog_post.speakers | join: ", " }}</p>
+    {% elsif blog_post.author and blog_type != "Release" %}
+      <p class="blog-card__byline">{{ blog_post.author }}</p>
+    {% endif %}
+
+    <div class="blog-card__links">
+      {% if blog_type == "Release" %}
+        <a class="text-link" href="{{ blog_post.url | relative_url }}">Read release notes</a>
+      {% elsif blog_type == "Guide" %}
+        <a class="text-link" href="{{ blog_post.url | relative_url }}">Read guide</a>
+      {% elsif blog_type == "Presentation" %}
+        <a class="text-link" href="{{ blog_post.url | relative_url }}">View presentation details</a>
+        {% if blog_post.external_url %}
+          <a class="text-link text-link--secondary" href="{{ blog_post.external_url }}">{{ blog_post.cta_label | default: "View presentation" }}</a>
+        {% elsif blog_post.file %}
+          <a class="text-link text-link--secondary" href="{{ blog_post.file | relative_url }}">{{ blog_post.cta_label | default: "Download presentation" }}</a>
+        {% endif %}
+      {% else %}
+        <a class="text-link" href="{{ blog_post.url | relative_url }}">Read update</a>
+      {% endif %}
+    </div>
+  </div>
+</article>
