@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380" role="img" aria-labelledby="title desc">
+  <title id="title">Layer 2 managed-IP path through site routers and example research networks</title>
+  <desc id="desc">Two endpoints receive addresses from one service subnet and connect through one router per site plus an illustrative CENIC and ESnet provider path.</desc>
+  <rect width="960" height="380" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480" y="42" text-anchor="middle" font-size="24" font-weight="700">Layer 2 point-to-point: managed endpoint IPs</text>
+    <text x="480" y="68" text-anchor="middle" font-size="15" fill="#52657a">A selected pool supplies endpoint addresses across the provisioned path</text>
+
+    <rect x="25" y="100" width="265" height="210" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="157" y="130" text-anchor="middle" font-size="19" font-weight="700">Site A</text>
+    <rect x="44" y="151" width="116" height="84" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="102" y="178" text-anchor="middle" font-size="16" font-weight="700">Endpoint A</text>
+    <text x="102" y="201" text-anchor="middle" font-size="14" fill="#52657a">assign_ip: true</text>
+    <text x="102" y="222" text-anchor="middle" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">…::10/64</text>
+    <rect x="177" y="157" width="94" height="72" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="224" y="184" text-anchor="middle" font-size="15" font-weight="700">Site network</text>
+    <text x="224" y="207" text-anchor="middle" font-size="15" font-weight="700">router</text>
+    <line x1="160" y1="193" x2="177" y2="193" stroke="#2c8c84" stroke-width="5"/>
+    <text x="157" y="278" text-anchor="middle" font-size="15" fill="#34465b">Address returned in manifest</text>
+
+    <rect x="670" y="100" width="265" height="210" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="802" y="130" text-anchor="middle" font-size="19" font-weight="700">Site B</text>
+    <rect x="689" y="157" width="94" height="72" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="736" y="184" text-anchor="middle" font-size="15" font-weight="700">Site network</text>
+    <text x="736" y="207" text-anchor="middle" font-size="15" font-weight="700">router</text>
+    <rect x="800" y="151" width="116" height="84" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="858" y="178" text-anchor="middle" font-size="16" font-weight="700">Endpoint B</text>
+    <text x="858" y="201" text-anchor="middle" font-size="14" fill="#52657a">assign_ip: true</text>
+    <text x="858" y="222" text-anchor="middle" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">…::20/64</text>
+    <line x1="783" y1="193" x2="800" y2="193" stroke="#2c8c84" stroke-width="5"/>
+    <text x="802" y="278" text-anchor="middle" font-size="15" fill="#34465b">Address returned in manifest</text>
+
+    <line x1="271" y1="193" x2="689" y2="193" stroke="#2375e8" stroke-width="10" stroke-linecap="round"/>
+    <text x="480" y="113" text-anchor="middle" font-size="14" font-weight="700" fill="#175ec9">Illustrative network path</text>
+    <rect x="325" y="157" width="130" height="72" rx="14" fill="#071b31"/>
+    <text x="390" y="187" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">CENIC</text>
+    <text x="390" y="210" text-anchor="middle" font-size="14" fill="#c9dae8">regional network</text>
+    <rect x="505" y="157" width="130" height="72" rx="14" fill="#071b31"/>
+    <text x="570" y="187" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">ESnet</text>
+    <text x="570" y="210" text-anchor="middle" font-size="14" fill="#c9dae8">backbone network</text>
+    <text x="480" y="266" text-anchor="middle" font-size="16" font-weight="700" fill="#175ec9">One shared service subnet over Layer 2</text>
+
+    <rect x="160" y="330" width="640" height="36" rx="18" fill="#edf7fc" stroke="#c7e6f4"/>
+    <text x="480" y="353" text-anchor="middle" font-size="14" fill="#34465b">Example providers only — managed IPs do not turn the service into a routed path</text>
+  </g>
+</svg>

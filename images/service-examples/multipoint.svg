@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" role="img" aria-labelledby="title desc">
+  <title id="title">Multipoint Layer 2 service through one router per site and example research networks</title>
+  <desc id="desc">Three endpoints each connect through one site network router to a shared SENSE multipoint VLAN. The illustrative research-and-education network core includes CENIC, ESnet, and Internet2.</desc>
+  <rect width="960" height="490" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480" y="42" text-anchor="middle" font-size="24" font-weight="700">Multipoint: one Layer 2 domain, three or more endpoints</text>
+    <text x="480" y="68" text-anchor="middle" font-size="15" fill="#52657a">Every terminal reaches the shared service through one site router</text>
+
+    <line x1="270" y1="175" x2="330" y2="185" stroke="#2375e8" stroke-width="10" stroke-linecap="round"/>
+    <line x1="630" y1="185" x2="690" y2="175" stroke="#2375e8" stroke-width="10" stroke-linecap="round"/>
+    <line x1="480" y1="290" x2="415" y2="371" stroke="#2375e8" stroke-width="10" stroke-linecap="round"/>
+
+    <rect x="25" y="95" width="265" height="142" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="157" y="126" text-anchor="middle" font-size="19" font-weight="700">Site A</text>
+    <rect x="44" y="145" width="112" height="60" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="100" y="181" text-anchor="middle" font-size="16" font-weight="700">Endpoint A</text>
+    <rect x="172" y="145" width="98" height="60" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="221" y="171" text-anchor="middle" font-size="15" font-weight="700">Site network</text>
+    <text x="221" y="193" text-anchor="middle" font-size="15" font-weight="700">router</text>
+    <line x1="156" y1="175" x2="172" y2="175" stroke="#2c8c84" stroke-width="5"/>
+
+    <rect x="670" y="95" width="265" height="142" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="802" y="126" text-anchor="middle" font-size="19" font-weight="700">Site B</text>
+    <rect x="690" y="145" width="98" height="60" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="739" y="171" text-anchor="middle" font-size="15" font-weight="700">Site network</text>
+    <text x="739" y="193" text-anchor="middle" font-size="15" font-weight="700">router</text>
+    <rect x="804" y="145" width="112" height="60" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="860" y="181" text-anchor="middle" font-size="16" font-weight="700">Endpoint B</text>
+    <line x1="788" y1="175" x2="804" y2="175" stroke="#2c8c84" stroke-width="5"/>
+
+    <rect x="330" y="100" width="300" height="190" rx="20" fill="#071b31" stroke="#31c4f3" stroke-width="3"/>
+    <text x="480" y="132" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">SENSE multipoint VLAN</text>
+    <text x="480" y="157" text-anchor="middle" font-size="15" fill="#82e1ff">one shared broadcast domain</text>
+    <text x="480" y="188" text-anchor="middle" font-size="14" font-weight="700" fill="#c9dae8">Illustrative R&amp;E network core</text>
+    <rect x="348" y="204" width="82" height="42" rx="12" fill="#edf7fc"/>
+    <text x="389" y="231" text-anchor="middle" font-size="15" font-weight="700" fill="#175ec9">CENIC</text>
+    <rect x="439" y="204" width="82" height="42" rx="12" fill="#edf7fc"/>
+    <text x="480" y="231" text-anchor="middle" font-size="15" font-weight="700" fill="#175ec9">ESnet</text>
+    <rect x="530" y="204" width="82" height="42" rx="12" fill="#edf7fc"/>
+    <text x="571" y="231" text-anchor="middle" font-size="14" font-weight="700" fill="#175ec9">Internet2</text>
+    <text x="480" y="273" text-anchor="middle" font-size="14" fill="#c9dae8">Example network domains</text>
+
+    <rect x="340" y="330" width="280" height="112" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="480" y="359" text-anchor="middle" font-size="19" font-weight="700">Site C</text>
+    <rect x="365" y="372" width="100" height="54" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="415" y="395" text-anchor="middle" font-size="15" font-weight="700">Site network</text>
+    <text x="415" y="416" text-anchor="middle" font-size="15" font-weight="700">router</text>
+    <rect x="485" y="372" width="110" height="54" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="540" y="405" text-anchor="middle" font-size="16" font-weight="700">Endpoint C</text>
+    <line x1="465" y1="399" x2="485" y2="399" stroke="#2c8c84" stroke-width="5"/>
+
+    <text x="480" y="475" text-anchor="middle" font-size="14" fill="#52657a">One router per site; SENSE computes the actual multipoint tree across participating domains</text>
+  </g>
+</svg>

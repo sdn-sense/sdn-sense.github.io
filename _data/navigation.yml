@@ -20,6 +20,8 @@ docs:
         url: /install-quick-start/
       - title: "Supported network devices"
         url: /getting-started/install-supported-network-devices/
+      - title: "SENSE Service Request Examples"
+        url: /guides/sense-network-service-examples/
       - title: "Example: L3 Deployment (8 Servers)"
         url: /getting-started/l3-deployment-example/
 

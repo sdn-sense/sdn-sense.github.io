@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" role="img" aria-labelledby="title desc">
+  <title id="title">Choosing a SENSE service across site routers and participating networks</title>
+  <desc id="desc">A decision overview connects an application requirement to Layer 2 without addresses, Layer 2 with managed addresses, diagnostic addressing, Layer 3 BGP peering, or a multipoint bridge. Detailed paths cross one router per site and participating research networks.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#2375e8"/>
+    </marker>
+  </defs>
+  <rect width="960" height="460" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480" y="42" text-anchor="middle" font-size="24" font-weight="700">Choose the service from the traffic shape</text>
+    <rect x="330" y="70" width="300" height="72" rx="14" fill="#071b31"/>
+    <text x="480" y="100" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">What must communicate?</text>
+    <text x="480" y="125" text-anchor="middle" font-size="15" fill="#c9dae8">Start with topology; add addressing second</text>
+
+    <path d="M480 142V176H105V207" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M480 142V176H292V207" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M480 142V207" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M480 142V176H668V207" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M480 142V176H855V207" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <g>
+      <rect x="25" y="210" width="160" height="168" rx="15" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+      <circle cx="105" cy="247" r="22" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+      <text x="105" y="253" text-anchor="middle" font-size="16" font-weight="700" fill="#175ec9">L2</text>
+      <text x="105" y="291" text-anchor="middle" font-size="17" font-weight="700">Two endpoints</text>
+      <text x="105" y="315" text-anchor="middle" font-size="15">No managed IPs</text>
+      <text x="105" y="348" text-anchor="middle" font-size="15" fill="#52657a">VLAN continuity</text>
+    </g>
+    <g>
+      <rect x="212" y="210" width="160" height="168" rx="15" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+      <circle cx="292" cy="247" r="22" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+      <text x="292" y="253" text-anchor="middle" font-size="16" font-weight="700" fill="#175ec9">IP</text>
+      <text x="292" y="291" text-anchor="middle" font-size="17" font-weight="700">Two endpoints</text>
+      <text x="292" y="315" text-anchor="middle" font-size="15">Managed addresses</text>
+      <text x="292" y="348" text-anchor="middle" font-size="15" fill="#52657a">L2 + IP pool</text>
+    </g>
+    <g>
+      <rect x="400" y="210" width="160" height="168" rx="15" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+      <circle cx="480" cy="247" r="22" fill="#f4ecfb" stroke="#7e3fbf" stroke-width="2"/>
+      <text x="480" y="253" text-anchor="middle" font-size="16" font-weight="700" fill="#7e3fbf">DBG</text>
+      <text x="480" y="291" text-anchor="middle" font-size="17" font-weight="700">Network probes</text>
+      <text x="480" y="315" text-anchor="middle" font-size="15">Diagnostic address</text>
+      <text x="480" y="348" text-anchor="middle" font-size="15" fill="#52657a">On site routers</text>
+    </g>
+    <g>
+      <rect x="588" y="210" width="160" height="168" rx="15" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+      <circle cx="668" cy="247" r="22" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+      <text x="668" y="253" text-anchor="middle" font-size="16" font-weight="700" fill="#2c8c84">BGP</text>
+      <text x="668" y="291" text-anchor="middle" font-size="17" font-weight="700">Routed prefixes</text>
+      <text x="668" y="315" text-anchor="middle" font-size="15">Layer 3 peering</text>
+      <text x="668" y="348" text-anchor="middle" font-size="15" fill="#52657a">Policy-controlled</text>
+    </g>
+    <g>
+      <rect x="775" y="210" width="160" height="168" rx="15" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+      <circle cx="855" cy="247" r="22" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+      <text x="855" y="253" text-anchor="middle" font-size="16" font-weight="700" fill="#175ec9">3+</text>
+      <text x="855" y="291" text-anchor="middle" font-size="17" font-weight="700">Many endpoints</text>
+      <text x="855" y="315" text-anchor="middle" font-size="15">Multipoint bridge</text>
+      <text x="855" y="348" text-anchor="middle" font-size="15" fill="#52657a">One L2 domain</text>
+    </g>
+
+    <rect x="130" y="395" width="700" height="52" rx="20" fill="#edf7fc" stroke="#c7e6f4"/>
+    <text x="480" y="416" text-anchor="middle" font-size="14" font-weight="700" fill="#175ec9">Detailed paths cross one site router per site and participating R&amp;E networks</text>
+    <text x="480" y="437" text-anchor="middle" font-size="14" fill="#34465b">QoS, VLAN choice, path constraints, and scheduling refine any supported service</text>
+  </g>
+</svg>
