@@ -424,11 +424,11 @@ The repositories recognize the operational `Site-L3 over VLAN-MultiPath` mode, b
 For the Python client, a safe workflow is to compute first:
 
 ```bash
-sense_util.py --compute --file request.json --use-defaults
+sense_util.py --compute --file request.json
 sense_util.py --provision --uuid <INSTANCE_UUID>
 ```
 
-`--compute` compiles the intent without activating the resources. Inspect the plan and manifest, save the returned instance UUID, and provision that instance only after the endpoints, VLANs, addresses, path, and bandwidth are correct. `--create --file request.json --use-defaults` is the shorter create-and-provision path. If the deployment requires explicit identity context, supply the authorized principal or group and project instead of `--use-defaults`.
+`--compute` compiles the intent without activating the resources and prints the instance UUID as `service_uuid`. Inspect the plan and manifest, and provision that instance only after the endpoints, VLANs, addresses, path, and bandwidth are correct. `--create --file request.json` is the shorter create-and-provision path. Without identity context, SENSE-O submits the request under your own user, and the instance may end up with no project. To submit under a licensed group or a specific project, add top-level `"principal"` and `"project"` fields to the request JSON. Client builds newer than the 1.55 release on PyPI also accept `--principal`, `--project`, and `--use-defaults` flags that set those fields.
 
 After the work is complete, cancel the service and delete the instance according to the workflow's lifecycle policy. Leaving an unused instance active can hold VLANs, addresses, and bandwidth that the next request needs.
 

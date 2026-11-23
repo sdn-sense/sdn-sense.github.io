@@ -137,7 +137,8 @@ end
 
 rendered_text = pages.map(&:read).join("\n")
 errors << "rendered site contains the retired ESnet SENSE URL" if rendered_text.include?("/research-and-initiatives/sense/")
-errors << "rendered site contains the retired SENSE Orchestrator URL" if rendered_text.include?("https://sense-o.es.net")
+# sense-o.es.net still serves the API and Keycloak, so config examples may name it; only links to it are retired.
+errors << "rendered site links to the retired SENSE Orchestrator URL" if rendered_text.include?('href="https://sense-o.es.net')
 
 abort errors.join("\n") unless errors.empty?
 
