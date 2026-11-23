@@ -1,6 +1,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
-html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
+html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-2xl); }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); color: var(--color-ink); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
@@ -20,8 +20,8 @@ button, input, select, textarea { font: inherit; }
 [data-slot] { position: relative; overflow: hidden; background: linear-gradient(160deg, var(--color-paper-2, var(--color-paper)), var(--color-paper-3, var(--color-paper))); }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 [data-slot]:has(> img) > :not(img):not([data-keep]) { display: none !important; }
-@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 64px; --section-gap: 72px; --section-gap-l: 96px; } }
-@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 48px; --section-gap: 56px; --section-gap-l: 72px; --gap-columns: 16px; } }
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 64px; --section-gap: 64px; --section-gap-l: 96px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 32px; --section-gap: 64px; --section-gap-l: 64px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
 /* photographs: duotone graphite paper */
 [data-slot]:has(> img) { isolation: isolate; background: var(--color-paper); outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }

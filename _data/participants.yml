@@ -1,8 +1,9 @@
 # Public organization inventory derived from current rm-configs mapping groups.
 # Internal topology, endpoint, port, VLAN, and addressing data are intentionally
 # excluded. Identity images are normalized from each organization's public site
-# icon; StarLight uses its official homepage wordmark. `logo_scale` compensates
-# for transparent whitespace in the normalized canvases without altering marks.
+# icon; StarLight, Caltech, MGHPCC, and UC San Diego use their official
+# homepage wordmarks. `logo_scale` compensates for transparent whitespace in the
+# normalized canvases without altering marks.
 verified: 2026-11-20
 organizations:
   - name: "ESnet"
@@ -22,14 +23,14 @@ organizations:
   - name: "Caltech"
     url: "https://www.caltech.edu/"
     mark: "/assets/images/participants/caltech.png"
-    logo_scale: 1.4
+    logo_scale: 1
     category: "Production SiteRM"
     config_scope: "T2_US_Caltech"
 
   - name: "MGHPCC"
     url: "https://www.mghpcc.org/"
     mark: "/assets/images/participants/mghpcc.png"
-    logo_scale: 2
+    logo_scale: 1
     category: "Production SiteRM"
     config_scope: "T2_US_MGHPCC"
 
@@ -44,7 +45,7 @@ organizations:
   - name: "UC San Diego"
     url: "https://ucsd.edu/"
     mark: "/assets/images/participants/ucsd.png"
-    logo_scale: 1.4
+    logo_scale: 1
     category: "Production SiteRM"
     config_scope: "T2_US_UCSD"
 
