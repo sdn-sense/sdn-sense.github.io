@@ -24,18 +24,18 @@ summary: >-
 description: >-
   SC26 presentation on customized end-to-end SENSE services, Rucio-driven
   transfers, adaptive bandwidth, storage integration, and monitoring.
-format: "Program page"
-length: "20-minute talk"
+format: "PDF"
+length: "22 slides"
 status: "Conference presentation"
-external_url: "https://sc26.conference-program.com/presentation/?id=nre122&sess=sess583"
-cta_label: "View SC26 program"
+file: /assets/presentations/customized-end-to-end-services-sense-sc26-2026.pdf
+cta_label: "Download PDF"
 image:
-  path: /assets/images/social/sense-social-card.png
+  path: /assets/images/presentations/customized-end-to-end-services-sense-sc26-2026.png
   width: 1200
-  height: 630
-  alt: SENSE end-to-end network orchestration for science workflows.
-cover: /assets/images/blog/customized-end-to-end-services-sense.svg
-cover_alt: "Title card for Customized End-to-End Services for Science Workflows via SENSE"
+  height: 675
+  alt: Title slide for Customized End-to-End Services for Science Workflows via SENSE at SC26.
+cover: /assets/images/presentations/customized-end-to-end-services-sense-sc26-2026.png
+cover_alt: "Title slide for Customized End-to-End Services for Science Workflows via SENSE, presented by Tom Lehman, Xi Yang, and Justas Balcas at SC26."
 cover_width: 1200
 cover_height: 675
 ---
