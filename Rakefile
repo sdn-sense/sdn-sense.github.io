@@ -16,8 +16,10 @@ namespace :site do
   desc "Validate rendered internal links, images, and scripts"
   task links: :build do
     sh "bundle", "exec", "ruby", "scripts/validate-internal-links.rb", SITE_DIRECTORY
+    # freertr.org serves no HTTPS (port 443 closed), so exempt it from enforce_https.
     sh "bundle", "exec", "htmlproofer", SITE_DIRECTORY,
-       "--disable-external", "--checks", "Links,Scripts", "--allow-missing-href"
+       "--disable-external", "--checks", "Links,Scripts", "--allow-missing-href",
+       "--ignore-urls", "http://www.freertr.org/"
   end
 
   desc "Validate shared accessibility and required-route contracts"
