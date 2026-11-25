@@ -114,6 +114,31 @@ QoS is proportionally distributed among servers based on their NIC speeds (e.g.,
     class default commit 9900mbps max 10Gbps
   ```
 
+## Multus and Private Network Namespaces
+
+The SiteRM-Agent applies L3 QoS by matching the requested IP range with the addresses it sees on the host. A container with a private network namespace has its own interfaces and addresses, and the Agent does not see them. This is the case for:
+
+- Kubernetes pods with a Multus interface (macvlan, ipvlan, VLAN, SR-IOV)
+- Docker or Podman containers on a macvlan or ipvlan network
+- Services in a named network namespace on a host
+
+For these, run the standalone QoS service **`siterm-qos`** inside the container, or in a second container of the same pod. It is one Python file that does only QoS. A site can add it to its own image and point it at its SiteRM Frontend. The container does not need a SiteRM-Agent.
+
+| Where the storage service runs | QoS is applied by |
+| --- | --- |
+| Bare metal, or a container with `hostNetwork` | SiteRM-Agent (FireQOS) |
+| Container with a private network namespace | `siterm-qos` in that namespace |
+
+Each container shapes its own part of the request:
+
+```text
+share = request x capacity of the container / capacity of all containers in the range
+```
+
+`guaranteedCapped` is a hard limit at this share. `softCapped` and `bestEffort` may use the capacity of the container when it is free.
+
+Installation, configuration and troubleshooting: [QoS Only Service (siterm-qos)](/optional-install/siterm-qos/).
+
 ## Traffic Control Tuning Support
 
 SiteRM enables administrators to fine-tune traffic shaping parameters through its configuration file.
@@ -149,6 +174,7 @@ SENSE and SiteRM provide robust, flexible QoS enforcement mechanisms:
 
 - **End-to-End QoS** on VLAN interfaces with Hard, Soft, or Best Effort configurations.
 - **L3 Path QoS** with intelligent per-host allocation and network-level enforcement.
+- **QoS in containers** with a private network namespace through the standalone `siterm-qos` service.
 - **FireQOS** simplifies rule management and leverages Linux TC for actual packet shaping.
 - Soft vs Hard QoS modes help balance between guaranteed performance and flexible utilization.
 

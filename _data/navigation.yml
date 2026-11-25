@@ -1,6 +1,8 @@
 main:
-  - title: "Overview"
-    url: /
+  - title: "Architecture"
+    url: /architecture/
+  - title: "Services"
+    url: /services/
   - title: "Documentation"
     url: /install-quick-start/
   - title: "Releases"
@@ -9,23 +11,30 @@ main:
     url: /blog/
 
 docs:
-  - title: ""
+  - title: SENSE
+    children:
+      - title: "Architecture"
+        url: /architecture/
+      - title: "Services and Use Cases"
+        url: /services/
+      - title: "FAQ"
+        url: /faq/
+      - title: "Service Request Examples"
+        url: /blog/sense-network-service-examples/
+      - title: "Client Recipes"
+        url: /blog/sense-client-discovery-and-scheduling/
+  - title: SiteRM Getting Started
     children:
       - title: "Stable Release: 1.6.5"
         url: /docs/stable-release/
-    nav: sidebar-sample
-  - title: Getting Started
-    children:
       - title: "Quick-Start Guide"
         url: /install-quick-start/
       - title: "Supported network devices"
         url: /getting-started/install-supported-network-devices/
-      - title: "SENSE Service Request Examples"
-        url: /blog/sense-network-service-examples/
       - title: "Example: L3 Deployment (8 Servers)"
         url: /getting-started/l3-deployment-example/
 
-  - title: Customization
+  - title: SiteRM Customization
     children:
       - title: "Directory Layout"
         url: "/customization/configuration-layout/"
@@ -42,7 +51,7 @@ docs:
       - title: "Enable Switch Control"
         url: "/customization/enable-switch-control/"
 
-  - title: "Installation Guides"
+  - title: "SiteRM Installation Guides"
     children:
       - title: "Frontend (SiteRM-FE)"
         url: /main-install/frontend/
@@ -53,7 +62,7 @@ docs:
       - title: "Node Exporter"
         url: /main-install/node-exporter/
     
-  - title: "Update Guides"
+  - title: "SiteRM Update Guides"
     children:
       - title: "Frontend (SiteRM-FE)"
         url: /main-update/frontend/
@@ -64,7 +73,7 @@ docs:
       - title: "Node Exporter"
         url: /main-update/node-exporter/
 
-  - title: "Optional Installation Guides"
+  - title: "SiteRM Optional Installation"
     children:
       - title: "Software Based Router (FRR)"
         url: /optional-install/software-based-router/
@@ -74,10 +83,12 @@ docs:
         url: /optional-install/custom-snmp-exporter/
       - title: "DSCP Marking Tool"
         url: /optional-install/dscp-marking/
+      - title: "QoS Only Service (siterm-qos)"
+        url: /optional-install/siterm-qos/
       - title: "Node Exporter Security"
         url: /optional-install/node-exporter-security/
 
-  - title: Operational Guides
+  - title: SiteRM Operational Guides
     children:
       - title: "SiteRM Operations"
         url: /operational/siterm-operations/
@@ -94,7 +105,7 @@ docs:
       - title: "Manual Testing: Network Control (VLAN)"
         url: /operational/manual-testing-network-control/
 
-  - title: "Network Devices"
+  - title: "SiteRM Network Devices"
     children:
       - title: "Supported Devices Overview"
         url: /getting-started/install-supported-network-devices/

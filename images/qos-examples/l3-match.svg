@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" width="960" height="486" role="img" aria-labelledby="title desc">
+  <title id="title">How SiteRM Agents find their Layer 3 request</title>
+  <desc id="desc">The request names a source prefix and a destination prefix. Each Agent at Site A compares the source prefix with its own addresses. Two hosts match and write a rule. One host does not match and writes nothing.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2375e8"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2c8c84"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#7e3fbf"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#b42318"/></marker>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#52657a"/></marker>
+  </defs>
+  <rect width="960" height="486" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480.0" y="42" text-anchor="middle" font-size="24" font-weight="700">Layer 3: the request names prefixes, and the Agents look for themselves</text>
+    <text x="480.0" y="68" text-anchor="middle" font-size="15" fill="#52657a">Each Agent compares the source prefix with the addresses on its own host</text>
+    <rect x="25" y="88" width="910" height="46" rx="14" fill="#071b31" stroke="#071b31" stroke-width="2"/>
+    <text x="480" y="117" text-anchor="middle" font-size="16" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff">2001:db8:10::/64 to 2001:db8:20::/64, guaranteedCapped, 40 Gbps</text>
+    <rect x="25" y="152" width="640" height="274" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="345" y="180" text-anchor="middle" font-size="19" font-weight="700">Site A</text>
+    <rect x="42" y="214" width="140" height="112" rx="12" fill="#f4ecfb" stroke="#7e3fbf" stroke-width="2"/>
+    <text x="112" y="244" text-anchor="middle" font-size="16" font-weight="700">SiteRM</text>
+    <text x="112" y="264" text-anchor="middle" font-size="16" font-weight="700">Frontend</text>
+    <text x="112" y="290" text-anchor="middle" font-size="14" fill="#52657a">holds the active</text>
+    <text x="112" y="309" text-anchor="middle" font-size="14" fill="#52657a">requests</text>
+    <rect x="232" y="196" width="312" height="62" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="248" y="221" text-anchor="start" font-size="16" font-weight="700">dtn-01</text>
+    <text x="248" y="244" text-anchor="start" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">2001:db8:10::100</text>
+    <text x="532" y="221" text-anchor="end" font-size="14" font-weight="700" fill="#2c8c84">match: writes a rule</text>
+    <line x1="230" y1="227" x2="184" y2="252" stroke="#7e3fbf" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+    <line x1="544" y1="227" x2="568" y2="270" stroke="#2c8c84" stroke-width="4"/>
+    <rect x="232" y="270" width="312" height="62" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="248" y="295" text-anchor="start" font-size="16" font-weight="700">dtn-02</text>
+    <text x="248" y="318" text-anchor="start" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">2001:db8:10::200</text>
+    <text x="532" y="295" text-anchor="end" font-size="14" font-weight="700" fill="#2c8c84">match: writes a rule</text>
+    <line x1="230" y1="301" x2="184" y2="270" stroke="#7e3fbf" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+    <line x1="544" y1="301" x2="568" y2="301" stroke="#2c8c84" stroke-width="4"/>
+    <rect x="232" y="344" width="312" height="62" rx="12" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="248" y="369" text-anchor="start" font-size="16" font-weight="700">dtn-03</text>
+    <text x="248" y="392" text-anchor="start" font-size="14" font-family="IBM Plex Mono, monospace" fill="#52657a">2001:db8:99::300</text>
+    <text x="532" y="369" text-anchor="end" font-size="14" font-weight="700" fill="#52657a">no match: no rule</text>
+    <line x1="230" y1="375" x2="184" y2="288" stroke="#7e3fbf" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+    <rect x="568" y="244" width="82" height="84" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="609" y="272" text-anchor="middle" font-size="15" font-weight="700">Site</text>
+    <text x="609" y="291" text-anchor="middle" font-size="15" font-weight="700">router</text>
+    <text x="609" y="314" text-anchor="middle" font-size="14" fill="#2c8c84">BGP</text>
+    <line x1="544" y1="375" x2="609" y2="330" stroke="#adc1d1" stroke-width="3"/>
+    <text x="112" y="352" text-anchor="middle" font-size="14" fill="#52657a">Agents ask for</text>
+    <text x="112" y="371" text-anchor="middle" font-size="14" fill="#52657a">the request</text>
+    <line x1="650" y1="286" x2="800" y2="286" stroke="#2375e8" stroke-width="10" stroke-linecap="round"/>
+    <rect x="690" y="250" width="96" height="72" rx="14" fill="#071b31" stroke="#071b31" stroke-width="2"/>
+    <text x="738" y="280" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">Provider</text>
+    <text x="738" y="302" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">networks</text>
+    <rect x="800" y="224" width="135" height="124" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="867" y="254" text-anchor="middle" font-size="19" font-weight="700">Site B</text>
+    <text x="867" y="286" text-anchor="middle" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">2001:db8:</text>
+    <text x="867" y="305" text-anchor="middle" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">20::/64</text>
+    <text x="867" y="332" text-anchor="middle" font-size="14" fill="#52657a">same steps here</text>
+    <rect x="80" y="438" width="800" height="34" rx="17" fill="#edf7fc" stroke="#c7e6f4"/>
+    <text x="480.0" y="460" text-anchor="middle" font-size="14" fill="#34465b">There is no request VLAN on the hosts, so the address range is the only thing that links a host to the request</text>
+  </g>
+</svg>

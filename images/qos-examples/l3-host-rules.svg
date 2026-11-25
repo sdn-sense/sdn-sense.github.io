@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-labelledby="title desc">
+  <title id="title">Traffic classes on one host for two Layer 3 paths</title>
+  <desc id="desc">The data NIC has one shaper with three classes. Two classes match the remote prefix of a SENSE path. The default class carries everything else.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2375e8"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2c8c84"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#7e3fbf"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#b42318"/></marker>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#52657a"/></marker>
+  </defs>
+  <rect width="960" height="430" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480.0" y="42" text-anchor="middle" font-size="24" font-weight="700">One host, two Layer 3 paths, one shaper</text>
+    <text x="480.0" y="68" text-anchor="middle" font-size="15" fill="#52657a">Each path gets a class on the data NIC. The class matches the remote prefix</text>
+    <rect x="25" y="150" width="190" height="150" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="120" y="182" text-anchor="middle" font-size="18" font-weight="700">dtn-01</text>
+    <text x="120" y="208" text-anchor="middle" font-size="14" fill="#52657a">data NIC, 100 Gbps</text>
+    <text x="120" y="240" text-anchor="middle" font-size="15">outgoing packets</text>
+    <text x="120" y="262" text-anchor="middle" font-size="15">checked by</text>
+    <text x="120" y="284" text-anchor="middle" font-size="15">destination</text>
+    <rect x="300" y="94" width="420" height="78" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="318" y="119" text-anchor="start" font-size="16" font-weight="700" font-family="IBM Plex Mono, monospace">priority0</text>
+    <text x="702" y="119" text-anchor="end" font-size="15" font-family="IBM Plex Mono, monospace" fill="#175ec9">to 2001:db8:20::/64</text>
+    <text x="318" y="142" text-anchor="start" font-size="15">commit 19.8 Gbps, max 100 Gbps</text>
+    <text x="318" y="162" text-anchor="start" font-size="14" fill="#52657a">path 1, guaranteedCapped, 20 Gbps</text>
+    <path d="M215 225H258V133H298" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M720 133H760V225H798" fill="none" stroke="#2c8c84" stroke-width="3" marker-end="url(#arrow-teal)"/>
+    <rect x="300" y="186" width="420" height="78" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="318" y="211" text-anchor="start" font-size="16" font-weight="700" font-family="IBM Plex Mono, monospace">priority1</text>
+    <text x="702" y="211" text-anchor="end" font-size="15" font-family="IBM Plex Mono, monospace" fill="#175ec9">to 2001:db8:21::/64</text>
+    <text x="318" y="234" text-anchor="start" font-size="15">commit 39.6 Gbps, max 100 Gbps</text>
+    <text x="318" y="254" text-anchor="start" font-size="14" fill="#52657a">path 2, softCapped, 40 Gbps</text>
+    <path d="M215 225H258V225H298" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M720 225H760V225H798" fill="none" stroke="#2c8c84" stroke-width="3" marker-end="url(#arrow-teal)"/>
+    <rect x="300" y="278" width="420" height="78" rx="12" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="318" y="303" text-anchor="start" font-size="16" font-weight="700" font-family="IBM Plex Mono, monospace">default</text>
+    <text x="702" y="303" text-anchor="end" font-size="15" font-family="IBM Plex Mono, monospace" fill="#175ec9">everything else</text>
+    <text x="318" y="326" text-anchor="start" font-size="15">commit 1 Gbps, max 100 Gbps</text>
+    <text x="318" y="346" text-anchor="start" font-size="14" fill="#52657a">normal traffic</text>
+    <path d="M215 225H258V317H298" fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M720 317H760V225H798" fill="none" stroke="#2c8c84" stroke-width="3" marker-end="url(#arrow-teal)"/>
+    <rect x="800" y="180" width="135" height="90" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="867" y="216" text-anchor="middle" font-size="16" font-weight="700">Site router</text>
+    <text x="867" y="242" text-anchor="middle" font-size="14" fill="#52657a">picks the path</text>
+    <rect x="80" y="378" width="800" height="34" rx="17" fill="#edf7fc" stroke="#c7e6f4"/>
+    <text x="480.0" y="400" text-anchor="middle" font-size="14" fill="#34465b">Both classes may go up to the full NIC here: at Layer 3 the ceiling comes from a site setting, not from the class</text>
+  </g>
+</svg>

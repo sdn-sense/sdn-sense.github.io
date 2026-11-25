@@ -1,5 +1,5 @@
 ---
-title: "Quick Installation Introduction"
+title: "SiteRM quick installation"
 layout: single
 classes: wide
 permalink: "/install-quick-start/"

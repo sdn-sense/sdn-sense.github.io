@@ -12,10 +12,21 @@ sidebar:
 
 | Resource | URL |
 |---|---|
-| SENSE Project Home (ESnet) | [https://www.es.net/network-r-and-d/sense/](https://www.es.net/network-r-and-d/sense/) |
-| SENSE Orchestrator | [https://sense.es.net/](https://sense.es.net/) |
+| SENSE at ESnet | [https://www.es.net/network-r-and-d/sense/](https://www.es.net/network-r-and-d/sense/) |
+| SENSE Project Site | [https://sense.es.net/](https://sense.es.net/) |
+| AmSC-IRO / SENSE-O User Manual | [https://amsc-iro-docs-c88e53.gitlab.io/user-manual/index.html](https://amsc-iro-docs-c88e53.gitlab.io/user-manual/index.html) |
+| AmSC-IRO API Reference (OpenAPI) | [https://amsc-iro-docs-c88e53.gitlab.io/api-reference/index.html](https://amsc-iro-docs-c88e53.gitlab.io/api-reference/index.html) |
 | SENSE Monitoring Dashboard | [https://autogole-grafana.nrp-nautilus.io](https://autogole-grafana.nrp-nautilus.io) |
 | SENSE Email Contact | sense-info@es.net |
+
+---
+
+## SENSE Code Repositories
+
+| Repository | Description | URL |
+|---|---|---|
+| sense-o-py-client | Python client for the SENSE Orchestrator | [https://github.com/sdn-sense/sense-o-py-client](https://github.com/sdn-sense/sense-o-py-client) |
+| sense-rtmon | Real-time, per-flow monitoring dashboards | [https://github.com/esnet/sense-rtmon](https://github.com/esnet/sense-rtmon) |
 
 ---
 

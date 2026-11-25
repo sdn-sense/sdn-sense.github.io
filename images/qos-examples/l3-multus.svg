@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" width="960" height="486" role="img" aria-labelledby="title desc">
+  <title id="title">Why the Agent does not find a Multus pod</title>
+  <desc id="desc">The SiteRM Agent runs in the host network namespace. XRootD runs in a pod with a macvlan interface in its own network namespace. The Agent cannot see the pod address, so it finds no match and writes no rule.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2375e8"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2c8c84"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#7e3fbf"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#b42318"/></marker>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#52657a"/></marker>
+  </defs>
+  <rect width="960" height="486" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480.0" y="42" text-anchor="middle" font-size="24" font-weight="700">Why the Agent does not find a Multus pod</text>
+    <text x="480.0" y="68" text-anchor="middle" font-size="15" fill="#52657a">The pod has its own interface, addresses and rules. The Agent only looks in the host namespace</text>
+    <rect x="25" y="92" width="690" height="330" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="370" y="120" text-anchor="middle" font-size="19" font-weight="700">Kubernetes node</text>
+    <rect x="44" y="136" width="296" height="190" rx="12" fill="#fff" stroke="#adc1d1" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="192" y="162" text-anchor="middle" font-size="16" font-weight="700">Host network namespace</text>
+    <rect x="400" y="136" width="296" height="190" rx="12" fill="#fff" stroke="#adc1d1" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="548" y="162" text-anchor="middle" font-size="16" font-weight="700">Pod network namespace</text>
+    <line x1="370" y1="134" x2="370" y2="330" stroke="#b42318" stroke-width="3" stroke-dasharray="8 6"/>
+    <text x="370" y="348" text-anchor="middle" font-size="14" font-weight="700" fill="#b42318">namespace boundary</text>
+    <rect x="210" y="362" width="320" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="370" y="382" text-anchor="middle" font-size="15" font-weight="700">data NIC</text>
+    <text x="370" y="400" text-anchor="middle" font-size="14" fill="#52657a">parent of net1 (macvlan)</text>
+    <line x1="530" y1="385" x2="760" y2="385" stroke="#2375e8" stroke-width="10" stroke-linecap="round"/>
+    <rect x="760" y="340" width="175" height="82" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="847" y="374" text-anchor="middle" font-size="17" font-weight="700">Site router</text>
+    <text x="847" y="398" text-anchor="middle" font-size="14" fill="#52657a">and the SENSE path</text>
+    <rect x="420" y="262" width="256" height="50" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="548" y="283" text-anchor="middle" font-size="15" font-weight="700" font-family="IBM Plex Mono, monospace">net1</text>
+    <text x="548" y="303" text-anchor="middle" font-size="14" font-family="IBM Plex Mono, monospace" fill="#175ec9">2001:db8:10::100</text>
+    <line x1="548" y1="312" x2="480" y2="360" stroke="#2375e8" stroke-width="5"/>
+    <rect x="64" y="178" width="256" height="66" rx="12" fill="#f4ecfb" stroke="#7e3fbf" stroke-width="2"/>
+    <text x="192" y="205" text-anchor="middle" font-size="16" font-weight="700">SiteRM Agent</text>
+    <text x="192" y="228" text-anchor="middle" font-size="14" fill="#52657a">hostNetwork, NET_ADMIN</text>
+    <text x="192" y="272" text-anchor="middle" font-size="14" fill="#34465b">Sees the NIC and the host address.</text>
+    <text x="192" y="293" text-anchor="middle" font-size="14" fill="#34465b">Does not see 2001:db8:10::100</text>
+    <text x="192" y="314" text-anchor="middle" font-size="14" fill="#34465b">so nothing matches the request.</text>
+    <rect x="420" y="178" width="256" height="66" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="548" y="205" text-anchor="middle" font-size="16" font-weight="700">XRootD</text>
+    <text x="548" y="228" text-anchor="middle" font-size="14" fill="#52657a">sends on net1</text>
+    <line x1="548" y1="244" x2="548" y2="260" stroke="#2c8c84" stroke-width="4"/>
+    <path d="M322 211H358" fill="none" stroke="#b42318" stroke-width="4"/>
+    <path d="M350 200 366 222M366 200 350 222" fill="none" stroke="#b42318" stroke-width="5"/>
+    <rect x="735" y="136" width="200" height="176" rx="12" fill="#fdecea" stroke="#b42318" stroke-width="2"/>
+    <text x="835" y="166" text-anchor="middle" font-size="17" font-weight="700">Result</text>
+    <text x="835" y="200" text-anchor="middle" font-size="15">no traffic class</text>
+    <text x="835" y="228" text-anchor="middle" font-size="15">no routing rule</text>
+    <text x="835" y="256" text-anchor="middle" font-size="15">no DSCP mark</text>
+    <text x="835" y="292" text-anchor="middle" font-size="14" fill="#34465b">for this pod</text>
+    <rect x="160" y="436" width="640" height="34" rx="17" fill="#edf7fc" stroke="#c7e6f4"/>
+    <text x="480.0" y="458" text-anchor="middle" font-size="14" fill="#34465b">The request is active and the path is up, but the pod sends without any host QoS</text>
+  </g>
+</svg>

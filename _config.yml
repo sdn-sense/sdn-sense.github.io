@@ -22,7 +22,7 @@ paginate_path: "/blog/page/:num/"
 
 # Keep the GitHub Pages-compatible dependency set. Local layouts provide the
 # public-facing design while the remote theme remains available as a fallback.
-remote_theme: mmistakes/minimal-mistakes
+remote_theme: mmistakes/minimal-mistakes@4.28.1
 minimal_mistakes_skin: default
 search: false
 

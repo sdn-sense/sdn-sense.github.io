@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-labelledby="title desc">
+  <title id="title">One shared link without QoS and with QoS</title>
+  <desc id="desc">Three transfers enter one 100 gigabit link. Without QoS nothing decides how the link is shared. With QoS each transfer has its own class and its own rule.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2375e8"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#2c8c84"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#7e3fbf"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#b42318"/></marker>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#52657a"/></marker>
+  </defs>
+  <rect width="960" height="420" rx="22" fill="#f5f8fb"/>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c">
+    <text x="480.0" y="42" text-anchor="middle" font-size="24" font-weight="700">The problem: one link, several transfers</text>
+    <text x="480.0" y="68" text-anchor="middle" font-size="15" fill="#52657a">Illustration only. The widths are not measured traffic</text>
+    <rect x="25" y="92" width="445" height="260" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="247" y="122" text-anchor="middle" font-size="19" font-weight="700">Without QoS</text>
+    <rect x="45" y="142" width="136" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="113" y="170" text-anchor="middle" font-size="15" font-weight="700">Detector data</text>
+    <rect x="45" y="202" width="136" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="113" y="230" text-anchor="middle" font-size="15" font-weight="700">User analysis</text>
+    <rect x="45" y="262" width="136" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="113" y="290" text-anchor="middle" font-size="15" font-weight="700">Bulk copy</text>
+    <rect x="490" y="92" width="445" height="260" rx="18" fill="#fff" stroke="#adc1d1" stroke-width="2"/>
+    <text x="712" y="122" text-anchor="middle" font-size="19" font-weight="700">With QoS</text>
+    <rect x="510" y="142" width="136" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="578" y="170" text-anchor="middle" font-size="15" font-weight="700">Detector data</text>
+    <rect x="510" y="202" width="136" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="578" y="230" text-anchor="middle" font-size="15" font-weight="700">User analysis</text>
+    <rect x="510" y="262" width="136" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="578" y="290" text-anchor="middle" font-size="15" font-weight="700">Bulk copy</text>
+    <rect x="255" y="142" width="195" height="166" rx="12" fill="#fff3d6" stroke="#b7791f" stroke-width="2"/>
+    <text x="352" y="214" text-anchor="middle" font-size="17" font-weight="700">100 Gbps link</text>
+    <text x="352" y="238" text-anchor="middle" font-size="14" fill="#34465b">everybody in one queue</text>
+    <line x1="181" y1="165" x2="253" y2="165" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <line x1="181" y1="225" x2="253" y2="225" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <line x1="181" y1="285" x2="253" y2="285" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="247" y="336" text-anchor="middle" font-size="15" fill="#34465b">Each sender takes what it can get</text>
+    <rect x="720" y="142" width="195" height="46" rx="12" fill="#175ec9" stroke="#175ec9" stroke-width="2"/>
+    <text x="817" y="162" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">guaranteedCapped</text>
+    <text x="817" y="180" text-anchor="middle" font-size="14" fill="#fff">fixed rate</text>
+    <line x1="646" y1="165" x2="718" y2="165" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="720" y="202" width="195" height="46" rx="12" fill="#eaf8f5" stroke="#2c8c84" stroke-width="2"/>
+    <text x="817" y="222" text-anchor="middle" font-size="15" font-weight="700" fill="#101c2c">softCapped</text>
+    <text x="817" y="240" text-anchor="middle" font-size="14" fill="#101c2c">base rate, may use more</text>
+    <line x1="646" y1="225" x2="718" y2="225" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="720" y="262" width="195" height="46" rx="12" fill="#edf7fc" stroke="#31c4f3" stroke-width="2"/>
+    <text x="817" y="282" text-anchor="middle" font-size="15" font-weight="700" fill="#101c2c">bestEffort</text>
+    <text x="817" y="300" text-anchor="middle" font-size="14" fill="#101c2c">what is left</text>
+    <line x1="646" y1="285" x2="718" y2="285" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="712" y="336" text-anchor="middle" font-size="15" fill="#34465b">Each request carries a class, and the class has a rule</text>
+    <rect x="90" y="366" width="780" height="34" rx="17" fill="#edf7fc" stroke="#c7e6f4"/>
+    <text x="480.0" y="388" text-anchor="middle" font-size="14" fill="#34465b">SENSE sends the same class to every network on the path; each one enforces it with its own equipment</text>
+  </g>
+</svg>

@@ -68,6 +68,9 @@ end
 
 required_outputs = %w[
   index.html
+  architecture/index.html
+  services/index.html
+  faq/index.html
   feed.xml
   sitemap.xml
   releases/index.html
@@ -93,7 +96,7 @@ errors << "expected at least six rendered release articles" if release_articles.
 blog_pages = {
   "blog/index.html" => 10,
   "blog/page/2/index.html" => 10,
-  "blog/page/3/index.html" => 6
+  "blog/page/3/index.html" => 8
 }.freeze
 
 blog_links = []
@@ -139,7 +142,7 @@ blog_pages.each do |relative_path, expected_count|
   blog_links.concat(entries.filter_map { |entry| entry.at_css(".blog-card__title a")&.[]("href") })
 end
 
-errors << "expected 26 unique blog entries, found #{blog_links.uniq.length}" unless blog_links.length == 26 && blog_links.uniq.length == 26
+errors << "expected 28 unique blog entries, found #{blog_links.uniq.length}" unless blog_links.length == 28 && blog_links.uniq.length == 28
 
 blog_links.uniq.each do |href|
   relative_output = href.delete_prefix("/")
@@ -158,7 +161,7 @@ end
 first_blog_page = site.join("blog/index.html")
 if first_blog_page.file?
   first_title = Nokogiri::HTML(first_blog_page.read).at_css("[data-blog-entry] .blog-card__title")&.text.to_s.strip
-  unless first_title == "SENSE client recipes: discovery, bandwidth, and scheduling"
+  unless first_title == "SENSE QoS on Layer 3 paths: finding the right hosts"
     errors << "blog/index.html: unexpected newest entry #{first_title.inspect}"
   end
 end

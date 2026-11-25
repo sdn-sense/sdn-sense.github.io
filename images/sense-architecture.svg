@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 600" width="1120" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">SENSE architecture from science workflow to network domains</title>
+  <desc id="desc">Science workflows call the intent-based API of the SENSE Orchestrator. The orchestrator works with SENSE SSO and RTMon, runs embedded Resource Managers for NSI, AL2S, FABRIC, L3VPN, and cloud domains, and contacts SiteRM at end sites and regional networks. The domains together carry one end-to-end network service.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#2375e8"/>
+    </marker>
+  </defs>
+  <g font-family="Manrope, Segoe UI, Arial, sans-serif" fill="#101c2c" font-size="16" text-anchor="middle">
+    <rect x="330" y="28" width="460" height="72" rx="14" fill="#071b31"/>
+    <text x="560" y="59" font-size="20" font-weight="700" fill="#fff">Science workflows and applications</text>
+    <text x="560" y="84" fill="#c9dae8">Rucio, workflow agents, users</text>
+
+    <path d="M560 104V154" fill="none" stroke="#2375e8" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="578" y="134" text-anchor="start" font-weight="700" fill="#175ec9">Intent-based API</text>
+
+    <path d="M252 228H296" fill="none" stroke="#2375e8" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M824 228H868" fill="none" stroke="#2375e8" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <rect x="36" y="178" width="212" height="100" rx="14" fill="#fff" stroke="#7e3fbf" stroke-width="2"/>
+    <text x="142" y="211" font-size="18" font-weight="700">SENSE SSO</text>
+    <text x="142" y="237" fill="#52657a">Federated sign-in,</text>
+    <text x="142" y="259" fill="#52657a">roles, and tokens</text>
+    <rect x="872" y="178" width="212" height="100" rx="14" fill="#fff" stroke="#2c8c84" stroke-width="2"/>
+    <text x="978" y="211" font-size="18" font-weight="700">RTMon</text>
+    <text x="978" y="237" fill="#52657a">Real-time monitoring</text>
+    <text x="978" y="259" fill="#52657a">per service and flow</text>
+
+    <rect x="300" y="158" width="520" height="140" rx="14" fill="#175ec9"/>
+    <text x="560" y="191" font-size="21" font-weight="700" fill="#fff">SENSE Orchestrator (SENSE-O)</text>
+    <text x="560" y="217" fill="#e3eeff">End-to-end model, planning, service lifecycle</text>
+    <rect x="312" y="234" width="496" height="50" rx="10" fill="#0d3f8f"/>
+    <text x="324" y="265" text-anchor="start" font-weight="700" fill="#fff">Embedded RMs</text>
+    <g font-size="15" font-weight="700" fill="#0d3f8f">
+      <rect x="452" y="244" width="48" height="30" rx="7" fill="#fff"/><text x="476" y="264">NSI</text>
+      <rect x="507" y="244" width="58" height="30" rx="7" fill="#fff"/><text x="536" y="264">AL2S</text>
+      <rect x="572" y="244" width="78" height="30" rx="7" fill="#fff"/><text x="611" y="264">FABRIC</text>
+      <rect x="657" y="244" width="74" height="30" rx="7" fill="#fff"/><text x="694" y="264">L3VPN</text>
+      <rect x="738" y="244" width="62" height="30" rx="7" fill="#fff"/><text x="769" y="264">Cloud</text>
+    </g>
+
+    <g fill="none" stroke="#2375e8" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M560 298V346H140V380"/>
+      <path d="M560 298V346H350V380"/>
+      <path d="M560 298V380"/>
+      <path d="M560 298V346H770V380"/>
+      <path d="M560 298V346H980V380"/>
+    </g>
+    <text x="578" y="328" text-anchor="start" fill="#52657a">Resource models up, service changes down</text>
+
+    <g fill="#fff" stroke="#adc1d1" stroke-width="2">
+      <rect x="46" y="400" width="188" height="140" rx="15"/>
+      <rect x="256" y="400" width="188" height="140" rx="15"/>
+      <rect x="466" y="400" width="188" height="140" rx="15"/>
+      <rect x="676" y="400" width="188" height="140" rx="15"/>
+      <rect x="886" y="400" width="188" height="140" rx="15"/>
+    </g>
+    <g font-size="15" font-weight="700" fill="#fff">
+      <rect x="85" y="384" width="110" height="32" rx="16" fill="#1f6f68"/><text x="140" y="405">SiteRM</text>
+      <rect x="295" y="384" width="110" height="32" rx="16" fill="#1f6f68"/><text x="350" y="405">SiteRM</text>
+      <rect x="495" y="384" width="130" height="32" rx="16" fill="#0d3f8f"/><text x="560" y="405">Embedded RM</text>
+      <rect x="705" y="384" width="130" height="32" rx="16" fill="#0d3f8f"/><text x="770" y="405">Embedded RM</text>
+      <rect x="925" y="384" width="110" height="32" rx="16" fill="#1f6f68"/><text x="980" y="405">SiteRM</text>
+    </g>
+    <g font-size="17" font-weight="700">
+      <text x="140" y="446">End site A</text>
+      <text x="350" y="446">Regional network</text>
+      <text x="560" y="446">WAN backbone</text>
+      <text x="770" y="446">Exchange or testbed</text>
+      <text x="980" y="446">End site B</text>
+    </g>
+    <g fill="#52657a">
+      <text x="140" y="471">Switches, DTNs,</text><text x="140" y="492">storage, compute</text>
+      <text x="350" y="471">Switches</text><text x="350" y="492">and routers</text>
+      <text x="560" y="471">ESnet OSCARS,</text><text x="560" y="492">Internet2 AL2S</text>
+      <text x="770" y="471">NSI exchange points,</text><text x="770" y="492">FABRIC</text>
+      <text x="980" y="471">Switches, DTNs,</text><text x="980" y="492">storage, compute</text>
+    </g>
+
+    <path d="M80 518H1040" fill="none" stroke="#2375e8" stroke-width="6"/>
+    <circle cx="80" cy="518" r="9" fill="#2375e8"/><circle cx="1040" cy="518" r="9" fill="#2375e8"/>
+    <text x="560" y="575" font-size="18" font-weight="700" fill="#175ec9">One end-to-end network service across every domain</text>
+  </g>
+</svg>

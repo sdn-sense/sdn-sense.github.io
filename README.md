@@ -2,8 +2,9 @@
 
 SENSE documentation: [https://sdn-sense.dev](https://sdn-sense.dev/).
 
-This repository contains the public SDN-Sense and SiteRM website. Jekyll builds
-the site for GitHub Pages while preserving stable documentation URLs.
+This repository contains the public SENSE website: the overall architecture,
+services, and use cases, plus the SiteRM documentation. Jekyll builds the site for
+GitHub Pages while preserving stable documentation URLs.
 
 ## Local development
 
